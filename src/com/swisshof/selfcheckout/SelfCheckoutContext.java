@@ -29,16 +29,11 @@ public class SelfCheckoutContext {
 		return currentAmount;
 	}
 
-	public void setCurrentAmount(double currentAmount) {
+	public void setCurrentAmount(double currentAmount)
+	{
 		this.currentAmount = currentAmount;
 	}
-	
-	public void enterAmountDigit(int digit) {
-		if (currentAmount < SelfCheckoutContext.MAX_AMOUNT) {
-			currentAmount *= 10;
-			currentAmount += digit;
-		}
-	}
+
 	
 	
 }

@@ -1,5 +1,6 @@
 package com.swisshof.selfcheckout.statemachine.generic;
 
+import java.security.InvalidParameterException;
 import java.util.logging.Logger;
 
 public class StatemachineBase {
@@ -18,15 +19,24 @@ public class StatemachineBase {
 		currentState.entryAction();
 	}
 	
-	public void setNewState(State newState) {
+	protected void setNewState(State newState) {
+		if (newState == null) {
+			throw new InvalidParameterException();
+		}
+			
 		currentState.exitAction();
 		logger.info(currentState.toString() + "=>" + newState.toString());
 		currentState = newState;
 		currentState.entryAction();
+
 	}
 	
 	protected void processEvent(Event evt) {
-		currentState = currentState.processEvent(evt);
+		State newState = currentState.processEvent(evt);
+		if (newState != null) {
+			setNewState(newState);
+		}
+		
 	}
 	
 }

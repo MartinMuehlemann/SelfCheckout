@@ -14,24 +14,20 @@ public class Idle extends State<MainStm>
 
 	@Override
 	public String toString() {
-		return "ENTERING_AMOUNT";
+		return "IDLE";
 	}
-	
-	public void amountChanged()
-	{
-		
-	}
+
 	
 	@Override
 	public State<MainStm> processEvent(Event evt) {
 
 		if (evt == MainStm.Events.AMOUNT_CHANGED) {
 			if(owner.context.getCurrentAmount() > 0.0) {
-				owner.setNewState(owner.states.enteringAmount);
+				return(owner.states.enteringAmount);
 			}
 		}
 		
-		return this;
+		return null;
 	}
 	
 }

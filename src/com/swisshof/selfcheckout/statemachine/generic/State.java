@@ -9,6 +9,12 @@ public abstract class State<OwnerStm extends StatemachineBase>
 		this.owner = owner;	
 	}
 	
+	/**
+	 * Process event.
+	 * 
+	 * @param evt		Event.
+	 * @return			New state if the state changes, otherwise null.
+	 */
 	abstract public State<OwnerStm> processEvent(Event evt);
 	
 	

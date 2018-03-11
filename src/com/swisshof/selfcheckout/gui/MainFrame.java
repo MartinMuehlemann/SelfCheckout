@@ -7,6 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Queue;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
@@ -42,6 +44,8 @@ public class MainFrame implements IGui{
 	protected Font fontUserInfo = null;
 	protected Font fontButtons = null;
 	
+	protected ArrayList<Integer> queueAmountEntry = new ArrayList<Integer>();
+	
 	
 	protected SelfCheckoutContext context = null;
 	
@@ -54,6 +58,20 @@ public class MainFrame implements IGui{
 	
 	public void enableBtnPay(boolean enable) {
 		btnPay.setEnabled(enable);
+	}
+	
+	public void clearAllAmountEntry() {
+		queueAmountEntry.clear();
+	}
+	
+	
+	protected double getAmount() {
+		double amount = 0.0;
+		for (Integer digit : queueAmountEntry) {
+			amount *= 10;
+			amount += digit;
+		}
+		return amount;
 	}
 	
 	private void loadResources() {
@@ -99,7 +117,10 @@ public class MainFrame implements IGui{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					context.enterAmountDigit(((NumericBlockButton)e.getSource()).getAmount());
+					
+					queueAmountEntry.add(((NumericBlockButton)e.getSource()).getAmount());
+					
+					context.setCurrentAmount(getAmount());
 					
 					// update amount on screen
 					txtPayAmount.setText(getCurrentAmountString());
@@ -116,6 +137,26 @@ public class MainFrame implements IGui{
 		
 		btnKeyblockClear = new JButton("C");
 		btnKeyblockClear.setFont(fontNummericBlock);
+		btnKeyblockClear.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(queueAmountEntry.size() > 0) {
+					queueAmountEntry.remove(queueAmountEntry.size() - 1);
+					
+					context.setCurrentAmount(getAmount());
+					
+					// update amount on screen
+					txtPayAmount.setText(getCurrentAmountString());
+					
+					context.getMainStm().amountChanged();
+					
+					btnPay.setEnabled(context.getCurrentAmount() > 0.0);
+				}
+			}
+			
+		});
+		
 		
 		btnPay = new JButton("Bezahlen"); 
 		btnPay.setFont(fontButtons);

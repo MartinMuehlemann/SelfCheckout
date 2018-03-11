@@ -19,8 +19,13 @@ public class EnteringAmount extends State<MainStm>
 
 	@Override
 	public State<MainStm> processEvent(Event evt) {
-
-		return this;
+		if (evt == MainStm.Events.AMOUNT_CHANGED) {
+			if(owner.context.getCurrentAmount() == 0.0) {
+				return(owner.states.idle);
+			}
+		}
+		
+		return null;
 	}
 
 	@Override

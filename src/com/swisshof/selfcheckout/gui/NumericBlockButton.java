@@ -4,14 +4,14 @@ import javax.swing.JButton;
 
 class NumericBlockButton extends JButton
 {
-	protected int amount;
+	protected Integer amount;
 	
-	public NumericBlockButton(int amount) {
+	public NumericBlockButton(Integer amount) {
 		super(Integer.toString(amount));
 		this.amount = amount;
 	}
 
-	public int getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 
