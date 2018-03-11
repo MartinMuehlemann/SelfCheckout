@@ -1,6 +1,6 @@
 package com.swisshof.selfcheckout.statemachine.generic;
 
-public class State<OwnerStm extends StatemachineBase> 
+public abstract class State<OwnerStm extends StatemachineBase> 
 {
 	protected OwnerStm owner;
 
@@ -8,6 +8,9 @@ public class State<OwnerStm extends StatemachineBase>
 		super();
 		this.owner = owner;	
 	}
+	
+	abstract public State<OwnerStm> processEvent(Event evt);
+	
 	
 	public void entryAction()
 	{

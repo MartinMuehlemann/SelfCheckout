@@ -15,6 +15,7 @@ public class StatemachineBase {
 	@SuppressWarnings("rawtypes")
 	protected void setInitialState(State initialState) {
 		currentState = initialState;
+		currentState.entryAction();
 	}
 	
 	public void setNewState(State newState) {
@@ -23,4 +24,9 @@ public class StatemachineBase {
 		currentState = newState;
 		currentState.entryAction();
 	}
+	
+	protected void processEvent(Event evt) {
+		currentState = currentState.processEvent(evt);
+	}
+	
 }
