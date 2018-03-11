@@ -16,12 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import com.six.timapi.Amount;
-import com.six.timapi.Receipt;
-import com.six.timapi.TimException;
-import com.six.timapi.TransactionResponse;
-import com.six.timapi.constants.Currency;
-import com.six.timapi.constants.TransactionType;
 import com.swisshof.selfcheckout.IGui;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
 
@@ -64,6 +58,9 @@ public class MainFrame implements IGui{
 		queueAmountEntry.clear();
 	}
 	
+	public void setStatusText(String statusText) {
+		lblUserInfo.setText(statusText);
+	}
 	
 	protected double getAmount() {
 		double amount = 0.0;
@@ -165,20 +162,7 @@ public class MainFrame implements IGui{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				try {
-//				// Start transaction. Automatically connects to and activates the terminal
-//				TransactionResponse trxResponse = terminal.transaction(TransactionType.PURCHASE, new Amount(currentAmount, Currency.CHF));
-//				// If successful
-//				lblUserInfo.setText("Bezahlung erfolgreich");
-//				// Both cardholder and merchant receipt are returned
-//				for (Receipt receipt : trxResponse.getPrintData().getReceipts()) {
-//					logger.info(receipt.getRecipient() + receipt.getValue());
-//				}
-//			} catch (TimException te) {
-//				logger.info("Transaction failed, exception: " + te.toString());
-//			} catch (Exception se) {
-//				logger.info("Systemexception: " + se.getMessage());
-//			}		
+				context.getMainStm().btnPayPressed();
 
 			}
 			

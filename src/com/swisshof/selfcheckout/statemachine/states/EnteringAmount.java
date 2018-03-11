@@ -23,6 +23,10 @@ public class EnteringAmount extends State<MainStm>
 			if(owner.context.getCurrentAmount() == 0.0) {
 				return(owner.states.idle);
 			}
+		} else if (evt == MainStm.Events.BTN_PAY) {
+			if(owner.context.getCurrentAmount() > 0.0) {
+				return(owner.states.transactionInProgress);
+			}	
 		}
 		
 		return null;
@@ -32,7 +36,7 @@ public class EnteringAmount extends State<MainStm>
 	public void entryAction() {
 		super.entryAction();
 		
-		owner.getGui().enableBtnPay(owner.context.getCurrentAmount() > 0.0);
+		owner.context.getGui().enableBtnPay(owner.context.getCurrentAmount() > 0.0);
 	}
 
 	@Override

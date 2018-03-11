@@ -7,6 +7,8 @@ import com.swisshof.selfcheckout.statemachine.generic.Event;
 import com.swisshof.selfcheckout.statemachine.generic.StatemachineBase;
 import com.swisshof.selfcheckout.statemachine.states.EnteringAmount;
 import com.swisshof.selfcheckout.statemachine.states.Idle;
+import com.swisshof.selfcheckout.statemachine.states.TransactionInProgress;
+import com.swisshof.selfcheckout.terminal.TerminalController;
 
 public class MainStm extends StatemachineBase
 {
@@ -18,16 +20,17 @@ public class MainStm extends StatemachineBase
 	public class States {
 		public Idle idle;
 		public EnteringAmount enteringAmount;
+		public TransactionInProgress transactionInProgress;
 		
 		public States(MainStm mainStm)  {
 			idle = new Idle(mainStm);
 			enteringAmount = new EnteringAmount(mainStm);
+			transactionInProgress = new TransactionInProgress(mainStm);
 		}		
 	}
 
 	public States states = new States(this);
 	public SelfCheckoutContext context = null;
-	public IGui gui = null;
 	
 	public MainStm(SelfCheckoutContext context) {
 		super();
@@ -37,14 +40,6 @@ public class MainStm extends StatemachineBase
 
 	}
 	
-	public void setGui(IGui gui) {
-		this.gui = gui;
-	}
-	
-	public IGui getGui() {
-		return gui;
-	}
-
 	public void init()
 	{
 		setInitialState(states.idle);
@@ -55,5 +50,8 @@ public class MainStm extends StatemachineBase
 		processEvent(Events.AMOUNT_CHANGED);
 	}
 
+	public void btnPayPressed() {
+		processEvent(Events.BTN_PAY);
+	}
 
 }
