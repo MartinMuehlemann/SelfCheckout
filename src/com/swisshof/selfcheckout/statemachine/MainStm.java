@@ -7,7 +7,9 @@ import com.swisshof.selfcheckout.statemachine.generic.Event;
 import com.swisshof.selfcheckout.statemachine.generic.StatemachineBase;
 import com.swisshof.selfcheckout.statemachine.states.EnteringAmount;
 import com.swisshof.selfcheckout.statemachine.states.Idle;
+import com.swisshof.selfcheckout.statemachine.states.TransactionFailed;
 import com.swisshof.selfcheckout.statemachine.states.TransactionInProgress;
+import com.swisshof.selfcheckout.statemachine.states.TransactionSucessful;
 import com.swisshof.selfcheckout.terminal.TerminalController;
 
 public class MainStm extends StatemachineBase
@@ -21,11 +23,16 @@ public class MainStm extends StatemachineBase
 		public Idle idle;
 		public EnteringAmount enteringAmount;
 		public TransactionInProgress transactionInProgress;
+		public TransactionSucessful transactionSucessful;
+		public TransactionFailed transactionFailed;
+		
 		
 		public States(MainStm mainStm)  {
 			idle = new Idle(mainStm);
 			enteringAmount = new EnteringAmount(mainStm);
 			transactionInProgress = new TransactionInProgress(mainStm);
+			transactionSucessful = new TransactionSucessful(mainStm);
+			transactionFailed = new TransactionFailed(mainStm);
 		}		
 	}
 
