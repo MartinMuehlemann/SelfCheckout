@@ -1,6 +1,6 @@
 package com.swisshof.selfcheckout.statemachine.generic;
 
-public abstract class State<OwnerStm extends StatemachineBase> 
+public abstract class State<OwnerStm extends StatemachineBase, E extends Event> 
 {
 	protected OwnerStm owner;
 
@@ -15,7 +15,7 @@ public abstract class State<OwnerStm extends StatemachineBase>
 	 * @param evt		Event.
 	 * @return			New state if the state changes, otherwise null.
 	 */
-	abstract public State<OwnerStm> processEvent(Event evt);
+	abstract public State<OwnerStm, E> processEvent(Event<E> evt);
 	
 	
 	public void entryAction()
@@ -27,5 +27,7 @@ public abstract class State<OwnerStm extends StatemachineBase>
 	{
 		
 	}
+
+
 	
 }

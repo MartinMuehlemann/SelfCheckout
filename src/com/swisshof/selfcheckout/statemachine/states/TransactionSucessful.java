@@ -4,7 +4,7 @@ import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.statemachine.generic.Event;
 import com.swisshof.selfcheckout.statemachine.generic.State;
 
-public class TransactionSucessful extends State<MainStm> {
+public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 
 	public TransactionSucessful(MainStm owner) {
 		super(owner);
@@ -18,7 +18,7 @@ public class TransactionSucessful extends State<MainStm> {
 
 	
 	@Override
-	public State<MainStm> processEvent(Event evt) {
+	public State<MainStm, MainStm.Events> processEvent(Event<MainStm.Events> evt) {
 
 		return null;
 	}

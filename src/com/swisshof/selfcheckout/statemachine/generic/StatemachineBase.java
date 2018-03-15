@@ -19,6 +19,7 @@ public class StatemachineBase {
 		currentState.entryAction();
 	}
 	
+	@SuppressWarnings("rawtypes")
 	protected void setNewState(State newState) {
 		if (newState == null) {
 			throw new InvalidParameterException();
@@ -31,7 +32,8 @@ public class StatemachineBase {
 
 	}
 	
-	protected void processEvent(Event evt) {
+	@SuppressWarnings("rawtypes")
+	public void processEvent(Event evt) {
 		State newState = currentState.processEvent(evt);
 		if (newState != null) {
 			setNewState(newState);

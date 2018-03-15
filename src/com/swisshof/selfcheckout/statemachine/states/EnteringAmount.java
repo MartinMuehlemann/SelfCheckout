@@ -4,7 +4,7 @@ import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.statemachine.generic.Event;
 import com.swisshof.selfcheckout.statemachine.generic.State;
 
-public class EnteringAmount extends State<MainStm>
+public class EnteringAmount extends State<MainStm, MainStm.Events>
 {
 
 	public EnteringAmount(MainStm stateMachine) {
@@ -18,17 +18,25 @@ public class EnteringAmount extends State<MainStm>
 	}
 
 	@Override
-	public State<MainStm> processEvent(Event evt) {
-		if (evt == MainStm.Events.AMOUNT_CHANGED) {
-			if(owner.context.getCurrentAmount() == 0.0) {
-				return(owner.states.idle);
-			}
-		} else if (evt == MainStm.Events.BTN_PAY) {
-			if(owner.context.getCurrentAmount() > 0.0) {
-				return(owner.states.transactionInProgress);
-			}	
+	public State<MainStm, MainStm.Events> processEvent(Event<MainStm.Events> evt) {
+
+		switch (evt.getEvent()) {
+			case AMOUNT_CHANGED:
+				if (owner.context.getCurrentAmount() == 0.0) {
+					return (owner.states.idle);
+				}
+				break;
+			case BTN_PAY:
+				if (owner.context.getCurrentAmount() > 0.0) {
+					return (owner.states.transactionInProgress);
+				}
+				break;
+	
+			default:
+				break;
+
 		}
-		
+
 		return null;
 	}
 

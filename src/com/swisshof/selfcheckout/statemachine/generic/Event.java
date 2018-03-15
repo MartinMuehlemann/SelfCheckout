@@ -1,5 +1,5 @@
 package com.swisshof.selfcheckout.statemachine.generic;
 
-public interface Event {
-
+public interface Event<T> {
+	public T getEvent();
 }
