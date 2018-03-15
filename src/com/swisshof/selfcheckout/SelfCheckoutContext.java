@@ -34,8 +34,7 @@ public class SelfCheckoutContext {
 		strings = ResourceBundle.getBundle("res.Strings", locale);
 		
 	}
-	
-	
+		
 	public double getCurrentAmount() {
 		return currentAmount;
 	}

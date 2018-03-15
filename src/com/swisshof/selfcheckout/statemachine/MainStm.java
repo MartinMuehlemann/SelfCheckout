@@ -11,10 +11,18 @@ import com.swisshof.selfcheckout.statemachine.states.TransactionSucessful;
 
 public class MainStm extends StatemachineBase
 {
-	public enum Events implements Event {
+	public enum Events implements Event<Events> {
 		AMOUNT_CHANGED,
 		BTN_PAY,
-		TRANSACTION_COMPLETED
+		TRANSACTION_SUCCESSFUL,
+		TRANSACTION_UNDEFINED_ERROR,
+		TRANSACTION_ABORT;
+
+		@Override
+		public Events getEvent() {
+			return this;
+		}
+		
 	}
 	
 	public class States {
@@ -41,7 +49,6 @@ public class MainStm extends StatemachineBase
 		super();
 		states = new States(this);
 		this.context = context;
-		setInitialState(states.idle);
 
 	}
 	
@@ -50,13 +57,6 @@ public class MainStm extends StatemachineBase
 		setInitialState(states.idle);
 	}
 	
-	public void amountChanged()
-	{
-		processEvent(Events.AMOUNT_CHANGED);
-	}
-
-	public void btnPayPressed() {
-		processEvent(Events.BTN_PAY);
-	}
+	
 
 }

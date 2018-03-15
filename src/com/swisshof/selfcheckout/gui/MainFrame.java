@@ -6,13 +6,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Queue;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
@@ -25,6 +23,7 @@ import javax.swing.SwingConstants;
 
 import com.swisshof.selfcheckout.IGui;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
+import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 
 public class MainFrame implements IGui{
 	
@@ -70,8 +69,20 @@ public class MainFrame implements IGui{
 		btnPay.setEnabled(enable);
 	}
 	
-	public void clearAllAmountEntry() {
+	public void enableKeyBlock(boolean enable) {
+		
+		for (JButton btn : mapBtnsKeyBlock.values()) {
+			btn.setEnabled(enable);
+		}
+		btnKeyblockClear.setEnabled(enable);
+	}
+	
+	public void resetGui() {
 		queueAmountEntry.clear();
+		context.setCurrentAmount(getAmount());
+		btnPay.setEnabled(context.getCurrentAmount() > 0.0);
+		// update amount on screen
+		txtPayAmount.setText(getCurrentAmountString());
 	}
 	
 	public void setStatusText(String statusText) {
@@ -145,13 +156,13 @@ public class MainFrame implements IGui{
 					queueAmountEntry.add(((NumericBlockButton)e.getSource()).getAmount());
 					
 					double amount = getAmount();
-					if(amount <= context.MAX_AMOUNT) {
+					if(amount <= SelfCheckoutContext.MAX_AMOUNT) {
 						context.setCurrentAmount(getAmount());
 					
 						// update amount on screen
 						txtPayAmount.setText(getCurrentAmountString());
 						
-						context.getMainStm().amountChanged();
+						context.getMainStm().processEvent(Events.AMOUNT_CHANGED);
 					} else {
 						queueAmountEntry.remove(queueAmountEntry.size() - 1);
 					}
@@ -178,7 +189,7 @@ public class MainFrame implements IGui{
 					// update amount on screen
 					txtPayAmount.setText(getCurrentAmountString());
 					
-					context.getMainStm().amountChanged();
+					context.getMainStm().processEvent(Events.AMOUNT_CHANGED);
 					
 					btnPay.setEnabled(context.getCurrentAmount() > 0.0);
 				}
@@ -229,7 +240,7 @@ public class MainFrame implements IGui{
 	public void startGui()
 	{
 		//Application Window
-		JFrame frame = new JFrame("TIM API Example ECR");
+		JFrame frame = new JFrame("SelfCheckoutTerminal");
 		Container contentPane = frame.getContentPane();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gbl = new GridBagLayout();
@@ -265,8 +276,7 @@ public class MainFrame implements IGui{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				context.getMainStm().btnPayPressed();
-
+				context.getMainStm().processEvent(Events.BTN_PAY);
 			}
 			
 		});

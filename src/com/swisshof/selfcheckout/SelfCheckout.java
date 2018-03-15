@@ -32,11 +32,13 @@ public class SelfCheckout {
 		context.setGui(guiMainFrame);
 		context.setTerminal(terminalController);
 		
+		// show GUI
+		guiMainFrame.startGui();
+		
 		// enter init state
 		mainStm.init();
 		
-		// show GUI
-		guiMainFrame.startGui();
+
 		
 	}
 

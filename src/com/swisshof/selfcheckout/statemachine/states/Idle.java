@@ -12,15 +12,6 @@ public class Idle extends State<MainStm, MainStm.Events>
 
 	}
 
-	@Override
-	public void entryAction() {
-		owner.context.getGui().enableKeyBlock(true);
-	}
-
-	@Override
-	public void exitAction() {
-
-	}
 
 	@Override
 	public String toString() {
@@ -51,5 +42,15 @@ public class Idle extends State<MainStm, MainStm.Events>
 		
 		return null;
 	}
-	
+
+	@Override
+	public void entryAction() {
+		owner.context.getGui().enableKeyBlock(true);
+		owner.context.getGui().resetGui();
+	}
+
+	@Override
+	public void exitAction() {
+
+	}
 }

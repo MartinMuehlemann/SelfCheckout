@@ -22,15 +22,12 @@ public class TransactionInProgress extends State<MainStm, MainStm.Events> {
 		
 		switch(evt.getEvent()) {
 			case  TRANSACTION_SUCCESSFUL:
-				//return(owner.states.idle);
-			case AMOUNT_CHANGED:
-				break;
-			case BTN_PAY:
-				break;
+				return owner.states.idle;
+
 			case TRANSACTION_ABORT:
-				break;
 			case TRANSACTION_UNDEFINED_ERROR:
-				break;
+				return owner.states.idle;
+				
 			default:
 				break;
 			

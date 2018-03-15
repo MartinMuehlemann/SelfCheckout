@@ -23,6 +23,7 @@ import com.six.timapi.TransactionResponse;
 import com.six.timapi.constants.ResultCode;
 import com.six.timapi.constants.UpdateStatus;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
+import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 
 public class TerminalListener extends DefaultTerminalListener {
 	private static Logger logger = Logger.getLogger("EFT");
@@ -269,18 +270,21 @@ public class TerminalListener extends DefaultTerminalListener {
 
 		if (evt.getException() == null) {
 			if (transactionReponse != null) {
-				
+				context.getMainStm().processEvent(Events.TRANSACTION_SUCCESSFUL);
 			} else {
-				context.getMainStm().t
+				context.getMainStm().processEvent(Events.TRANSACTION_UNDEFINED_ERROR);
 			}
 		} else {
 			
 			switch(evt.getException().getResultCode()) {
 				case CARDHOLDER_STOP:
+					context.getMainStm().processEvent(Events.TRANSACTION_ABORT);
+					break;
+					
+				default:
+					context.getMainStm().processEvent(Events.TRANSACTION_UNDEFINED_ERROR);
 					break;
 
-			default:
-				break;
 			}
 		}
 		
