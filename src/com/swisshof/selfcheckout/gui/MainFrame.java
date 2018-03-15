@@ -250,7 +250,7 @@ public class MainFrame implements IGui{
 		JLabel lblCurrency = new JLabel("CHF");
 		lblCurrency.setFont(fontUserInfo);
 
-		lblUserInfo  = new JLabel("Bitte geben Sie den Betrag ein, anschliessend drücken Sie die Taste 'Bezahlen'");
+		lblUserInfo  = new JLabel(context.getString("wizard.enter_amount"));
 		lblUserInfo.setFont(fontUserInfo);
 		lblUserInfo.setHorizontalAlignment(SwingConstants.CENTER);
 

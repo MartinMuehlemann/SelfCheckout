@@ -1,5 +1,8 @@
 package com.swisshof.selfcheckout;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.terminal.TerminalController;
 
@@ -12,7 +15,8 @@ public class SelfCheckoutContext {
 	private MainStm mainStm = null;
 	protected IGui gui = null;
 	protected TerminalController terminal = null;
-
+	protected ResourceBundle strings = null;
+	
 	public MainStm getMainStm() {
 		return mainStm;
 	}
@@ -25,6 +29,10 @@ public class SelfCheckoutContext {
 
 	public SelfCheckoutContext() {
 		currentAmount = 0.0;
+		
+		Locale locale = new Locale("de", "CH");
+		strings = ResourceBundle.getBundle("res.Strings", locale);
+		
 	}
 	
 	
@@ -54,6 +62,10 @@ public class SelfCheckoutContext {
 		this.terminal = terminal;
 	}
 	
+	public String getString(String key)
+	{
+		return strings.getString(key);
+	}
 	
 	
 }
