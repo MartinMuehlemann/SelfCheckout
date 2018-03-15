@@ -20,6 +20,7 @@ import com.six.timapi.Terminal;
 import com.six.timapi.TimEvent;
 import com.six.timapi.TimException;
 import com.six.timapi.TransactionResponse;
+import com.six.timapi.constants.ResultCode;
 import com.six.timapi.constants.UpdateStatus;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
 
@@ -263,9 +264,28 @@ public class TerminalListener extends DefaultTerminalListener {
 	}
 
 	@Override
-	public void transactionCompleted(TimEvent arg0, TransactionResponse arg1) {
+	public void transactionCompleted(TimEvent evt, TransactionResponse transactionReponse) {
 		logger.info("Terminal: transactionCompleted");
-		super.transactionCompleted(arg0, arg1);
+
+		if (evt.getException() == null) {
+			if (transactionReponse != null) {
+				
+			} else {
+				context.getMainStm().t
+			}
+		} else {
+			
+			switch(evt.getException().getResultCode()) {
+				case CARDHOLDER_STOP:
+					break;
+
+			default:
+				break;
+			}
+		}
+		
+
+		super.transactionCompleted(evt, transactionReponse);
 	}
 	
 }

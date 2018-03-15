@@ -82,19 +82,13 @@ public class TerminalController {
 	
 	public void startPayment()
 	{
+
+					
 		try {
-			// Start transaction. Automatically connects to and activates the terminal
-			TransactionResponse trxResponse = terminal.transaction(TransactionType.PURCHASE, new Amount(context.getCurrentAmount(), Currency.CHF));
-			// If successful
-			context.getGui().setStatusText("Bezahlung erfolgreich");
-			// Both cardholder and merchant receipt are returned
-			for (Receipt receipt : trxResponse.getPrintData().getReceipts()) {
-				logger.info(receipt.getRecipient() + receipt.getValue());
-			}
+			terminal.transactionAsync(TransactionType.PURCHASE, new Amount(context.getCurrentAmount(), Currency.CHF));
 		} catch (TimException te) {
-			logger.info("Transaction failed, exception: " + te.toString());
-		} catch (Exception se) {
-			logger.info("Systemexception: " + se.getMessage());
-		}		
+					logger.info("Transaction failed, exception: " + te.toString());		
+		}
+		
 	}
 }

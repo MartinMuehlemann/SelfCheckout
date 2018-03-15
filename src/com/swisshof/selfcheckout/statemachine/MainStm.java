@@ -1,8 +1,6 @@
 package com.swisshof.selfcheckout.statemachine;
 
-import com.swisshof.selfcheckout.IGui;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
-import com.swisshof.selfcheckout.gui.MainFrame;
 import com.swisshof.selfcheckout.statemachine.generic.Event;
 import com.swisshof.selfcheckout.statemachine.generic.StatemachineBase;
 import com.swisshof.selfcheckout.statemachine.states.EnteringAmount;
@@ -10,13 +8,13 @@ import com.swisshof.selfcheckout.statemachine.states.Idle;
 import com.swisshof.selfcheckout.statemachine.states.TransactionFailed;
 import com.swisshof.selfcheckout.statemachine.states.TransactionInProgress;
 import com.swisshof.selfcheckout.statemachine.states.TransactionSucessful;
-import com.swisshof.selfcheckout.terminal.TerminalController;
 
 public class MainStm extends StatemachineBase
 {
 	public enum Events implements Event {
 		AMOUNT_CHANGED,
-		BTN_PAY
+		BTN_PAY,
+		TRANSACTION_COMPLETED
 	}
 	
 	public class States {
