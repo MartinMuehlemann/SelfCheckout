@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 import java.util.logging.Logger;
 
@@ -28,6 +30,13 @@ public class MainFrame implements IGui{
 	
 	private static Logger logger = Logger.getLogger("GUI");
 	
+	private enum AmountEnterState{
+		ENTER_DIGIT,
+		ENTER_FRACTION_10,
+		ENTER_FRACTION_100,
+		ENTER_FRACTION_END
+	}
+	
 	
 	protected static final int DISPLAY_SIZE_X = 1280;
 	protected static final int DISPLAY_SIZE_Y = 800;
@@ -37,8 +46,7 @@ public class MainFrame implements IGui{
 	
 	protected JFormattedTextField txtPayAmount = null;
 	protected JLabel lblUserInfo = null;
-	protected JButton[] btnKeyblock = new JButton[10];
-	protected JButton btnKeyblockDot = null;
+	protected Map<NumericBlockButton.Digit, JButton> mapBtnsKeyBlock = new HashMap<NumericBlockButton.Digit, JButton>();
 	protected JButton btnKeyblockClear = null;
 	protected JButton btnPay = null;
 	protected Font fontNummericBlock = null;
@@ -46,7 +54,7 @@ public class MainFrame implements IGui{
 	protected Font fontUserInfo = null;
 	protected Font fontButtons = null;
 	
-	protected ArrayList<Integer> queueAmountEntry = new ArrayList<Integer>();
+	protected ArrayList<NumericBlockButton.Digit> queueAmountEntry = new ArrayList<NumericBlockButton.Digit>();
 	
 	
 	protected SelfCheckoutContext context = null;
@@ -72,9 +80,36 @@ public class MainFrame implements IGui{
 	
 	protected double getAmount() {
 		double amount = 0.0;
-		for (Integer digit : queueAmountEntry) {
-			amount *= 10;
-			amount += digit;
+		AmountEnterState state = AmountEnterState.ENTER_DIGIT;
+		for (NumericBlockButton.Digit digit : queueAmountEntry) {
+			if (digit.isDigit()) {
+				switch(state) {
+					case ENTER_DIGIT:
+						amount *= 10.0;
+						amount += digit.getIntegerValue();
+						break;
+						
+					case ENTER_FRACTION_10:
+						amount += digit.getIntegerValue() / 10.0;
+						state = AmountEnterState.ENTER_FRACTION_100;
+						break;
+						
+					case ENTER_FRACTION_100:
+						amount += digit.getIntegerValue() / 100.0;
+						state = AmountEnterState.ENTER_FRACTION_END;
+						break;
+						
+					case ENTER_FRACTION_END:
+						queueAmountEntry.remove(queueAmountEntry.size() - 1);
+						break;
+						
+					default:
+							break;
+				}
+			} else if (digit.isDot()) {
+				state = AmountEnterState.ENTER_FRACTION_10;
+			}
+
 		}
 		return amount;
 	}
@@ -98,10 +133,11 @@ public class MainFrame implements IGui{
 		GridBagLayout gl = new GridBagLayout();
 		panel.setLayout(gl);
 		
-		for (int i = 0; i < btnKeyblock.length; i++) {
-			btnKeyblock[i] = new NumericBlockButton(i);
-			btnKeyblock[i].setFont(fontNummericBlock);
-			btnKeyblock[i].addActionListener(new ActionListener() {
+		for (NumericBlockButton.Digit digit : NumericBlockButton.Digit.values()) {
+			NumericBlockButton btn = new NumericBlockButton(digit);
+			btn.setFont(fontNummericBlock);
+			btn.setPreferredSize(new Dimension(180, 180));
+			btn.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -123,10 +159,10 @@ public class MainFrame implements IGui{
 					btnPay.setEnabled(context.getCurrentAmount() > 0.0);
 				}
 			});
+			mapBtnsKeyBlock.put(digit, btn);
 		}
 		
-		btnKeyblockDot = new JButton(".");
-		btnKeyblockDot.setFont(fontNummericBlock);
+
 		
 		btnKeyblockClear = new JButton("C");
 		btnKeyblockClear.setFont(fontNummericBlock);
@@ -157,34 +193,34 @@ public class MainFrame implements IGui{
 		lc.gridx = 0;
 		lc.gridy = 0;
 		
-		panel.add(btnKeyblock[7], lc);
+		panel.add(mapBtnsKeyBlock.get(NumericBlockButton.Digit.SEVEN), lc);
 		lc.gridx++;
-		panel.add(btnKeyblock[8], lc);
+		panel.add(mapBtnsKeyBlock.get(NumericBlockButton.Digit.EIGHT), lc);
 		lc.gridx++;
-		panel.add(btnKeyblock[9], lc);
+		panel.add(mapBtnsKeyBlock.get(NumericBlockButton.Digit.NINE), lc);
 		
 		
 		lc.gridx = 0;
 		lc.gridy++;
-		panel.add(btnKeyblock[4], lc);
+		panel.add(mapBtnsKeyBlock.get(NumericBlockButton.Digit.FOUR), lc);
 		lc.gridx++;
-		panel.add(btnKeyblock[5], lc);
+		panel.add(mapBtnsKeyBlock.get(NumericBlockButton.Digit.FIVE), lc);
 		lc.gridx++;
-		panel.add(btnKeyblock[6], lc);
+		panel.add(mapBtnsKeyBlock.get(NumericBlockButton.Digit.SIX), lc);
 		
 		lc.gridx = 0;
 		lc.gridy++;
-		panel.add(btnKeyblock[1], lc);
+		panel.add(mapBtnsKeyBlock.get(NumericBlockButton.Digit.ONE), lc);
 		lc.gridx++;
-		panel.add(btnKeyblock[2], lc);
+		panel.add(mapBtnsKeyBlock.get(NumericBlockButton.Digit.TWO), lc);
 		lc.gridx++;
-		panel.add(btnKeyblock[3], lc);
+		panel.add(mapBtnsKeyBlock.get(NumericBlockButton.Digit.THREE), lc);
 		
 		lc.gridx = 0;
 		lc.gridy++;
-		panel.add(btnKeyblock[0], lc);
+		panel.add(mapBtnsKeyBlock.get(NumericBlockButton.Digit.ZERO), lc);
 		lc.gridx++;
-		panel.add(btnKeyblockDot, lc);
+		panel.add(mapBtnsKeyBlock.get(NumericBlockButton.Digit.DOT), lc);
 		lc.gridx++;
 		panel.add(btnKeyblockClear, lc);
 		
