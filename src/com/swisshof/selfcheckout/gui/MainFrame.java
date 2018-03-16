@@ -152,7 +152,7 @@ public class MainFrame implements IGui{
 			font = new Font("Arial", Font.BOLD, 12);;
 		}
 		fontNummericBlock = font.deriveFont(Font.BOLD, 150);;
-		fontPayAmountField = font.deriveFont(Font.BOLD, 200);
+		fontPayAmountField = font.deriveFont(Font.PLAIN, 200);
 		fontUserInfo = font.deriveFont(Font.PLAIN, 20);		
 		fontButtons = font.deriveFont(Font.BOLD, 100);
 	}
