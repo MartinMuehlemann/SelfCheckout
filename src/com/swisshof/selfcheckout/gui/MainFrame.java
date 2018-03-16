@@ -6,14 +6,18 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -281,8 +285,9 @@ public class MainFrame implements IGui{
 			
 		});
 
-		
-		JLabel lblSwisshofLogo = new JLabel("Swisshof");
+		URL url = getClass().getClassLoader().getResource("res/Logo_154x100.jpg");
+		ImageIcon imageIcon = new ImageIcon(url);	
+		JLabel lblSwisshofLogo = new JLabel(imageIcon, JLabel.RIGHT);
 		
 		lc.weightx = 0.5;
 		lc.weighty = 1.0;
