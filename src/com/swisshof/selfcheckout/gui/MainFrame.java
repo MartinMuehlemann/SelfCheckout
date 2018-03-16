@@ -100,6 +100,7 @@ public class MainFrame implements IGui{
 	
 	protected double getAmount() {
 		double amount = 0.0;
+		NumericBlockButton.Digit digitToRemove = null;
 		AmountEnterState state = AmountEnterState.ENTER_DIGIT;
 		for (NumericBlockButton.Digit digit : queueAmountEntry) {
 			if (digit.isDigit()) {
@@ -120,7 +121,7 @@ public class MainFrame implements IGui{
 						break;
 						
 					case ENTER_FRACTION_END:
-						queueAmountEntry.remove(queueAmountEntry.size() - 1);
+						digitToRemove = digit;
 						break;
 						
 					default:
@@ -129,8 +130,12 @@ public class MainFrame implements IGui{
 			} else if (digit.isDot()) {
 				state = AmountEnterState.ENTER_FRACTION_10;
 			}
-
 		}
+		
+		if (digitToRemove != null) {
+			queueAmountEntry.remove(digitToRemove);
+		}
+		
 		return amount;
 	}
 	
