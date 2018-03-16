@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 public class MainFrame implements IGui{
 	
 	private static Logger logger = Logger.getLogger("GUI");
+	private final static String RESOURCE_BASE_PACKAGE = "res/";
 	
 	private enum AmountEnterState{
 		ENTER_DIGIT,
@@ -56,6 +59,8 @@ public class MainFrame implements IGui{
 	protected Font fontPayAmountField = null;
 	protected Font fontUserInfo = null;
 	protected Font fontButtons = null;
+	
+	protected ImageIcon imageIcon = null;
 	
 	protected ArrayList<NumericBlockButton.Digit> queueAmountEntry = new ArrayList<NumericBlockButton.Digit>();
 	
@@ -130,17 +135,26 @@ public class MainFrame implements IGui{
 	}
 	
 	private void loadResources() {
-//		try {
-//			InputStream is = getClass().getResourceAsStream("/FTB.ttf");
-//			fontNummericBlock = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(Font.BOLD, 14);
-//		}catch  (Exception e) {
-//			logger.severe("Exception while loading font: " + e.getMessage());
-//		}
 		
-		fontNummericBlock = new Font("Arial", Font.BOLD, 150);
-		fontPayAmountField = new Font("Arial", Font.BOLD, 200);
-		fontUserInfo = new Font("Arial", Font.PLAIN, 20);		
-		fontButtons = new Font("Arial", Font.BOLD, 100);
+		try {
+			URL url = getClass().getClassLoader().getResource(RESOURCE_BASE_PACKAGE + "Logo_154x100.jpg");
+			imageIcon = new ImageIcon(url);
+		}catch (Exception e) {
+			logger.severe("Exception while loading logo: " + e.getMessage());
+		}
+
+		Font font = null;
+		try {
+			InputStream is = getClass().getClassLoader().getResourceAsStream("res/FTB.ttf");
+			font = Font.createFont(Font.TRUETYPE_FONT, is);
+		}catch  (Exception e) {
+			logger.severe("Exception while loading font: " + e.getMessage());
+			font = new Font("Arial", Font.BOLD, 12);;
+		}
+		fontNummericBlock = font.deriveFont(Font.BOLD, 150);;
+		fontPayAmountField = font.deriveFont(Font.BOLD, 200);
+		fontUserInfo = font.deriveFont(Font.PLAIN, 20);		
+		fontButtons = font.deriveFont(Font.BOLD, 100);
 	}
 	
 	private void createKeyblock(JPanel panel) {
@@ -285,8 +299,6 @@ public class MainFrame implements IGui{
 			
 		});
 
-		URL url = getClass().getClassLoader().getResource("res/Logo_154x100.jpg");
-		ImageIcon imageIcon = new ImageIcon(url);	
 		JLabel lblSwisshofLogo = new JLabel(imageIcon, JLabel.RIGHT);
 		
 		lc.weightx = 0.5;
