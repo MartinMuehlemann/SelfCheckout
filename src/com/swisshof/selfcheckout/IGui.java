@@ -5,4 +5,5 @@ public interface IGui {
 	public void setStatusText(String statusText);
 	public void enableKeyBlock(boolean enable);
 	public void resetGui();
+	public void showPopup();
 }

@@ -21,10 +21,12 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.SwingConstants;
 
 import com.swisshof.selfcheckout.IGui;
@@ -50,6 +52,10 @@ public class MainFrame implements IGui{
 	
 	protected final static Color COLOR_BG = Color.WHITE;
 	
+	protected static boolean debugging = true;
+	
+	JFrame frame;
+	Container mainContentPane = null;
 	protected JFormattedTextField txtPayAmount = null;
 	protected JLabel lblUserInfo = null;
 	protected Map<NumericBlockButton.Digit, JButton> mapBtnsKeyBlock = new HashMap<NumericBlockButton.Digit, JButton>();
@@ -260,16 +266,63 @@ public class MainFrame implements IGui{
 		
 	}
 	
+	JLabel lblIcon;
+	JLabel lblInfoText;
+	JButton btnOK;
+	
+	public void showPopup() {
+	
+		JPanel infoPane = new JPanel();
+		GridBagLayout gbl = new GridBagLayout();
+		infoPane.setLayout(gbl);
+		
+		lblIcon = new JLabel("Icon");
+		lblInfoText = new JLabel();
+		lblInfoText.setText("infoT text");
+		btnOK = new JButton("OK");
+		btnOK.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showMainView();
+				
+			}
+		});
+		
+		GridBagConstraints lc = new GridBagConstraints();
+		lc.fill = GridBagConstraints.BOTH;
+		lc.gridx = 0;
+		lc.gridy = 0;
+
+		
+		infoPane.add(lblIcon, lc);
+		
+		lc.gridy++;
+		infoPane.add(lblInfoText, lc);
+		
+		lc.gridy++;
+		infoPane.add(btnOK, lc);
+		
+		frame.setContentPane(infoPane);
+		frame.pack();
+		
+	}
+
+	public void showMainView() {
+		frame.setContentPane(mainContentPane);
+		frame.pack();
+	}
+	
 	public void startGui()
 	{
 		//Application Window
-		JFrame frame = new JFrame("SelfCheckoutTerminal");
-		Container contentPane = frame.getContentPane();
+		frame = new JFrame("SelfCheckoutTerminal");
+		mainContentPane = frame.getContentPane();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gbl = new GridBagLayout();
-		contentPane.setLayout(gbl);
+		mainContentPane.setLayout(gbl);
 		
-		contentPane.setBackground(COLOR_BG);
+		mainContentPane.setBackground(COLOR_BG);
 		
 
 		GridBagConstraints lc = new GridBagConstraints();
@@ -316,33 +369,35 @@ public class MainFrame implements IGui{
 		lc.gridx = 0;
 		
 		
-		contentPane.add(panelNumericBlock, lc);
+		mainContentPane.add(panelNumericBlock, lc);
 		
 		lc.gridx = 1;
 		lc.weightx = 0.5;
 		lc.gridheight = 1;
-		contentPane.add(lblSwisshofLogo);
+		mainContentPane.add(lblSwisshofLogo);
 
 	
 		lc.gridy++;
-		contentPane.add(lblCurrency, lc);
+		mainContentPane.add(lblCurrency, lc);
 		
 		lc.gridy++;
 		lc.fill = GridBagConstraints.BOTH;
-		contentPane.add(txtPayAmount, lc);
+		mainContentPane.add(txtPayAmount, lc);
 
 		lc.gridy++;
-		contentPane.add(lblUserInfo, lc);
+		mainContentPane.add(lblUserInfo, lc);
 		
 		lc.gridy++;
 		lc.fill = GridBagConstraints.CENTER;
-		contentPane.add(btnPay, lc);
+		mainContentPane.add(btnPay, lc);
 	
 		
 		frame.setSize(DISPLAY_SIZE_X, DISPLAY_SIZE_Y);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setUndecorated(true);
-		//frame.setAlwaysOnTop(true);
+		if (debugging == false) {
+			frame.setUndecorated(true);
+			frame.setAlwaysOnTop(true);
+		}
 		frame.pack();
 		frame.setMinimumSize(new Dimension(DISPLAY_SIZE_X, DISPLAY_SIZE_Y));
 		
