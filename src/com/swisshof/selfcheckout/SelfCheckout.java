@@ -14,6 +14,8 @@ public class SelfCheckout {
 	
 	protected TerminalController terminalController;
 	
+	protected ResourceProvider resourceProvider;
+	
 	public static void main(String[] args) {
 		new SelfCheckout();
 		
@@ -21,16 +23,18 @@ public class SelfCheckout {
 
 	public SelfCheckout() {
 		super();
+		resourceProvider = new ResourceProvider();
 		context = new SelfCheckoutContext();
 		mainStm = new MainStm(context);
 		context.setMainStm(mainStm);
 		
 		terminalController = new TerminalController(context);
-		
+		context.setTerminal(terminalController);
+		context.setResourceProvider(resourceProvider);		
 		guiMainFrame = new MainFrame(context);
 		
 		context.setGui(guiMainFrame);
-		context.setTerminal(terminalController);
+
 		
 		// show GUI
 		guiMainFrame.startGui();

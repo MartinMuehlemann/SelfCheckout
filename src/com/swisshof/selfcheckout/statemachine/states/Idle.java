@@ -46,7 +46,7 @@ public class Idle extends State<MainStm, MainStm.Events>
 	@Override
 	public void entryAction() {
 		owner.context.getGui().enableKeyBlock(true);
-		owner.context.getGui().resetGui();
+		owner.context.getGui().showEntryAmountView();
 	}
 
 	@Override

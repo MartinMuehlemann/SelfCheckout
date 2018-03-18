@@ -17,7 +17,8 @@ class NumericBlockButton extends JButton
 		SEVEN (7),
 		EIGHT (8),
 		NINE (9),
-		DOT(-1);
+		DOT(-1),
+		CLEAR(-2);		
 		
 		private Integer value;
 		
@@ -30,7 +31,11 @@ class NumericBlockButton extends JButton
 		}
 		
 		public boolean isDot() {
-			return value == -1;
+			return value == DOT.value;
+		}
+		
+		public boolean isClear() {
+			return value == CLEAR.value;
 		}
 		
 		public Integer getIntegerValue()
@@ -48,6 +53,8 @@ class NumericBlockButton extends JButton
 				return Integer.toString(value);
 			} else if (isDot()) {
 				return ".";
+			} else if (isClear()) {
+				return "C";
 			} else {
 				return "?";
 			}

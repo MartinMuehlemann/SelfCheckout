@@ -9,7 +9,6 @@ import com.swisshof.selfcheckout.terminal.TerminalController;
 public class SelfCheckoutContext {
 	public static final double MAX_AMOUNT = 999.95;
 	
-	
 	private double currentAmount = 0.0;
 	
 	private MainStm mainStm = null;
@@ -17,6 +16,18 @@ public class SelfCheckoutContext {
 	protected TerminalController terminal = null;
 	protected ResourceBundle strings = null;
 	
+	protected IResourceProvider resourceProvider = null;
+	
+	public IResourceProvider getResourceProvider() {
+		return resourceProvider;
+	}
+
+
+	public void setResourceProvider(IResourceProvider resourceProvider) {
+		this.resourceProvider = resourceProvider;
+	}
+
+
 	public MainStm getMainStm() {
 		return mainStm;
 	}
@@ -65,6 +76,5 @@ public class SelfCheckoutContext {
 	{
 		return strings.getString(key);
 	}
-	
 	
 }

@@ -14,6 +14,7 @@ public class MainStm extends StatemachineBase
 	public enum Events implements Event<Events> {
 		AMOUNT_CHANGED,
 		BTN_PAY,
+		BTN_CONFIRM,
 		TRANSACTION_SUCCESSFUL,
 		TRANSACTION_UNDEFINED_ERROR,
 		TRANSACTION_ABORT;

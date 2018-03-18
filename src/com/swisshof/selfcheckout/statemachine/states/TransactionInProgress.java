@@ -40,9 +40,9 @@ public class TransactionInProgress extends State<MainStm, MainStm.Events> {
 	@Override
 	public void entryAction() {
 		owner.context.getGui().enableKeyBlock(false);
+		owner.context.getGui().showInfoView();
 		owner.context.getTerminal().startPayment();
 		
-		owner.context.getGui().showPopup();
 	}
 
 	@Override
