@@ -35,7 +35,7 @@ public class InfoPane extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				context.getMainStm().processEvent(Events.BTN_CONFIRM);
+				InfoPane.this.context.getMainStm().processEvent(Events.BTN_CONFIRM);
 				
 			}
 		});

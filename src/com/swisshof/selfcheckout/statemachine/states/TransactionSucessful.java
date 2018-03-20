@@ -19,7 +19,14 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 	
 	@Override
 	public State<MainStm, MainStm.Events> processEvent(Event<MainStm.Events> evt) {
+		switch(evt.getEvent()) {
+		case   BTN_CONFIRM:
+			return owner.states.idle;
 
+		default:
+			break;
+
+	}
 		return null;
 	}
 

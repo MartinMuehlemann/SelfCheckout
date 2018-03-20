@@ -79,7 +79,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				context.getMainStm().processEvent(Events.BTN_PAY);
+				AmountEntryPane.this.context.getMainStm().processEvent(Events.BTN_PAY);
 			}
 			
 		});

@@ -29,11 +29,6 @@ public class Idle extends State<MainStm, MainStm.Events>
 					return(owner.states.enteringAmount);
 				}
 				break;
-			case BTN_PAY:
-				if (owner.context.getCurrentAmount() > 0.0) {
-					return (owner.states.transactionInProgress);
-				}
-				break;
 	
 			default:
 				break;

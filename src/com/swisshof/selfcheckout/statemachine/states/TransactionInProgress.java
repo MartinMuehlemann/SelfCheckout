@@ -22,15 +22,14 @@ public class TransactionInProgress extends State<MainStm, MainStm.Events> {
 		
 		switch(evt.getEvent()) {
 			case  TRANSACTION_SUCCESSFUL:
-				return owner.states.idle;
+				return owner.states.transactionSucessful;
 
 			case TRANSACTION_ABORT:
 			case TRANSACTION_UNDEFINED_ERROR:
-				return owner.states.idle;
+				return owner.states.transactionFailed;
 				
 			default:
 				break;
-			
 
 		}
 		return null;
@@ -39,7 +38,6 @@ public class TransactionInProgress extends State<MainStm, MainStm.Events> {
 
 	@Override
 	public void entryAction() {
-		owner.context.getGui().enableKeyBlock(false);
 		owner.context.getGui().showInfoView();
 		owner.context.getTerminal().startPayment();
 		

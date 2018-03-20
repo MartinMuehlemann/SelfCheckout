@@ -62,15 +62,14 @@ public class NumericBlock extends JPanel {
 					if (digit.isClear()) {
 						if (queueAmountEntry.isEmpty() != true) {
 							queueAmountEntry.remove(queueAmountEntry.size() - 1);
-							amountChangedListener.amountEntryChanged(getAmount());
+							NumericBlock.this.amountChangedListener.amountEntryChanged(getAmount());
 						}
 					} else {
 						queueAmountEntry.add(digit);
 						
 						double amount = getAmount();
 						if(amount <= SelfCheckoutContext.MAX_AMOUNT) {
-							context.setCurrentAmount(getAmount());
-							amountChangedListener.amountEntryChanged(getAmount());
+							NumericBlock.this.amountChangedListener.amountEntryChanged(getAmount());
 						} else {
 							queueAmountEntry.remove(queueAmountEntry.size() - 1);
 						}

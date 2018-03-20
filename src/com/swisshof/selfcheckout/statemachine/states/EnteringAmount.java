@@ -27,10 +27,7 @@ public class EnteringAmount extends State<MainStm, MainStm.Events>
 				}
 				break;
 			case BTN_PAY:
-				if (owner.context.getCurrentAmount() > 0.0) {
-					return (owner.states.transactionInProgress);
-				}
-				break;
+				return (owner.states.transactionInProgress);
 	
 			default:
 				break;
@@ -42,15 +39,12 @@ public class EnteringAmount extends State<MainStm, MainStm.Events>
 
 	@Override
 	public void entryAction() {
-		super.entryAction();
-		
-		owner.context.getGui().enableBtnPay(owner.context.getCurrentAmount() > 0.0);
+		owner.context.getGui().enableBtnPay(true);
 	}
 
 	@Override
 	public void exitAction() {
-		// TODO Auto-generated method stub
-		super.exitAction();
+		owner.context.getGui().enableBtnPay(false);
 	}
 	
 	
