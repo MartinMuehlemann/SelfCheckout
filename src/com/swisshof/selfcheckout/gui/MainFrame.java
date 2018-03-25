@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 
 import com.swisshof.selfcheckout.IGui;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
+import com.swisshof.selfcheckout.gui.InfoPane.InformationType;
 
 public class MainFrame implements IGui
 {
@@ -59,6 +60,18 @@ public class MainFrame implements IGui
 	{
 		frame.setContentPane(infoPane);
 		frame.pack();
+	}
+	
+	public void showInfoView(InformationType type, String infoText)
+	{
+		infoPane.setInfoText(type, infoText);
+		frame.setContentPane(infoPane);
+		frame.pack();
+	}
+	
+	public void setInfoText(InformationType type, String infoText)
+	{
+		infoPane.setInfoText(type, infoText);
 	}
 	
 	public void startGui()

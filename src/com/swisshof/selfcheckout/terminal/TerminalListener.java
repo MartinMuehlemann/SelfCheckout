@@ -266,7 +266,11 @@ public class TerminalListener extends DefaultTerminalListener {
 
 	@Override
 	public void transactionCompleted(TimEvent evt, TransactionResponse transactionReponse) {
-		logger.info("Terminal: transactionCompleted");
+		String resultCode = "none";
+		if (evt.getException() != null) {
+			resultCode = evt.getException().getResultCode().toString();
+		}
+		logger.info("Terminal: transactionCompleted: result=" + resultCode);
 
 		if (evt.getException() == null) {
 			if (transactionReponse != null) {
@@ -279,6 +283,10 @@ public class TerminalListener extends DefaultTerminalListener {
 			switch(evt.getException().getResultCode()) {
 				case CARDHOLDER_STOP:
 					context.getMainStm().processEvent(Events.TRANSACTION_ABORT);
+					break;
+					
+				case API_CONNECT_FAIL_TERMINAL:
+					context.getMainStm().processEvent(Events.TRANSACTION_CONNECTION_ERROR);
 					break;
 					
 				default:

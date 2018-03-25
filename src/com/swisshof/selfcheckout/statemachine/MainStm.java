@@ -17,7 +17,8 @@ public class MainStm extends StatemachineBase
 		BTN_CONFIRM,
 		TRANSACTION_SUCCESSFUL,
 		TRANSACTION_UNDEFINED_ERROR,
-		TRANSACTION_ABORT;
+		TRANSACTION_ABORT,
+		TRANSACTION_CONNECTION_ERROR;
 
 		@Override
 		public Events getEvent() {

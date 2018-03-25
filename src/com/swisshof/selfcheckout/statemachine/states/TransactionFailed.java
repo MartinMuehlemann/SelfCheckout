@@ -1,5 +1,6 @@
 package com.swisshof.selfcheckout.statemachine.states;
 
+import com.swisshof.selfcheckout.gui.InfoPane.InformationType;
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.statemachine.generic.Event;
 import com.swisshof.selfcheckout.statemachine.generic.State;
@@ -32,7 +33,7 @@ public class TransactionFailed extends State<MainStm, MainStm.Events> {
 
 	@Override
 	public void entryAction() {
-
+		owner.context.getGui().setInfoText(InformationType.INFO_ERROR, owner.context.getString("info.transactionfailure"));
 	}
 
 	@Override

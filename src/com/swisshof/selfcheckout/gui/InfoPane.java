@@ -14,6 +14,12 @@ import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 
 public class InfoPane extends JPanel {
 
+	public enum InformationType {
+		INFO_PROGRESS,
+		INFO_SUCCESS,
+		INFO_ERROR
+	}
+	
 	protected SelfCheckoutContext context = null;
 	protected JLabel lblIcon;
 	protected JLabel lblInfoText;
@@ -55,7 +61,29 @@ public class InfoPane extends JPanel {
 		add(btnOK, lc);
 		
 	}
-	
+		
+	public void setInfoText(InformationType type, String infoText) 
+	{
+		switch(type) {
+		case INFO_ERROR:
+			lblIcon.setText("Error...");
+			break;
+		case INFO_PROGRESS:
+			lblIcon.setText("Progress...");
+
+			break;
+		case INFO_SUCCESS:
+			lblIcon.setText("Success...");
+
+			break;
+		default:
+			break;
+		
+		}
+		
+		
+		lblInfoText.setText(infoText);
+	}
 	
 	private static final long serialVersionUID = 1L;
 

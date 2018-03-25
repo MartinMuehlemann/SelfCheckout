@@ -1,5 +1,6 @@
 package com.swisshof.selfcheckout.statemachine.states;
 
+import com.swisshof.selfcheckout.gui.InfoPane.InformationType;
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.statemachine.generic.Event;
 import com.swisshof.selfcheckout.statemachine.generic.State;
@@ -38,7 +39,7 @@ public class TransactionInProgress extends State<MainStm, MainStm.Events> {
 
 	@Override
 	public void entryAction() {
-		owner.context.getGui().showInfoView();
+		owner.context.getGui().showInfoView(InformationType.INFO_PROGRESS, owner.context.getString("info.transactionInProgress"));
 		owner.context.getTerminal().startPayment();
 		
 	}
