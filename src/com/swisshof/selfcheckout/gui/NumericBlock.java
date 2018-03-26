@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import com.swisshof.selfcheckout.IResourceProvider.FontName;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
 
 public class NumericBlock extends JPanel {
@@ -36,22 +37,18 @@ public class NumericBlock extends JPanel {
 	protected Map<NumericBlockButton.Digit, JButton> mapBtnsKeyBlock = new HashMap<NumericBlockButton.Digit, JButton>();
 	
 	protected IAmoutChanged amountChangedListener = null;
-	protected Font fontNumericBlock = null;
-
 	
 	
 	public NumericBlock(SelfCheckoutContext context, IAmoutChanged amountChangedListener) {
 		super();
 		this.amountChangedListener = amountChangedListener;
-		
-		fontNumericBlock = context.getResourceProvider().getFont().deriveFont(Font.PLAIN, 200);
-		
+				
 		GridBagLayout gl = new GridBagLayout();
 		setLayout(gl);
 		
 		for (NumericBlockButton.Digit digit : NumericBlockButton.Digit.values()) {
 			NumericBlockButton btn = new NumericBlockButton(digit);
-			Font baseFont = context.getResourceProvider().getFont();
+			Font baseFont = context.getResourceProvider().getFont(FontName.FRUTIGER_BOLD);
 			btn.setFont(baseFont.deriveFont(Font.BOLD, 150));
 			btn.setPreferredSize(new Dimension(180, 180));
 			btn.addActionListener(new ActionListener() {

@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -16,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.swisshof.selfcheckout.SelfCheckoutContext;
+import com.swisshof.selfcheckout.IResourceProvider.FontName;
 import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 
 public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChanged
@@ -31,9 +31,8 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 	
 	protected Font fontPayAmountField = null;
 	protected Font fontUserInfo = null;
+	protected Font fontCurrency = null;
 	protected Font fontButtons = null;
-	
-	protected ImageIcon imageIcon = null;
 
 	protected SelfCheckoutContext context = null;
 	
@@ -42,11 +41,13 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		super();
 		this.context = context;
 		
-		Font baseFont = context.getResourceProvider().getFont();
+		Font baseFontBold = context.getResourceProvider().getFont(FontName.FRUTIGER_BOLD);
+		Font baseFontRegular = context.getResourceProvider().getFont(FontName.FRUTIGER_CONDENSED);	
 		
-		fontPayAmountField = baseFont.deriveFont(Font.PLAIN, 200);
-		fontUserInfo = baseFont.deriveFont(Font.PLAIN, 20);		
-		fontButtons = baseFont.deriveFont(Font.BOLD, 100);
+		fontPayAmountField = baseFontRegular.deriveFont(Font.PLAIN, 200);
+		fontUserInfo = baseFontRegular.deriveFont(Font.PLAIN, 20);
+		fontCurrency = baseFontRegular.deriveFont(Font.PLAIN, 50);		
+		fontButtons = baseFontBold.deriveFont(Font.BOLD, 100);
 		
 		GridBagLayout gbl = new GridBagLayout();
 		setLayout(gbl);
@@ -54,17 +55,17 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		setBackground(COLOR_BG);
 		
 
-		GridBagConstraints lc = new GridBagConstraints();
-		lc.fill = GridBagConstraints.CENTER;
+
 
 		txtPayAmount = new JFormattedTextField();
 		txtPayAmount.setText(getCurrentAmountString());
 		txtPayAmount.setFont(fontPayAmountField);
-		txtPayAmount.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPayAmount.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtPayAmount.setBorder(BorderFactory.createEmptyBorder());
 		
 		JLabel lblCurrency = new JLabel("CHF");
-		lblCurrency.setFont(fontUserInfo);
+		lblCurrency.setFont(fontCurrency);
+		lblCurrency.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		lblUserInfo  = new JLabel(context.getString("wizard.enter_amount"));
 		lblUserInfo.setFont(fontUserInfo);
@@ -72,7 +73,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 
 		numericBlock = new NumericBlock(context, this);
 
-		btnPay = new JButton("Bezahlen"); 
+		btnPay = new JButton(context.getString("btn.pay")); 
 		btnPay.setFont(fontButtons);
 		btnPay.setEnabled(false);
 		btnPay.addActionListener(new ActionListener() {
@@ -84,38 +85,56 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 			
 		});
 
-		JLabel lblSwisshofLogo = new JLabel(imageIcon, JLabel.RIGHT);
+		JLabel lblSwisshofLogo = new JLabel(context.getResourceProvider().getSwisshofLogo());
 		
+		
+		GridBagConstraints lc = new GridBagConstraints();
 		lc.weightx = 0.5;
-		lc.weighty = 1.0;
+		lc.weighty = 0.8;
 		lc.gridx = 0;
 		lc.gridy = 0;
 		
 		lc.gridwidth = 1;
-		lc.gridheight = 5;
+		lc.gridheight = 4;
 		lc.gridx = 0;
-		
-		
+
 		add(numericBlock, lc);
 		
+		lc.gridwidth = 2;
 		lc.gridx = 1;
-		lc.weightx = 0.5;
+		lc.weightx = 2.0;
+		lc.weighty = 0.1;
 		lc.gridheight = 1;
-		add(lblSwisshofLogo);
-
+		lc.anchor = GridBagConstraints.NORTH;
+		add(lblSwisshofLogo, lc);
 	
 		lc.gridy++;
+		lc.weighty = 0.2;
+		lc.weightx = 0.5;
+		lc.gridwidth = 1;
+		lc.ipadx = 20;
+		lc.anchor = GridBagConstraints.WEST;
+		lc.fill = GridBagConstraints.NONE;
 		add(lblCurrency, lc);
-		
-		lc.gridy++;
-		lc.fill = GridBagConstraints.BOTH;
+
+		lc.gridx = 2;
+		lc.weightx = 1.5;
+		lc.anchor = GridBagConstraints.EAST;
+		lc.fill = GridBagConstraints.HORIZONTAL;
 		add(txtPayAmount, lc);
 
+		lc.gridx = 1;
+		lc.gridwidth = 2;
+		lc.weightx = 2.0;
+		lc.weighty = 1.0;
 		lc.gridy++;
+		lc.fill = GridBagConstraints.BOTH;
+		lc.anchor = GridBagConstraints.CENTER;
 		add(lblUserInfo, lc);
 		
 		lc.gridy++;
-		lc.fill = GridBagConstraints.CENTER;
+		lc.fill = GridBagConstraints.NONE;
+		lc.anchor = GridBagConstraints.CENTER;
 		add(btnPay, lc);
 	}
 
