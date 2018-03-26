@@ -45,7 +45,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		Font baseFontRegular = context.getResourceProvider().getFont(FontName.FRUTIGER_CONDENSED);	
 		
 		fontPayAmountField = baseFontRegular.deriveFont(Font.PLAIN, 200);
-		fontUserInfo = baseFontRegular.deriveFont(Font.PLAIN, 20);
+		fontUserInfo = baseFontRegular.deriveFont(Font.PLAIN, 36);
 		fontCurrency = baseFontRegular.deriveFont(Font.PLAIN, 50);		
 		fontButtons = baseFontBold.deriveFont(Font.BOLD, 100);
 		
@@ -53,9 +53,6 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		setLayout(gbl);
 		
 		setBackground(COLOR_BG);
-		
-
-
 
 		txtPayAmount = new JFormattedTextField();
 		txtPayAmount.setText(getCurrentAmountString());
@@ -67,7 +64,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lblCurrency.setFont(fontCurrency);
 		lblCurrency.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		lblUserInfo  = new JLabel(context.getString("wizard.enter_amount"));
+		lblUserInfo  = new JLabel(getWizardString("wizard.enter_amount"));
 		lblUserInfo.setFont(fontUserInfo);
 		lblUserInfo.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -169,5 +166,8 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		return String.format("%.2f", context.getCurrentAmount());
 	}
 	
+	protected String getWizardString(String key) {
+		return "<html><center>" + context.getString(key) + "</center></html>";
+	}
 
 }
