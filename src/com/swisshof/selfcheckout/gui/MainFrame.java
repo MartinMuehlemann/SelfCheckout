@@ -98,5 +98,8 @@ public class MainFrame implements IGui
 		showAmountEntryPane();
 	}
 	
+	public void enableBtnConfirm(boolean enable) {
+		infoPane.enableBtnConfirm(enable);
+	}
 	
 }

@@ -21,9 +21,18 @@ public class TransactionFailed extends State<MainStm, MainStm.Events> {
 	@Override
 	public State<MainStm, MainStm.Events> processEvent(Event<MainStm.Events> evt) {
 			switch(evt.getEvent()) {
-			case   BTN_CONFIRM:
+			case BTN_CONFIRM:
 				return owner.states.idle;
-
+				
+			case CARD_REMOVED:
+				owner.context.getGui().setInfoText(InformationType.INFO_ERROR, owner.context.getString("info.transactionfailure"));
+				owner.context.getGui().enableBtnConfirm(true);
+				return null;
+				
+			case CARD_INSERTED:
+				//TODO: go to TransactionInProgress state?
+				break;
+				
 			default:
 				break;
 
@@ -33,7 +42,13 @@ public class TransactionFailed extends State<MainStm, MainStm.Events> {
 
 	@Override
 	public void entryAction() {
-		owner.context.getGui().setInfoText(InformationType.INFO_ERROR, owner.context.getString("info.transactionfailure"));
+		if (owner.context.getTerminal().isCardInserted() == true) {
+			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, owner.context.getString("info.transactionfailureCardInserted"));
+			owner.context.getGui().enableBtnConfirm(false);
+		} else {
+			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, owner.context.getString("info.transactionfailure"));
+			owner.context.getGui().enableBtnConfirm(true);
+		}
 	}
 
 	@Override

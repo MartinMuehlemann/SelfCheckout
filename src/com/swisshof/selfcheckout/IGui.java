@@ -12,4 +12,7 @@ public interface IGui {
 	public void setInfoText(InformationType type, String infoText);
 	public void showInfoView(InformationType type, String infoText);
 	
+	public void enableBtnConfirm(boolean enable);
+
+	
 }

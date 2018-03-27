@@ -26,6 +26,7 @@ public class TransactionInProgress extends State<MainStm, MainStm.Events> {
 				return owner.states.transactionSucessful;
 
 			case TRANSACTION_ABORT:
+			case TRANSACTION_CONNECTION_ERROR:
 			case TRANSACTION_UNDEFINED_ERROR:
 				return owner.states.transactionFailed;
 				

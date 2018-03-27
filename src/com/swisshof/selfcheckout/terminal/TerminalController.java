@@ -8,8 +8,10 @@ import com.six.timapi.Amount;
 import com.six.timapi.Receipt;
 import com.six.timapi.Terminal;
 import com.six.timapi.TerminalSettings;
+import com.six.timapi.TerminalStatus;
 import com.six.timapi.TimException;
 import com.six.timapi.TransactionResponse;
+import com.six.timapi.constants.CardReaderStatus;
 import com.six.timapi.constants.Currency;
 import com.six.timapi.constants.TransactionType;
 
@@ -90,5 +92,11 @@ public class TerminalController {
 					logger.info("Transaction failed, exception: " + te.toString());		
 		}
 		
+	}
+	
+	public boolean isCardInserted()
+	{
+		CardReaderStatus crs = terminal.getTerminalStatus().getCardReaderStatus();
+		return (crs == CardReaderStatus.CARD_INSERTED);
 	}
 }

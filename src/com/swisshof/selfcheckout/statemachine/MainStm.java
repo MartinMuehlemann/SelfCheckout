@@ -15,10 +15,16 @@ public class MainStm extends StatemachineBase
 		AMOUNT_CHANGED,
 		BTN_PAY,
 		BTN_CONFIRM,
+		
+		
+		CARD_INSERTED,
+		CARD_REMOVED,
+		
 		TRANSACTION_SUCCESSFUL,
 		TRANSACTION_UNDEFINED_ERROR,
 		TRANSACTION_ABORT,
 		TRANSACTION_CONNECTION_ERROR;
+
 
 		@Override
 		public Events getEvent() {

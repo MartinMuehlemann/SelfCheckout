@@ -85,6 +85,11 @@ public class InfoPane extends JPanel {
 		lblInfoText.setText(infoText);
 	}
 	
+	public void enableBtnConfirm(boolean enable)
+	{
+		btnOK.setEnabled(enable);
+	}
+	
 	private static final long serialVersionUID = 1L;
 
 }

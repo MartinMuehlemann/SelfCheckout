@@ -17,6 +17,7 @@ import com.six.timapi.ShowDialogResponse;
 import com.six.timapi.ShowSignatureCaptureResponse;
 import com.six.timapi.SystemInformationResponse;
 import com.six.timapi.Terminal;
+import com.six.timapi.TerminalStatus;
 import com.six.timapi.TimEvent;
 import com.six.timapi.TimException;
 import com.six.timapi.TransactionResponse;
@@ -260,7 +261,37 @@ public class TerminalListener extends DefaultTerminalListener {
 	@Override
 	public void terminalStatusChanged(Terminal terminal) {
 		
-		logger.info("Terminal: terminalStatusChanged: " + terminal.getTerminalStatus().toString());
+		TerminalStatus ts = terminal.getTerminalStatus();
+		logger.info("Terminal: terminalStatusChanged: " + ts.toString());
+		
+		switch(ts.getCardReaderStatus()) {
+		case CARD_EJECTED:
+			context.getMainStm().processEvent(Events.CARD_REMOVED);			
+			break;
+		case CARD_INSERTED:
+			context.getMainStm().processEvent(Events.CARD_INSERTED);
+			break;
+
+		case CARD_NOT_REMOVED:
+			//TODO
+			break;
+			
+		case CARD_PRESENTED:
+			context.getMainStm().processEvent(Events.CARD_INSERTED);
+			break;
+
+		case CARD_READER_EMPTY:
+			context.getMainStm().processEvent(Events.CARD_REMOVED);			
+			break;
+		case CARD_SWIPED:
+			//TODO ???
+			break;
+		case CARD_READER_CLOSED:
+		case CARD_MANUALLY_ENTERED:
+		default:
+			break;
+		
+		}
 		super.terminalStatusChanged(terminal);
 	}
 
