@@ -25,7 +25,7 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 			return owner.states.idle;
 			
 		case CARD_REMOVED:
-			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, owner.context.getString("info.transactionSuccess"));
+			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, owner.context.getString("info.transactionSuccess"));
 			owner.context.getGui().enableBtnConfirm(true);
 			return null;
 			
@@ -43,10 +43,10 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 	@Override
 	public void entryAction() {
 		if (owner.context.getTerminal().isCardInserted() == true) {
-			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, owner.context.getString("info.transactionSuccessCardInserted"));
+			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, owner.context.getString("info.transactionSuccessCardInserted"));
 			owner.context.getGui().enableBtnConfirm(false);
 		} else {
-			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, owner.context.getString("info.transactionSuccess"));
+			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, owner.context.getString("info.transactionSuccess"));
 			owner.context.getGui().enableBtnConfirm(true);
 		}
 	}

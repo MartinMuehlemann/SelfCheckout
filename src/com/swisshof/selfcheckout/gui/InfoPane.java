@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.swisshof.selfcheckout.IResourceProvider.ImageIdentifier;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
 import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 
@@ -36,7 +37,7 @@ public class InfoPane extends JPanel {
 		GridBagLayout gbl = new GridBagLayout();
 		setLayout(gbl);
 		
-		lblIcon = new JLabel("Icon");
+		lblIcon = new JLabel();
 		lblInfoText = new JLabel();
 		lblInfoText.setText("infoT text");
 		button = new JButton("OK");
@@ -84,16 +85,16 @@ public class InfoPane extends JPanel {
 		this.type = type;
 		switch(type) {
 		case INFO_ERROR:
-			lblIcon.setText("Error...");
+			lblIcon.setIcon(context.getResourceProvider().getImage(ImageIdentifier.Failure));
 			button.setText(context.getString("infopane.btn.ok"));
 			break;
 		case INFO_PROGRESS:
-			lblIcon.setText("Progress...");
+			lblIcon.setIcon(context.getResourceProvider().getImage(ImageIdentifier.Hourglass));
 			button.setText(context.getString("infopane.btn.abort"));
 
 			break;
 		case INFO_SUCCESS:
-			lblIcon.setText("Success...");
+			lblIcon.setIcon(context.getResourceProvider().getImage(ImageIdentifier.Success));
 			button.setText(context.getString("infopane.btn.ok"));
 			break;
 		default:

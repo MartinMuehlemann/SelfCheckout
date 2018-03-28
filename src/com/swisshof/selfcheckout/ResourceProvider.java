@@ -36,7 +36,7 @@ public class ResourceProvider implements IResourceProvider {
 			return images[id.ordinal()];
 
 		} catch  (Exception e) {
-			logger.severe("Exception while loading image: " + e.getMessage());
+			logger.severe("Exception while loading image " + id.name() + ": " + e.getMessage());
 			return null; // TODO create defaukt icon
 		}	
 	}
