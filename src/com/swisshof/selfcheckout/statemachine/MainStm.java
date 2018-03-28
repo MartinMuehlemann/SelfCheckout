@@ -15,6 +15,7 @@ public class MainStm extends StatemachineBase
 		AMOUNT_CHANGED,
 		BTN_PAY,
 		BTN_CONFIRM,
+		BTN_ABORT,
 		
 		
 		CARD_INSERTED,
@@ -23,7 +24,10 @@ public class MainStm extends StatemachineBase
 		TRANSACTION_SUCCESSFUL,
 		TRANSACTION_UNDEFINED_ERROR,
 		TRANSACTION_ABORT,
-		TRANSACTION_CONNECTION_ERROR;
+		TRANSACTION_CONNECTION_ERROR,
+		
+		
+		TRANSACTION_ABORT_UI;
 
 
 		@Override

@@ -23,7 +23,10 @@ public class InfoPane extends JPanel {
 	protected SelfCheckoutContext context = null;
 	protected JLabel lblIcon;
 	protected JLabel lblInfoText;
-	protected JButton btnOK;
+	protected JButton button;
+	
+	
+	protected InformationType type = InformationType.INFO_PROGRESS;
 	
 	public InfoPane(SelfCheckoutContext context)
 	{
@@ -36,12 +39,26 @@ public class InfoPane extends JPanel {
 		lblIcon = new JLabel("Icon");
 		lblInfoText = new JLabel();
 		lblInfoText.setText("infoT text");
-		btnOK = new JButton("OK");
-		btnOK.addActionListener(new ActionListener() {
+		button = new JButton("OK");
+		button.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				InfoPane.this.context.getMainStm().processEvent(Events.BTN_CONFIRM);
+				switch(type) {
+				case INFO_ERROR:
+					InfoPane.this.context.getMainStm().processEvent(Events.BTN_CONFIRM);
+					break;
+				case INFO_PROGRESS:
+					InfoPane.this.context.getMainStm().processEvent(Events.BTN_ABORT);
+					break;
+				case INFO_SUCCESS:
+					InfoPane.this.context.getMainStm().processEvent(Events.BTN_CONFIRM);
+					break;
+				default:
+					break;
+				
+				}
+
 				
 			}
 		});
@@ -58,7 +75,7 @@ public class InfoPane extends JPanel {
 		add(lblInfoText, lc);
 		
 		lc.gridy++;
-		add(btnOK, lc);
+		add(button, lc);
 		
 	}
 		
@@ -67,14 +84,16 @@ public class InfoPane extends JPanel {
 		switch(type) {
 		case INFO_ERROR:
 			lblIcon.setText("Error...");
+			button.setText(context.getString("infopane.btn.ok"));
 			break;
 		case INFO_PROGRESS:
 			lblIcon.setText("Progress...");
+			button.setText(context.getString("infopane.btn.abort"));
 
 			break;
 		case INFO_SUCCESS:
 			lblIcon.setText("Success...");
-
+			button.setText(context.getString("infopane.btn.ok"));
 			break;
 		default:
 			break;
@@ -87,7 +106,7 @@ public class InfoPane extends JPanel {
 	
 	public void enableBtnConfirm(boolean enable)
 	{
-		btnOK.setEnabled(enable);
+		button.setEnabled(enable);
 	}
 	
 	private static final long serialVersionUID = 1L;

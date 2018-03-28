@@ -316,9 +316,14 @@ public class TerminalListener extends DefaultTerminalListener {
 					context.getMainStm().processEvent(Events.TRANSACTION_ABORT);
 					break;
 					
+				case API_CANCEL_ECR:
+					context.getMainStm().processEvent(Events.TRANSACTION_ABORT_UI);
+					break;
+					
 				case API_CONNECT_FAIL_TERMINAL:
 					context.getMainStm().processEvent(Events.TRANSACTION_CONNECTION_ERROR);
 					break;
+				
 					
 				default:
 					context.getMainStm().processEvent(Events.TRANSACTION_UNDEFINED_ERROR);

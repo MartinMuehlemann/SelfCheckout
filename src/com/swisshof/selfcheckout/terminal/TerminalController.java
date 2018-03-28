@@ -41,7 +41,7 @@ public class TerminalController {
 		// If the configuration file contains a LogDir entry logging is enabled to
 		// a file named TimApi.log using Java Logging Facility. You can change the 
 		// logging using
-		Logger.getLogger(Terminal.LOGGER_NAME).setLevel(Level.FINE);
+		Logger.getLogger(Terminal.LOGGER_NAME).setLevel(Level.SEVERE);
 		// or
 		//   Logger.getLogger(Terminal.LOGGER_NAME).addHandler(myLoggerHandler);
 		settings = new TerminalSettings();
@@ -92,6 +92,14 @@ public class TerminalController {
 					logger.info("Transaction failed, exception: " + te.toString());		
 		}
 		
+	}
+	
+	public void abortTransaction() {
+		try {
+			terminal.cancel();
+		} catch (TimException te) {
+			//TODO	
+		}
 	}
 	
 	public boolean isCardInserted()

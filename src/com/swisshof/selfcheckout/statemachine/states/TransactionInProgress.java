@@ -24,6 +24,14 @@ public class TransactionInProgress extends State<MainStm, MainStm.Events> {
 		switch(evt.getEvent()) {
 			case  TRANSACTION_SUCCESSFUL:
 				return owner.states.transactionSucessful;
+				
+			case BTN_ABORT:
+				owner.context.getTerminal().abortTransaction();
+				// stay in the state until terminal confirmed abort
+				return null;
+				
+			case TRANSACTION_ABORT_UI:
+				return owner.states.idle;				
 
 			case TRANSACTION_ABORT:
 			case TRANSACTION_CONNECTION_ERROR:

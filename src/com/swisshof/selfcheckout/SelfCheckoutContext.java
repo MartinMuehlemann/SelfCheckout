@@ -1,6 +1,7 @@
 package com.swisshof.selfcheckout;
 
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import com.swisshof.selfcheckout.statemachine.MainStm;
@@ -74,7 +75,11 @@ public class SelfCheckoutContext {
 	
 	public String getString(String key)
 	{
-		return strings.getString(key);
+		try {
+			return strings.getString(key);
+		} catch (MissingResourceException e) {
+			return key;
+		}
 	}
 	
 }
