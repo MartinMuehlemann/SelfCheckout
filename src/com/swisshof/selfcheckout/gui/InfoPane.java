@@ -81,6 +81,7 @@ public class InfoPane extends JPanel {
 		
 	public void setInfoText(InformationType type, String infoText) 
 	{
+		this.type = type;
 		switch(type) {
 		case INFO_ERROR:
 			lblIcon.setText("Error...");
