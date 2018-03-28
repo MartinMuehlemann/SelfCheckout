@@ -6,14 +6,21 @@ import javax.swing.ImageIcon;
 
 public interface IResourceProvider {
 
-	public enum FontName {
-		FRUTIGER_BOLD,
-		FRUTIGER_CONDENSED
+	public enum FontIdentifier {
+		FrutigerBold,
+		FrutigerCondensed
+	}
+	
+	public enum ImageIdentifier {
+		SwisshofLogo,
+		Success,
+		Hourglass,
+		Failure
 	}
 	
 	
-	ImageIcon getSwisshofLogo();
+	public ImageIcon getImage(ImageIdentifier id);
 
-	Font getFont(FontName name);
+	public Font getFont(FontIdentifier id);
 
 }

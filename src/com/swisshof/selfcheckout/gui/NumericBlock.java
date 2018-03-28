@@ -13,7 +13,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import com.swisshof.selfcheckout.IResourceProvider.FontName;
+import com.swisshof.selfcheckout.IResourceProvider.FontIdentifier;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
 
 public class NumericBlock extends JPanel {
@@ -48,7 +48,7 @@ public class NumericBlock extends JPanel {
 		
 		for (NumericBlockButton.Digit digit : NumericBlockButton.Digit.values()) {
 			NumericBlockButton btn = new NumericBlockButton(digit);
-			Font baseFont = context.getResourceProvider().getFont(FontName.FRUTIGER_BOLD);
+			Font baseFont = context.getResourceProvider().getFont(FontIdentifier.FrutigerBold);
 			btn.setFont(baseFont.deriveFont(Font.BOLD, 150));
 			btn.setPreferredSize(new Dimension(180, 180));
 			btn.addActionListener(new ActionListener() {

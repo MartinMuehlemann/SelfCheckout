@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
+import com.swisshof.selfcheckout.IResourceProvider.ImageIdentifier;
+
 public class ResourceProvider implements IResourceProvider {
 	
 	private final static String RESOURCE_BASE_PACKAGE = "res/";
@@ -17,52 +19,73 @@ public class ResourceProvider implements IResourceProvider {
 	private static Logger logger = Logger.getLogger("RES");
 
 	
-	protected ImageIcon imgSwisshofLogo = null;
-	protected Font font[] = new Font[FontName.values().length];
+	protected ImageIcon images[] = new ImageIcon[ImageIdentifier.values().length];
+	protected Font font[] = new Font[FontIdentifier.values().length];
 	
 	/* (non-Javadoc)
 	 * @see com.swisshof.selfcheckout.IResourceProvider#getSwisshofLogo()
 	 */
 	@Override
-	public ImageIcon getSwisshofLogo() {
-		if (imgSwisshofLogo == null) {
-			try {
-				URL url = getClass().getClassLoader().getResource(RESOURCE_BASE_PACKAGE + "Logo_154x100.jpg");
-				imgSwisshofLogo = new ImageIcon(url);
-			}catch (Exception e) {
-				logger.severe("Exception while loading logo: " + e.getMessage());
-				// TODO create defaukt icon
+	public ImageIcon getImage(ImageIdentifier id) {
+
+		try {
+			if (images[id.ordinal()] == null) {
+				URL url = getClass().getClassLoader().getResource(getImagePath(id));
+				images[id.ordinal()] = new ImageIcon(url);
 			}
-		}
-		return imgSwisshofLogo;
+			return images[id.ordinal()];
+
+		} catch  (Exception e) {
+			logger.severe("Exception while loading image: " + e.getMessage());
+			return null; // TODO create defaukt icon
+		}	
 	}
 	
 	/* (non-Javadoc)
 	 * @see com.swisshof.selfcheckout.IResourceProvider#getFont()
 	 */
 	@Override
-	public Font getFont(FontName name) {
+	public Font getFont(FontIdentifier id) {
 		try {
 
-			if (font[name.ordinal()] == null) {
-				font[name.ordinal()] = loadFont(getFontPath(name));
+			if (font[id.ordinal()] == null)
+			{
+				InputStream is = getClass().getClassLoader().getResourceAsStream(getFontPath(id));
+				font[id.ordinal()] = Font.createFont(Font.TRUETYPE_FONT, is);
 			}
-			return font[name.ordinal()];
+
+			return font[id.ordinal()];
 
 		} catch  (Exception e) {
 			logger.severe("Exception while loading font: " + e.getMessage());
-			font[name.ordinal()] = new Font("Arial", Font.BOLD, 12);
+			font[id.ordinal()] = new Font("Arial", Font.BOLD, 12);
 		}
 
-		return font[name.ordinal()];
+		return font[id.ordinal()];
+	}
+	
+	protected String getImagePath(ImageIdentifier id) throws Exception {
+		switch (id) {
+			case SwisshofLogo:
+				return RESOURCE_BASE_PACKAGE + "Logo_154x100.jpg";
+			case Success:
+				return RESOURCE_BASE_PACKAGE + "success.png";
+			case Hourglass:
+				return RESOURCE_BASE_PACKAGE + "hourglass.png";
+			case Failure:
+				return RESOURCE_BASE_PACKAGE + "failure.png";
+			default:
+				throw new Exception("Unknwon font");
+		
+		}
 	}
 	
 
-	protected String getFontPath(FontName name) throws Exception {
-		switch (name) {
-			case FRUTIGER_BOLD:
+	protected String getFontPath(FontIdentifier id) throws Exception {
+		switch (id) {
+			case FrutigerBold:
 				return RESOURCE_BASE_PACKAGE + "FTB.ttf";
-			case FRUTIGER_CONDENSED:
+			case FrutigerCondensed:
 				return RESOURCE_BASE_PACKAGE + "FTLC.ttf";
 			default:
 				throw new Exception("Unknwon font");
@@ -70,9 +93,4 @@ public class ResourceProvider implements IResourceProvider {
 		}
 	}
 
-	protected Font loadFont(String path) throws FontFormatException, IOException {
-		InputStream is = getClass().getClassLoader().getResourceAsStream(path);
-		return Font.createFont(Font.TRUETYPE_FONT, is);
-	}
-	
 }

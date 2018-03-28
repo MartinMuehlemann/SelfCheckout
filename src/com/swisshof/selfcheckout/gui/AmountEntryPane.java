@@ -15,7 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.swisshof.selfcheckout.SelfCheckoutContext;
-import com.swisshof.selfcheckout.IResourceProvider.FontName;
+import com.swisshof.selfcheckout.IResourceProvider.FontIdentifier;
+import com.swisshof.selfcheckout.IResourceProvider.ImageIdentifier;
 import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 
 public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChanged
@@ -41,8 +42,8 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		super();
 		this.context = context;
 		
-		Font baseFontBold = context.getResourceProvider().getFont(FontName.FRUTIGER_BOLD);
-		Font baseFontRegular = context.getResourceProvider().getFont(FontName.FRUTIGER_CONDENSED);	
+		Font baseFontBold = context.getResourceProvider().getFont(FontIdentifier.FrutigerBold);
+		Font baseFontRegular = context.getResourceProvider().getFont(FontIdentifier.FrutigerCondensed);	
 		
 		fontPayAmountField = baseFontRegular.deriveFont(Font.PLAIN, 200);
 		fontUserInfo = baseFontRegular.deriveFont(Font.PLAIN, 36);
@@ -82,7 +83,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 			
 		});
 
-		JLabel lblSwisshofLogo = new JLabel(context.getResourceProvider().getSwisshofLogo());
+		JLabel lblSwisshofLogo = new JLabel(context.getResourceProvider().getImage(ImageIdentifier.SwisshofLogo));
 		
 		
 		GridBagConstraints lc = new GridBagConstraints();
