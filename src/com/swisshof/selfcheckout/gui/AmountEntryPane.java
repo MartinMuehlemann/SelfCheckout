@@ -1,6 +1,5 @@
 package com.swisshof.selfcheckout.gui;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.swisshof.selfcheckout.SelfCheckoutContext;
+import com.swisshof.selfcheckout.Constants;
 import com.swisshof.selfcheckout.IResourceProvider.FontIdentifier;
 import com.swisshof.selfcheckout.IResourceProvider.ImageIdentifier;
 import com.swisshof.selfcheckout.statemachine.MainStm.Events;
@@ -22,7 +22,6 @@ import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChanged
 {
 
-	protected final static Color COLOR_BG = Color.WHITE;
 	private static final long serialVersionUID = 1L;
 	
 	protected JFormattedTextField txtPayAmount = null;
@@ -53,7 +52,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		GridBagLayout gbl = new GridBagLayout();
 		setLayout(gbl);
 		
-		setBackground(COLOR_BG);
+		setBackground(Constants.COLOR_BG);
 
 		txtPayAmount = new JFormattedTextField();
 		txtPayAmount.setText(getCurrentAmountString());
