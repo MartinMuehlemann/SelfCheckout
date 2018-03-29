@@ -73,6 +73,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		btnPay = new JButton(context.getString("btn.pay")); 
 		btnPay.setFont(fontButtons);
 		btnPay.setEnabled(false);
+		btnPay.setBackground(Constants.COLOR_BG);
 		btnPay.addActionListener(new ActionListener() {
 
 			@Override
@@ -93,6 +94,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		
 		lc.gridwidth = 1;
 		lc.gridheight = 4;
+		lc.ipadx = 15;
 		lc.gridx = 0;
 
 		add(numericBlock, lc);
@@ -104,24 +106,8 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lc.gridheight = 1;
 		lc.anchor = GridBagConstraints.NORTH;
 		add(lblSwisshofLogo, lc);
-	
-		lc.gridy++;
-		lc.weighty = 0.2;
-		lc.weightx = 0.5;
-		lc.gridwidth = 1;
-		lc.ipadx = 20;
-		lc.anchor = GridBagConstraints.WEST;
-		lc.fill = GridBagConstraints.NONE;
-		add(lblCurrency, lc);
-
-		lc.gridx = 2;
-		lc.weightx = 1.5;
-		lc.anchor = GridBagConstraints.EAST;
-		lc.fill = GridBagConstraints.HORIZONTAL;
-		add(txtPayAmount, lc);
 
 		lc.gridx = 1;
-		lc.gridwidth = 2;
 		lc.weightx = 2.0;
 		lc.weighty = 1.0;
 		lc.gridy++;
@@ -130,6 +116,24 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		add(lblUserInfo, lc);
 		
 		lc.gridy++;
+		lc.weighty = 0.2;
+		lc.weightx = 0.5;
+		lc.gridwidth = 1;
+		lc.anchor = GridBagConstraints.WEST;
+		lc.fill = GridBagConstraints.NONE;
+		add(lblCurrency, lc);
+
+		lc.gridx = 2;
+		lc.weightx = 1.5;
+		lc.anchor = GridBagConstraints.EAST;
+		lc.fill = GridBagConstraints.HORIZONTAL;
+		add(txtPayAmount, lc);	
+		
+		lc.gridy++;
+		lc.gridwidth = 2;
+		lc.weighty = 0.5;
+		lc.ipadx = 0;
+		lc.gridx = 1;
 		lc.fill = GridBagConstraints.NONE;
 		lc.anchor = GridBagConstraints.CENTER;
 		add(btnPay, lc);

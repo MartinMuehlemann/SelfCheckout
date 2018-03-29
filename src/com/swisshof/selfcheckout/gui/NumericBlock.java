@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.swisshof.selfcheckout.IResourceProvider.FontIdentifier;
+import com.swisshof.selfcheckout.Constants;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
 
 public class NumericBlock extends JPanel {
@@ -51,6 +52,7 @@ public class NumericBlock extends JPanel {
 			Font baseFont = context.getResourceProvider().getFont(FontIdentifier.FrutigerBold);
 			btn.setFont(baseFont.deriveFont(Font.BOLD, 150));
 			btn.setPreferredSize(new Dimension(180, 180));
+			btn.setBackground(Constants.COLOR_BG);
 			btn.addActionListener(new ActionListener() {
 				
 				@Override
