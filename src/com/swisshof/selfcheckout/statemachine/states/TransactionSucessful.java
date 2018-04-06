@@ -1,5 +1,6 @@
 package com.swisshof.selfcheckout.statemachine.states;
 
+import com.swisshof.selfcheckout.Constants;
 import com.swisshof.selfcheckout.gui.InfoPane.InformationType;
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.statemachine.generic.Event;
@@ -21,6 +22,9 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 	@Override
 	public State<MainStm, MainStm.Events> processEvent(Event<MainStm.Events> evt) {
 		switch(evt.getEvent()) {
+		case TIMEOUT:
+			return owner.states.idle;
+		
 		case BTN_CONFIRM:
 			return owner.states.idle;
 			
@@ -49,6 +53,8 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, owner.context.getString("info.transactionSuccess"));
 			owner.context.getGui().enableBtnConfirm(true);
 		}
+		
+		startTimeout(Constants.SCCESS_SCREEN_TIMEOUT, MainStm.Events.TIMEOUT);
 	}
 
 	@Override

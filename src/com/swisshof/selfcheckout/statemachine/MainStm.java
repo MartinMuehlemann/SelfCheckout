@@ -12,6 +12,7 @@ import com.swisshof.selfcheckout.statemachine.states.TransactionSucessful;
 public class MainStm extends StatemachineBase
 {
 	public enum Events implements Event<Events> {
+		TIMEOUT,
 		AMOUNT_CHANGED,
 		BTN_PAY,
 		BTN_CONFIRM,

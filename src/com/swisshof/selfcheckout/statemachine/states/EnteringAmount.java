@@ -1,5 +1,6 @@
 package com.swisshof.selfcheckout.statemachine.states;
 
+import com.swisshof.selfcheckout.Constants;
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.statemachine.generic.Event;
 import com.swisshof.selfcheckout.statemachine.generic.State;
@@ -21,25 +22,32 @@ public class EnteringAmount extends State<MainStm, MainStm.Events>
 	public State<MainStm, MainStm.Events> processEvent(Event<MainStm.Events> evt) {
 
 		switch (evt.getEvent()) {
+			case TIMEOUT:
+				return owner.states.idle;
+			
 			case AMOUNT_CHANGED:
 				if (owner.context.getCurrentAmount() == 0.0) {
 					return (owner.states.idle);
+				} else {
+					// restart timeout
+					startTimeout(Constants.ENTER_AMOUNT_SCREEN_TIMEOUT, MainStm.Events.TIMEOUT);
+					return null;
 				}
-				break;
+
 			case BTN_PAY:
 				return (owner.states.transactionInProgress);
 	
 			default:
-				break;
+				return null;
 
 		}
-
-		return null;
 	}
 
 	@Override
 	public void entryAction() {
 		owner.context.getGui().enableBtnPay(true);
+		
+		startTimeout(Constants.ENTER_AMOUNT_SCREEN_TIMEOUT, MainStm.Events.TIMEOUT);
 	}
 
 	@Override
