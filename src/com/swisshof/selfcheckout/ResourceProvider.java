@@ -1,15 +1,11 @@
 package com.swisshof.selfcheckout;
 
 import java.awt.Font;
-import java.awt.FontFormatException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
-
-import com.swisshof.selfcheckout.IResourceProvider.ImageIdentifier;
 
 public class ResourceProvider implements IResourceProvider {
 	
@@ -72,10 +68,12 @@ public class ResourceProvider implements IResourceProvider {
 				return RESOURCE_BASE_PACKAGE + "success.png";
 			case Hourglass:
 				return RESOURCE_BASE_PACKAGE + "hourglass.png";
+			case Warning:
+				return RESOURCE_BASE_PACKAGE + "warning.png";
 			case Failure:
 				return RESOURCE_BASE_PACKAGE + "failure.png";
 			default:
-				throw new Exception("Unknwon font");
+				throw new Exception("Unknwon image ID");
 		
 		}
 	}

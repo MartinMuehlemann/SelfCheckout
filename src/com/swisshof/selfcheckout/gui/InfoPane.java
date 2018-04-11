@@ -1,6 +1,5 @@
 package com.swisshof.selfcheckout.gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -23,6 +22,7 @@ public class InfoPane extends JPanel {
 	public enum InformationType {
 		INFO_PROGRESS,
 		INFO_SUCCESS,
+		INFO_WARNING_NO_CONFIRM,
 		INFO_ERROR
 	}
 	
@@ -76,11 +76,15 @@ public class InfoPane extends JPanel {
 				case INFO_PROGRESS:
 					InfoPane.this.context.getMainStm().processEvent(Events.BTN_ABORT);
 					break;
+					
+				case INFO_WARNING_NO_CONFIRM:
+					// button will be not displayed
+					break;
+					
 				case INFO_SUCCESS:
 					InfoPane.this.context.getMainStm().processEvent(Events.BTN_CONFIRM);
 					break;
-				default:
-					break;
+
 				
 				}
 			}
@@ -114,16 +118,28 @@ public class InfoPane extends JPanel {
 		case INFO_ERROR:
 			lblIcon.setIcon(context.getResourceProvider().getImage(ImageIdentifier.Failure));
 			button.setText(context.getString("infopane.btn.ok"));
+			button.setVisible(true);
 			lblInfoText.setForeground(Constants.COLOR_FAILURE);
 			break;
+			
 		case INFO_PROGRESS:
 			lblIcon.setIcon(context.getResourceProvider().getImage(ImageIdentifier.Hourglass));
 			button.setText(context.getString("infopane.btn.abort"));
+			button.setVisible(true);
 			lblInfoText.setForeground(Constants.COLOR_PROGRESS);
 			break;
+			
+		case INFO_WARNING_NO_CONFIRM:
+			lblIcon.setIcon(context.getResourceProvider().getImage(ImageIdentifier.Warning));
+			button.setText("not visible");
+			button.setVisible(false);
+			lblInfoText.setForeground(Constants.COLOR_WARNING);
+			break;
+			
 		case INFO_SUCCESS:
 			lblIcon.setIcon(context.getResourceProvider().getImage(ImageIdentifier.Success));
 			button.setText(context.getString("infopane.btn.ok"));
+			button.setVisible(true);
 			lblInfoText.setForeground(Constants.COLOR_SUCCESS);
 			break;
 		default:

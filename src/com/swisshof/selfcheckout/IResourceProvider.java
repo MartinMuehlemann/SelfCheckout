@@ -15,6 +15,7 @@ public interface IResourceProvider {
 		SwisshofLogo,
 		Success,
 		Hourglass,
+		Warning,
 		Failure
 	}
 	

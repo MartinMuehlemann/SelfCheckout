@@ -6,6 +6,7 @@ public class Constants {
 	public final static Color COLOR_BG = Color.WHITE;
 	public final static Color COLOR_SUCCESS = new Color(0x3bb54a);
 	public final static Color COLOR_FAILURE = new Color(0xea1919);
+	public final static Color COLOR_WARNING = new Color(0xffb400);
 	public final static Color COLOR_PROGRESS = Color.BLACK;
 	
 	public final static int ENTER_AMOUNT_SCREEN_TIMEOUT = 5000;//60000; // 60s
