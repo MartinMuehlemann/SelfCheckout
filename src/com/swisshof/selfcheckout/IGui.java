@@ -1,5 +1,6 @@
 package com.swisshof.selfcheckout;
 
+import com.swisshof.selfcheckout.gui.InfoPane.DisplayedButtons;
 import com.swisshof.selfcheckout.gui.InfoPane.InformationType;
 
 public interface IGui {
@@ -9,8 +10,8 @@ public interface IGui {
 	
 	public void showEntryAmountView();
 	public void showInfoView();
-	public void setInfoText(InformationType type, String infoText);
-	public void showInfoView(InformationType type, String infoText);
+	public void setInfoText(InformationType type, DisplayedButtons buttons, String infoText);
+	public void showInfoView(InformationType type, DisplayedButtons buttons, String infoText);
 	
 	public void enableBtnConfirm(boolean enable);
 

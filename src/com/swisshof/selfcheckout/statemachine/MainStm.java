@@ -15,8 +15,10 @@ public class MainStm extends StatemachineBase
 		TIMEOUT,
 		AMOUNT_CHANGED,
 		BTN_PAY,
-		BTN_CONFIRM,
+		BTN_OK,
 		BTN_ABORT,
+		BTN_YES,
+		BTN_NO,
 		
 		
 		CARD_INSERTED,

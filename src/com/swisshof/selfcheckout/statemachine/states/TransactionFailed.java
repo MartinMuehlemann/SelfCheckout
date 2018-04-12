@@ -1,6 +1,7 @@
 package com.swisshof.selfcheckout.statemachine.states;
 
 import com.swisshof.selfcheckout.Constants;
+import com.swisshof.selfcheckout.gui.InfoPane.DisplayedButtons;
 import com.swisshof.selfcheckout.gui.InfoPane.InformationType;
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.statemachine.generic.Event;
@@ -25,11 +26,11 @@ public class TransactionFailed extends State<MainStm, MainStm.Events> {
 			case TIMEOUT:
 				return owner.states.idle;
 				
-			case BTN_CONFIRM:
+			case BTN_OK:
 				return owner.states.idle;
 				
 			case CARD_REMOVED:
-				owner.context.getGui().setInfoText(InformationType.INFO_ERROR, owner.context.getString("info.transactionFailure"));
+				owner.context.getGui().setInfoText(InformationType.INFO_ERROR, DisplayedButtons.BTN_OK, owner.context.getString("info.transactionFailure"));
 				owner.context.getGui().enableBtnConfirm(true);
 				return null;
 				
@@ -47,10 +48,10 @@ public class TransactionFailed extends State<MainStm, MainStm.Events> {
 	@Override
 	public void entryAction() {
 		if (owner.context.getTerminal().isCardInserted() == true) {
-			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, owner.context.getString("info.transactionFailureCardInserted"));
+			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, DisplayedButtons.BTN_OK, owner.context.getString("info.transactionFailureCardInserted"));
 			owner.context.getGui().enableBtnConfirm(false);
 		} else {
-			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, owner.context.getString("info.transactionFailure"));
+			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, DisplayedButtons.BTN_OK, owner.context.getString("info.transactionFailure"));
 			owner.context.getGui().enableBtnConfirm(true);
 		}
 		
