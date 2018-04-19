@@ -1,9 +1,13 @@
 package com.swisshof.selfcheckout;
 
+import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import com.swisshof.selfcheckout.log.IReceiptsArchiver;
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.terminal.TerminalController;
 
@@ -19,6 +23,8 @@ public class SelfCheckoutContext {
 	
 	protected IResourceProvider resourceProvider = null;
 	
+	protected IReceiptsArchiver receiptsArchiver = null;
+	
 	public IResourceProvider getResourceProvider() {
 		return resourceProvider;
 	}
@@ -26,6 +32,16 @@ public class SelfCheckoutContext {
 
 	public void setResourceProvider(IResourceProvider resourceProvider) {
 		this.resourceProvider = resourceProvider;
+	}
+
+	
+	public IReceiptsArchiver getReceiptsArchiver() {
+		return receiptsArchiver;
+	}
+
+
+	public void setReceiptsArchiver(IReceiptsArchiver receiptsArchiver) {
+		this.receiptsArchiver = receiptsArchiver;
 	}
 
 
@@ -82,4 +98,8 @@ public class SelfCheckoutContext {
 		}
 	}
 	
+	
+	public Path getArchiveDestination() {
+		return Paths.get(System.getProperty("user.dir"), "archive");
+	}
 }

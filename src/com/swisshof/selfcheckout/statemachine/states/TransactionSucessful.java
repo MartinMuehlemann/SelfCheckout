@@ -1,7 +1,5 @@
 package com.swisshof.selfcheckout.statemachine.states;
 
-import java.util.logging.Logger;
-
 import com.swisshof.selfcheckout.Constants;
 import com.swisshof.selfcheckout.gui.InfoPane.DisplayedButtons;
 import com.swisshof.selfcheckout.gui.InfoPane.InformationType;
@@ -29,7 +27,6 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 			return owner.states.idle;
 		
 		case BTN_YES:
-			System.out.println("Beleg drucken");
 			return owner.states.idle;
 	
 		case BTN_NO:

@@ -11,6 +11,7 @@ import com.six.timapi.DeactivateResponse;
 import com.six.timapi.DefaultTerminalListener;
 import com.six.timapi.HardwareInformationResponse;
 import com.six.timapi.PrintData;
+import com.six.timapi.Receipt;
 import com.six.timapi.ReceiptRequestResponse;
 import com.six.timapi.ReconciliationResponse;
 import com.six.timapi.ShowDialogResponse;
@@ -21,6 +22,7 @@ import com.six.timapi.TerminalStatus;
 import com.six.timapi.TimEvent;
 import com.six.timapi.TimException;
 import com.six.timapi.TransactionResponse;
+import com.six.timapi.constants.Recipient;
 import com.six.timapi.constants.ResultCode;
 import com.six.timapi.constants.UpdateStatus;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
@@ -176,14 +178,24 @@ public class TerminalListener extends DefaultTerminalListener {
 
 	@Override
 	public void printReceipts(Terminal arg0, PrintData arg1) {
-		logger.info("Terminal: printReceipts");
+		logger.info("Terminal: printReceipts: " + arg1.toString());
 		super.printReceipts(arg0, arg1);
 	}
 
 	@Override
-	protected void processPrintReceipts(Terminal arg0, PrintData arg1) {
-		logger.info("Terminal: processPrintReceipts");
-		super.processPrintReceipts(arg0, arg1);
+	protected void processPrintReceipts(Terminal arg0, PrintData printData) {
+		if (printData != null) {
+			logger.info("Terminal: processPrintReceipts: "+ printData.toString());
+			for (Receipt r : printData.getReceipts()) {
+				if (r.getRecipient() == Recipient.MERCHANT) {
+					context.getReceiptsArchiver().writeReceiptInArchive(r.getValue());
+				} else if (r.getRecipient() == Recipient.CARDHOLDER) {
+					//TODO
+				}
+			}
+		}
+
+		super.processPrintReceipts(arg0, printData);
 	}
 
 	@Override
