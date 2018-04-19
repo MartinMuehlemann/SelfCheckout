@@ -190,7 +190,7 @@ public class TerminalListener extends DefaultTerminalListener {
 				if (r.getRecipient() == Recipient.MERCHANT) {
 					context.getReceiptsArchiver().writeReceiptInArchive(r.getValue());
 				} else if (r.getRecipient() == Recipient.CARDHOLDER) {
-					//TODO
+					context.getPrinter().storeReceipt(r.getValue());
 				}
 			}
 		}
