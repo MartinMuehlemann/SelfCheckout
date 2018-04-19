@@ -9,8 +9,11 @@ import com.swisshof.selfcheckout.printer.Printer;
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.terminal.TerminalController;
 
+import org.apache.logging.log4j.*;
+
 public class SelfCheckout {
 
+	public final static Logger logger = LogManager.getLogger(SelfCheckout.class.getName());
 
 	protected SelfCheckoutContext context;
 	protected MainStm mainStm;
@@ -31,6 +34,8 @@ public class SelfCheckout {
 
 	public SelfCheckout() {
 		super();
+		logger.info("Main", "strtup...");
+		
 		resourceProvider = new ResourceProvider();
 		context = new SelfCheckoutContext();
 		mainStm = new MainStm(context);
