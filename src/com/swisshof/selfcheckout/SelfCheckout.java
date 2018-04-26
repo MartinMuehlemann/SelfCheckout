@@ -4,6 +4,7 @@ package com.swisshof.selfcheckout;
 import com.swisshof.selfcheckout.gui.MainFrame;
 import com.swisshof.selfcheckout.log.IReceiptsArchiver;
 import com.swisshof.selfcheckout.log.ReceiptsArchiver;
+import com.swisshof.selfcheckout.log.TransactionLogger;
 import com.swisshof.selfcheckout.printer.IPrinter;
 import com.swisshof.selfcheckout.printer.Printer;
 import com.swisshof.selfcheckout.statemachine.MainStm;
@@ -25,6 +26,8 @@ public class SelfCheckout {
 	
 	protected ReceiptsArchiver receipsArchiver;
 	
+	protected TransactionLogger transactionLogger;
+	
 	protected Printer printer;
 	
 	public static void main(String[] args) {
@@ -34,16 +37,18 @@ public class SelfCheckout {
 
 	public SelfCheckout() {
 		super();
-		logger.info("Main", "strtup...");
+		logger.info("Startup");
 		
 		resourceProvider = new ResourceProvider();
 		context = new SelfCheckoutContext();
 		mainStm = new MainStm(context);
 		receipsArchiver = new ReceiptsArchiver(context);
+		transactionLogger = new TransactionLogger();
 		printer = new Printer();
 		
 		context.setMainStm(mainStm);
 		context.setReceiptsArchiver(receipsArchiver);
+		context.setTransactionLogger(transactionLogger);
 		context.setPrinter(printer);
 		
 		terminalController = new TerminalController(context);

@@ -317,6 +317,7 @@ public class TerminalListener extends DefaultTerminalListener {
 
 		if (evt.getException() == null) {
 			if (transactionReponse != null) {
+				context.getTransactionLogger().logTransactionSucessfol(transactionReponse.getAmount().getDecimalValue());
 				context.getMainStm().processEvent(Events.TRANSACTION_SUCCESSFUL);
 			} else {
 				context.getMainStm().processEvent(Events.TRANSACTION_UNDEFINED_ERROR);

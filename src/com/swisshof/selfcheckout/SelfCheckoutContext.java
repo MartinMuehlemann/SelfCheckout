@@ -8,6 +8,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import com.swisshof.selfcheckout.log.IReceiptsArchiver;
+import com.swisshof.selfcheckout.log.ITransactionLogger;
 import com.swisshof.selfcheckout.printer.IPrinter;
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.terminal.TerminalController;
@@ -25,7 +26,10 @@ public class SelfCheckoutContext {
 	protected IResourceProvider resourceProvider = null;
 	
 	protected IReceiptsArchiver receiptsArchiver = null;
+	protected ITransactionLogger transactionLogger = null;
+
 	
+
 	protected IPrinter printer = null;
 	
 	public IPrinter getPrinter() {
@@ -55,6 +59,15 @@ public class SelfCheckoutContext {
 
 	public void setReceiptsArchiver(IReceiptsArchiver receiptsArchiver) {
 		this.receiptsArchiver = receiptsArchiver;
+	}
+
+	public ITransactionLogger getTransactionLogger() {
+		return transactionLogger;
+	}
+
+
+	public void setTransactionLogger(ITransactionLogger transactionLogger) {
+		this.transactionLogger = transactionLogger;
 	}
 
 
