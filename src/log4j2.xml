@@ -5,9 +5,33 @@
       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
   </Appenders>
+  <Appenders>
+    <Console name="TransactionConsole" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS},%msg%n"/>
+    </Console>
+    <Console name="TransactionConsole" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS},%msg%n"/>
+    </Console>
+    
+    
+    <RollingFile name="RollingAppender">
+       <param name="File" value="app.log" />
+       <param name="DatePattern" value="'.'yyyy-MM-dd" />
+       <layout class="org.apache.log4j.PatternLayout">
+          <param name="ConversionPattern" value="[%p] %d %c %M - %m%n"/>          
+       </layout>
+    </RollingFile>
+    
+  </Appenders>
   <Loggers>
     <Root level="trace">
       <AppenderRef ref="Console"/>
+      <AppenderRef ref="RollingAppender"/>
+      
     </Root>
+      <Logger name="TRANSACTION" level="trace" additivity="false">
+      <AppenderRef ref="TransactionConsole">
+      </AppenderRef>
+    </Logger>
   </Loggers>
 </Configuration>
