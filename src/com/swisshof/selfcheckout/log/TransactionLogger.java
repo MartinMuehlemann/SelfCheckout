@@ -13,7 +13,7 @@ public class TransactionLogger implements ITransactionLogger{
 	
 	@Override
 	public void logTransactionSucessfol(double amount) {
-		logger.info("Transaction successful CHF{}", amount); 
+		logger.info("Transaction successful CHF {}", amount); 
 	}
 
 }
