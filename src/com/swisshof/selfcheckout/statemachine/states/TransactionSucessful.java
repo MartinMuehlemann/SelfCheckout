@@ -25,7 +25,10 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 		switch(evt.getEvent()) {
 		case TIMEOUT:
 			return owner.states.idle;
-		
+	
+		case BTN_OK:
+			return owner.states.idle;
+			
 		case BTN_YES:
 			return owner.states.idle;
 	
@@ -33,7 +36,8 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 			return owner.states.idle;
 
 		case CARD_REMOVED:
-			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getString("info.transactionSuccess"));
+//			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getString("info.transactionSuccess"));
+			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_OK, owner.context.getString("info.transactionSuccess"));
 			owner.context.getGui().enableBtnConfirm(true);
 			return null;
 			
@@ -51,10 +55,12 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 	@Override
 	public void entryAction() {
 		if (owner.context.getTerminal().isCardInserted() == true) {
-			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getString("info.transactionSuccessCardInserted"));
+			//owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getString("info.transactionSuccessCardInserted"));
+			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_OK, owner.context.getString("info.transactionSuccessCardInserted"));
 			owner.context.getGui().enableBtnConfirm(false);
 		} else {
-			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getString("info.transactionSuccess"));
+			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_OK, owner.context.getString("info.transactionSuccess"));
+//			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getString("info.transactionSuccess"));
 			owner.context.getGui().enableBtnConfirm(true);
 		}
 		
