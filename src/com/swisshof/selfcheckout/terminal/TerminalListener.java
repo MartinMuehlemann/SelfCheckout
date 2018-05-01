@@ -1,6 +1,6 @@
 package com.swisshof.selfcheckout.terminal;
 
-import java.util.logging.Logger;
+import org.apache.logging.log4j.*;
 
 import com.six.timapi.ActivateResponse;
 import com.six.timapi.BalanceInquiryResponse;
@@ -23,13 +23,12 @@ import com.six.timapi.TimEvent;
 import com.six.timapi.TimException;
 import com.six.timapi.TransactionResponse;
 import com.six.timapi.constants.Recipient;
-import com.six.timapi.constants.ResultCode;
 import com.six.timapi.constants.UpdateStatus;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
 import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 
 public class TerminalListener extends DefaultTerminalListener {
-	private static Logger logger = Logger.getLogger("EFT");
+	protected Logger logger = LogManager.getLogger("TERMINAL");
 	protected SelfCheckoutContext context;
 	
 	
@@ -40,7 +39,7 @@ public class TerminalListener extends DefaultTerminalListener {
 	
 	@Override
 	public void activateCompleted(TimEvent arg0, ActivateResponse arg1) {
-		logger.info("Terminal: activateCompleted");
+		logger.info("Terminal: activateCompleted: " + arg1.toString());
 		super.activateCompleted(arg0, arg1);
 	}
 
@@ -57,15 +56,15 @@ public class TerminalListener extends DefaultTerminalListener {
 	}
 
 	@Override
-	public void balanceCompleted(TimEvent arg0, BalanceResponse arg1) {
-		logger.info("Terminal: balanceCompleted");
-		super.balanceCompleted(arg0, arg1);
+	public void balanceCompleted(TimEvent arg0, BalanceResponse data) {
+		logger.info("Terminal: balanceCompleted: " + data.toString());
+		super.balanceCompleted(arg0, data);
 	}
 
 	@Override
-	public void balanceInquiryCompleted(TimEvent arg0, BalanceInquiryResponse arg1) {
-		logger.info("Terminal: balanceInquiryCompleted");
-		super.balanceInquiryCompleted(arg0, arg1);
+	public void balanceInquiryCompleted(TimEvent arg0, BalanceInquiryResponse data) {
+		logger.info("Terminal: balanceInquiryCompleted: " + data.toString());
+		super.balanceInquiryCompleted(arg0, data);
 	}
 
 	@Override
@@ -177,9 +176,9 @@ public class TerminalListener extends DefaultTerminalListener {
 	}
 
 	@Override
-	public void printReceipts(Terminal arg0, PrintData arg1) {
-		logger.info("Terminal: printReceipts: " + arg1.toString());
-		super.printReceipts(arg0, arg1);
+	public void printReceipts(Terminal arg0, PrintData printData) {
+		logger.info("Terminal: printReceipts: " + printData.toString());
+		super.printReceipts(arg0, printData);
 	}
 
 	@Override

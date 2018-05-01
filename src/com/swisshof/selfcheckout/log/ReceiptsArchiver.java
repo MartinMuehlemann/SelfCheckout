@@ -7,12 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.*;
 
 import com.swisshof.selfcheckout.SelfCheckoutContext;
 
 public class ReceiptsArchiver implements IReceiptsArchiver {
-	protected static Logger logger = Logger.getLogger("ReceiptsArchiver");
+	protected Logger logger = LogManager.getLogger(getClass().getName());
 
 	protected SelfCheckoutContext context = null;
 
@@ -38,7 +39,7 @@ public class ReceiptsArchiver implements IReceiptsArchiver {
 			pw = new PrintWriter(path.toFile());
 			pw.print(receiptText);
 		}catch (IOException ioe) {
-			logger.severe("Write receipt failed:" + ioe.getMessage());
+			logger.error("Write receipt failed:" + ioe.getMessage());
 		}finally {
 			if (pw != null) {
 				pw.close();

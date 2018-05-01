@@ -3,17 +3,18 @@ package com.swisshof.selfcheckout;
 import java.awt.Font;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
+
+import org.apache.logging.log4j.*;
+
 
 public class ResourceProvider implements IResourceProvider {
 	
 	private final static String RESOURCE_BASE_PACKAGE = "res/";
 
 	
-	private static Logger logger = Logger.getLogger("RES");
-
+	protected Logger logger = LogManager.getLogger(getClass().getName());
 	
 	protected ImageIcon images[] = new ImageIcon[ImageIdentifier.values().length];
 	protected Font font[] = new Font[FontIdentifier.values().length];
@@ -32,7 +33,7 @@ public class ResourceProvider implements IResourceProvider {
 			return images[id.ordinal()];
 
 		} catch  (Exception e) {
-			logger.severe("Exception while loading image " + id.name() + ": " + e.getMessage());
+			logger.error("Exception while loading image " + id.name() + ": " + e.getMessage());
 			return null; // TODO create defaukt icon
 		}	
 	}
@@ -53,7 +54,7 @@ public class ResourceProvider implements IResourceProvider {
 			return font[id.ordinal()];
 
 		} catch  (Exception e) {
-			logger.severe("Exception while loading font: " + e.getMessage());
+			logger.error("Exception while loading font: " + e.getMessage());
 			font[id.ordinal()] = new Font("Arial", Font.BOLD, 12);
 		}
 

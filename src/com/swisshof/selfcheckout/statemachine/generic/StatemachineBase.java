@@ -1,13 +1,13 @@
 package com.swisshof.selfcheckout.statemachine.generic;
 
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class StatemachineBase {
 	@SuppressWarnings("rawtypes")
 	protected State currentState = null;
-	
-	protected static Logger logger = Logger.getLogger("STM");
-	
+
+	protected Logger logger = LogManager.getLogger(getClass().getName());
 	protected StatemachineBase() {
 		currentState = null;
 	}
