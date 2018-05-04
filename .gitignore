@@ -2,3 +2,4 @@
 *.log
 /archive/
 /timapi-3.4.0-58.jar
+/logging/
