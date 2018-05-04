@@ -29,7 +29,7 @@
   <Loggers>
     <Root level="trace">
       <AppenderRef ref="Console"/>
-      <AppenderRef ref="RollingFile"/>
+      <AppenderRef ref="DaylyLogFile"/>
       
     </Root>
       <Logger name="TRANSACTION" level="trace" additivity="false">
