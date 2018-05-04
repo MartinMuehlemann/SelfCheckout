@@ -21,14 +21,21 @@ public class ReceiptsArchiver implements IReceiptsArchiver {
 		this.context = context;
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.swisshof.selfcheckout.log.IReceiptsArchiver#writeReceiptInArchive(java.lang.String)
-	 */
 	@Override
 	public void writeReceiptInArchive(String receiptText) {
+		Path path = Paths.get(context.getArchiveDestination().toString(), buildReceiptFileName());		
+		writeReceipt(receiptText, path);
+	}
+	
+	@Override
+	public void writeBalanceReceiptInArchive(String receiptText) {
+		Path path = Paths.get(context.getArchiveDestination().toString(), buildDailyClosingFileName());
+		writeReceipt(receiptText, path);
+	}
+	
+	protected void writeReceipt(String receiptText, Path path) {
 		PrintWriter pw = null;
 		try {
-			Path path = Paths.get(context.getArchiveDestination().toString(), buildReceiptFileName());
 			File dir = path.getParent().toFile();
 			
 			// create directory
@@ -51,6 +58,12 @@ public class ReceiptsArchiver implements IReceiptsArchiver {
 	{
 		String timestamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date(System.currentTimeMillis()));
 		return timestamp + "_Receipt.txt";
+	}
+	
+	protected String buildDailyClosingFileName()
+	{
+		String timestamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date(System.currentTimeMillis()));
+		return timestamp + "_DailyClosing.txt";
 	}
 	
 }

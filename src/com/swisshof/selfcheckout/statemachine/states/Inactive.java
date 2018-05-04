@@ -39,6 +39,8 @@ public class Inactive extends State<MainStm, MainStm.Events>
 	public void entryAction() {
 		owner.context.setGotoInactiveRequested(false);
 		owner.context.getGui().showSystemInactiveView();
+
+		owner.context.getTerminal().startBalance();
 	}
 
 	@Override

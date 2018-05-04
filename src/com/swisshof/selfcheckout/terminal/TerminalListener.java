@@ -57,7 +57,17 @@ public class TerminalListener extends DefaultTerminalListener {
 
 	@Override
 	public void balanceCompleted(TimEvent arg0, BalanceResponse data) {
+		if (data != null) {
 		logger.info("Terminal: balanceCompleted: " + data.toString());
+			for (Receipt r : data.getPrintData().getReceipts()) {
+				if (r.getRecipient() == Recipient.MERCHANT) {
+					context.getReceiptsArchiver().writeBalanceReceiptInArchive(r.getValue());
+				}
+			}
+		} else {
+			logger.info("Terminal: balanceCompleted: ");
+		}
+		
 		super.balanceCompleted(arg0, data);
 	}
 

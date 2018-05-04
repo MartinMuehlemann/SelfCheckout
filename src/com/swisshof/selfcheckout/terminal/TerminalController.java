@@ -59,6 +59,7 @@ public class TerminalController {
 	public void startPayment()
 	{
 		try {
+			logger.info("Start transaction: amount: {}", context.getCurrentAmount());
 			terminal.transactionAsync(TransactionType.PURCHASE, new Amount(context.getCurrentAmount(), Currency.CHF));
 		} catch (TimException te) {
 			logger.info("Transaction failed, exception: " + te.toString());		
@@ -68,6 +69,7 @@ public class TerminalController {
 	
 	public void abortTransaction() {
 		try {
+			logger.info("Cancel transaction");
 			terminal.cancel();
 		} catch (TimException te) {
 			logger.info("Abort Transaction failed, exception: " + te.toString());		
@@ -79,4 +81,14 @@ public class TerminalController {
 		CardReaderStatus crs = terminal.getTerminalStatus().getCardReaderStatus();
 		return (crs == CardReaderStatus.CARD_INSERTED);
 	}
+	
+	public void startBalance() {
+		try {
+			logger.info("Start balance...");
+			terminal.balanceAsync();
+		} catch (TimException te) {
+			logger.info("Balance failed, exception: " + te.toString());		
+		}
+	}
+	
 }
