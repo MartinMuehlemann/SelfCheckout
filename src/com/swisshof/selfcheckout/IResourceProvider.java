@@ -13,6 +13,7 @@ public interface IResourceProvider {
 	
 	public enum ImageIdentifier {
 		SwisshofLogo,
+		SwisshofLogoBig,
 		Success,
 		Hourglass,
 		Warning,

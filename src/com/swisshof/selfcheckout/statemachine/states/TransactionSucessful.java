@@ -24,16 +24,14 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 	public State<MainStm, MainStm.Events> processEvent(Event<MainStm.Events> evt) {
 		switch(evt.getEvent()) {
 		case TIMEOUT:
-			return owner.states.idle;
-	
-		case BTN_OK:
-			return owner.states.idle;
-			
+		case BTN_OK:			
 		case BTN_YES:
-			return owner.states.idle;
-	
 		case BTN_NO:
-			return owner.states.idle;
+			if (owner.context.isGotoInactiveRequested() == true) {
+				return owner.states.inactive;
+			} else {
+				return owner.states.idle;
+			}
 
 		case CARD_REMOVED:
 //			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getString("info.transactionSuccess"));
@@ -44,6 +42,14 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 		case CARD_INSERTED:
 			//TODO: go to TransactionInProgress state?
 			break;
+		
+		case GOTO_INACTIVE:
+			owner.context.setGotoInactiveRequested(true);
+			return null;
+			
+		case WAKEUP:
+			owner.context.setGotoInactiveRequested(false);
+			return null;
 			
 		default:
 			break;

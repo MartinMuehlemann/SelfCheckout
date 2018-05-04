@@ -65,6 +65,8 @@ public class ResourceProvider implements IResourceProvider {
 		switch (id) {
 			case SwisshofLogo:
 				return RESOURCE_BASE_PACKAGE + "Logo_154x100.jpg";
+			case SwisshofLogoBig:
+				return RESOURCE_BASE_PACKAGE + "Logo_422x472.jpg";				
 			case Success:
 				return RESOURCE_BASE_PACKAGE + "success.png";
 			case Hourglass:

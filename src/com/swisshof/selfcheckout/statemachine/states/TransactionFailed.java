@@ -23,11 +23,13 @@ public class TransactionFailed extends State<MainStm, MainStm.Events> {
 	@Override
 	public State<MainStm, MainStm.Events> processEvent(Event<MainStm.Events> evt) {
 			switch(evt.getEvent()) {
-			case TIMEOUT:
-				return owner.states.idle;
-				
+			case TIMEOUT:			
 			case BTN_OK:
-				return owner.states.idle;
+				if (owner.context.isGotoInactiveRequested() == true) {
+					return owner.states.inactive;
+				} else {
+					return owner.states.idle;
+				}
 				
 			case CARD_REMOVED:
 				owner.context.getGui().setInfoText(InformationType.INFO_ERROR, DisplayedButtons.BTN_OK, owner.context.getString("info.transactionFailure"));
@@ -37,6 +39,14 @@ public class TransactionFailed extends State<MainStm, MainStm.Events> {
 			case CARD_INSERTED:
 				//TODO: go to TransactionInProgress state?
 				break;
+				
+			case GOTO_INACTIVE:
+				owner.context.setGotoInactiveRequested(true);
+				return null;
+				
+			case WAKEUP:
+				owner.context.setGotoInactiveRequested(false);
+				return null;
 				
 			default:
 				break;

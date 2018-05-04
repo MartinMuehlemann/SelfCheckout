@@ -4,10 +4,10 @@ import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.statemachine.generic.Event;
 import com.swisshof.selfcheckout.statemachine.generic.State;
 
-public class Idle extends State<MainStm, MainStm.Events>
+public class Inactive extends State<MainStm, MainStm.Events>
 {
 
-	public Idle(MainStm stateMachine) {
+	public Inactive(MainStm stateMachine) {
 		super(stateMachine);
 
 	}
@@ -15,7 +15,7 @@ public class Idle extends State<MainStm, MainStm.Events>
 
 	@Override
 	public String toString() {
-		return "IDLE";
+		return "INACTIVE";
 	}
 
 	
@@ -24,21 +24,9 @@ public class Idle extends State<MainStm, MainStm.Events>
 
 		
 		switch (evt.getEvent()) {
-			case AMOUNT_CHANGED:
-				if(owner.context.getCurrentAmount() > 0.0) {
-					return(owner.states.enteringAmount);
-				}
-				break;
-				
-			case GOTO_INACTIVE:
-				owner.context.setGotoInactiveRequested(true);
-				
-				return owner.states.inactive;
-				
 			case WAKEUP:
-				owner.context.setGotoInactiveRequested(false);
-				return null;
-				
+				return owner.states.idle;
+	
 			default:
 				break;
 
@@ -49,9 +37,8 @@ public class Idle extends State<MainStm, MainStm.Events>
 
 	@Override
 	public void entryAction() {
-		owner.context.getGui().enableKeyBlock(true);
-		owner.context.getGui().showEntryAmountView();
-		owner.context.getPrinter().clear();
+		owner.context.setGotoInactiveRequested(false);
+		owner.context.getGui().showSystemInactiveView();
 	}
 
 	@Override

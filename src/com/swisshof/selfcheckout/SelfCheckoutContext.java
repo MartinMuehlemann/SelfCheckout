@@ -28,7 +28,7 @@ public class SelfCheckoutContext {
 	protected IReceiptsArchiver receiptsArchiver = null;
 	protected ITransactionLogger transactionLogger = null;
 
-	
+	protected boolean gotoInactiveRequested = false;
 
 	protected IPrinter printer = null;
 	
@@ -78,6 +78,16 @@ public class SelfCheckoutContext {
 
 	public void setMainStm(MainStm mainStm) {
 		this.mainStm = mainStm;
+	}
+
+
+	public boolean isGotoInactiveRequested() {
+		return gotoInactiveRequested;
+	}
+
+
+	public void setGotoInactiveRequested(boolean gotoInactiveRequested) {
+		this.gotoInactiveRequested = gotoInactiveRequested;
 	}
 
 

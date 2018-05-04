@@ -38,6 +38,14 @@ public class TransactionInProgress extends State<MainStm, MainStm.Events> {
 			case TRANSACTION_CONNECTION_ERROR:
 			case TRANSACTION_UNDEFINED_ERROR:
 				return owner.states.transactionFailed;
+			
+			case GOTO_INACTIVE:
+				owner.context.setGotoInactiveRequested(true);
+				return null;
+				
+			case WAKEUP:
+				owner.context.setGotoInactiveRequested(false);
+				return null;
 				
 			default:
 				break;

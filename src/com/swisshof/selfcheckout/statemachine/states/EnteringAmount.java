@@ -37,6 +37,14 @@ public class EnteringAmount extends State<MainStm, MainStm.Events>
 			case BTN_PAY:
 				return (owner.states.transactionInProgress);
 	
+			case GOTO_INACTIVE:
+				owner.context.setGotoInactiveRequested(true);
+				return null;
+				
+			case WAKEUP:
+				owner.context.setGotoInactiveRequested(false);
+				return null;
+				
 			default:
 				return null;
 

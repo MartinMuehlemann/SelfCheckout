@@ -22,13 +22,14 @@ public class MainFrame implements IGui
 	protected JFrame frame;
 	protected AmountEntryPane amountEntryPane = null;
 	protected InfoPane infoPane = null;
-
+	protected SystemInactivePane systemInactivePane = null;
 	
 	public MainFrame(SelfCheckoutContext context)
 	{
 		this.context = context;
 		amountEntryPane = new AmountEntryPane(context);
 		infoPane = new InfoPane(context);
+		systemInactivePane = new SystemInactivePane(context);
 	}
 	
 	
@@ -55,6 +56,11 @@ public class MainFrame implements IGui
 		amountEntryPane.reset();
 		frame.setContentPane(amountEntryPane);
 		frame.pack();
+	}
+	
+	public void showSystemInactiveView() {
+		frame.setContentPane(systemInactivePane);
+		frame.pack();		
 	}
 	
 	public void showInfoView()
@@ -102,5 +108,8 @@ public class MainFrame implements IGui
 	public void enableBtnConfirm(boolean enable) {
 		infoPane.enableBtnConfirm(enable);
 	}
+
+
+
 	
 }
