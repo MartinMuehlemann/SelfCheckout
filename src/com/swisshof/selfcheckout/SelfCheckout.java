@@ -88,13 +88,15 @@ public class SelfCheckout {
 			    .build();
 		
 		CronTrigger eveningTrigger = TriggerBuilder.newTrigger()
-			    .withIdentity("trigger1", "group1")
-			    .withSchedule(CronScheduleBuilder.cronSchedule("50 * * * * ?"))
+			    .withIdentity("evening-trigger", "group1")
+			    //                                              s m h 
+			    .withSchedule(CronScheduleBuilder.cronSchedule("* 30 22 * * ?"))
 			    .build();
 		
 		CronTrigger morningTrigger = TriggerBuilder.newTrigger()
-			    .withIdentity("trigger2", "group1")
-			    .withSchedule(CronScheduleBuilder.cronSchedule("10 * * * * ?"))
+			    .withIdentity("morning-trigger", "group1")
+			    //                                              s m h 
+			    .withSchedule(CronScheduleBuilder.cronSchedule("* * 6 * * ?"))
 			    .build();
 
 
