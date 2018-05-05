@@ -15,7 +15,7 @@ public class MainFrame implements IGui
 	protected static final int DISPLAY_SIZE_X = 1280;
 	protected static final int DISPLAY_SIZE_Y = 800;
 	
-	protected static boolean debugging = true;
+	protected static boolean debugging = false;
 	
 
 	protected SelfCheckoutContext context = null;
