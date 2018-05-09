@@ -1,6 +1,10 @@
 package com.swisshof.selfcheckout.gui;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
@@ -15,7 +19,7 @@ public class MainFrame implements IGui
 	protected static final int DISPLAY_SIZE_X = 1280;
 	protected static final int DISPLAY_SIZE_Y = 800;
 	
-	protected static boolean debugging = false;
+	protected static boolean debugging = true;
 	
 
 	protected SelfCheckoutContext context = null;
@@ -101,6 +105,20 @@ public class MainFrame implements IGui
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
+		
+		if (debugging == false) {
+			// Transparent 16 x 16 pixel cursor image.
+			BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+	
+			// Create a new blank cursor.
+			Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+	
+			// Set the blank cursor to each JFrame.
+			amountEntryPane.setCursor(blankCursor);
+			infoPane.setCursor(blankCursor);
+			systemInactivePane.setCursor(blankCursor);
+			
+		}
 		
 		showAmountEntryPane();
 	}
