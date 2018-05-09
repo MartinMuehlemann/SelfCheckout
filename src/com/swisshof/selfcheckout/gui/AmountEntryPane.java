@@ -70,7 +70,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 
 		numericBlock = new NumericBlock(context, this);
 
-		btnPay = new JButton(context.getString("btn.pay")); 
+		btnPay = new JButton(context.getResourceProvider().getString("btn.pay")); 
 		btnPay.setFont(fontButtons);
 		btnPay.setEnabled(false);
 		btnPay.setBackground(Constants.COLOR_BG);
@@ -171,7 +171,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 	}
 	
 	protected String getWizardString(String key) {
-		return "<html><center>" + context.getString(key) + "</center></html>";
+		return "<html><center>" + context.getResourceProvider().getString(key) + "</center></html>";
 	}
 
 }

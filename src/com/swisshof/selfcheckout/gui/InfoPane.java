@@ -168,7 +168,7 @@ public class InfoPane extends JPanel {
 		
 		switch(displayedButtons) {
 			case BTN_ABORT:
-				btn1.setText(context.getString("infopane.btn.abort"));
+				btn1.setText(context.getResourceProvider().getString("infopane.btn.abort"));
 				break;
 			case BTN_NONE:
 				btn1.setVisible(false);
@@ -176,13 +176,13 @@ public class InfoPane extends JPanel {
 				break;
 				
 			case BTN_OK:
-				btn1.setText(context.getString("infopane.btn.ok"));
+				btn1.setText(context.getResourceProvider().getString("infopane.btn.ok"));
 				btn1.setVisible(true);
 				btn2.setVisible(false);
 				break;
 			case BTN_YES_NO:
-				btn1.setText(context.getString("infopane.btn.yes"));
-				btn2.setText(context.getString("infopane.btn.no"));
+				btn1.setText(context.getResourceProvider().getString("infopane.btn.yes"));
+				btn2.setText(context.getResourceProvider().getString("infopane.btn.no"));
 				btn1.setVisible(true);
 				btn2.setVisible(true);
 				break;

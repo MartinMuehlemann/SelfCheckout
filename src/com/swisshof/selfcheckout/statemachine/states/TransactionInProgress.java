@@ -57,7 +57,7 @@ public class TransactionInProgress extends State<MainStm, MainStm.Events> {
 
 	@Override
 	public void entryAction() {
-		owner.context.getGui().showInfoView(InformationType.INFO_PROGRESS, DisplayedButtons.BTN_ABORT, owner.context.getString("info.transactionInProgress"));
+		owner.context.getGui().showInfoView(InformationType.INFO_PROGRESS, DisplayedButtons.BTN_ABORT, owner.context.getResourceProvider().getString("info.transactionInProgress"));
 		owner.context.getTerminal().startPayment();
 		
 	}

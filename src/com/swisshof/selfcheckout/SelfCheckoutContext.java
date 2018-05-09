@@ -21,7 +21,6 @@ public class SelfCheckoutContext {
 	private MainStm mainStm = null;
 	protected IGui gui = null;
 	protected TerminalController terminal = null;
-	protected ResourceBundle strings = null;
 	
 	protected IResourceProvider resourceProvider = null;
 	
@@ -93,10 +92,7 @@ public class SelfCheckoutContext {
 
 	public SelfCheckoutContext() {
 		currentAmount = 0.0;
-		
-		Locale locale = new Locale("de", "CH");
-		strings = ResourceBundle.getBundle("res.Strings", locale);
-		
+		gotoInactiveRequested = false;
 	}
 		
 	public double getCurrentAmount() {
@@ -124,17 +120,7 @@ public class SelfCheckoutContext {
 	public void setTerminal(TerminalController terminal) {
 		this.terminal = terminal;
 	}
-	
-	public String getString(String key)
-	{
-		try {
-			return strings.getString(key);
-		} catch (MissingResourceException e) {
-			return key;
-		}
-	}
-	
-	
+		
 	public Path getArchiveDestination() {
 		return Paths.get(System.getProperty("user.dir"), "archive");
 	}

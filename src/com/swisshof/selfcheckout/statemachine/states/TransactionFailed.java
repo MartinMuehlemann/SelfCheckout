@@ -32,7 +32,7 @@ public class TransactionFailed extends State<MainStm, MainStm.Events> {
 				}
 				
 			case CARD_REMOVED:
-				owner.context.getGui().setInfoText(InformationType.INFO_ERROR, DisplayedButtons.BTN_OK, owner.context.getString("info.transactionFailure"));
+				owner.context.getGui().setInfoText(InformationType.INFO_ERROR, DisplayedButtons.BTN_OK, owner.context.getResourceProvider().getString("info.transactionFailure"));
 				owner.context.getGui().enableBtnConfirm(true);
 				return null;
 				
@@ -58,10 +58,10 @@ public class TransactionFailed extends State<MainStm, MainStm.Events> {
 	@Override
 	public void entryAction() {
 		if (owner.context.getTerminal().isCardInserted() == true) {
-			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, DisplayedButtons.BTN_OK, owner.context.getString("info.transactionFailureCardInserted"));
+			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, DisplayedButtons.BTN_OK, owner.context.getResourceProvider().getString("info.transactionFailureCardInserted"));
 			owner.context.getGui().enableBtnConfirm(false);
 		} else {
-			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, DisplayedButtons.BTN_OK, owner.context.getString("info.transactionFailure"));
+			owner.context.getGui().setInfoText(InformationType.INFO_ERROR, DisplayedButtons.BTN_OK, owner.context.getResourceProvider().getString("info.transactionFailure"));
 			owner.context.getGui().enableBtnConfirm(true);
 		}
 		

@@ -3,6 +3,9 @@ package com.swisshof.selfcheckout;
 import java.awt.Font;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 
@@ -18,6 +21,14 @@ public class ResourceProvider implements IResourceProvider {
 	
 	protected ImageIcon images[] = new ImageIcon[ImageIdentifier.values().length];
 	protected Font font[] = new Font[FontIdentifier.values().length];
+	
+	protected ResourceBundle strings = null;
+
+	public ResourceProvider() {
+		Locale locale = new Locale("de", "CH");
+		strings = ResourceBundle.getBundle("res.Strings", locale);
+	}
+
 	
 	/* (non-Javadoc)
 	 * @see com.swisshof.selfcheckout.IResourceProvider#getSwisshofLogo()
@@ -59,6 +70,15 @@ public class ResourceProvider implements IResourceProvider {
 		}
 
 		return font[id.ordinal()];
+	}
+	
+	public String getString(String key)
+	{
+		try {
+			return strings.getString(key);
+		} catch (MissingResourceException e) {
+			return key;
+		}
 	}
 	
 	protected String getImagePath(ImageIdentifier id) throws Exception {

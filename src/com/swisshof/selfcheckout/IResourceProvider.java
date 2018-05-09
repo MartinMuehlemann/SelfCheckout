@@ -24,5 +24,7 @@ public interface IResourceProvider {
 	public ImageIcon getImage(ImageIdentifier id);
 
 	public Font getFont(FontIdentifier id);
+	
+	public String getString(String key);
 
 }
