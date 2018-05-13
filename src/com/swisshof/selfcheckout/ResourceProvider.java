@@ -23,10 +23,12 @@ public class ResourceProvider implements IResourceProvider {
 	protected Font font[] = new Font[FontIdentifier.values().length];
 	
 	protected ResourceBundle strings = null;
+	protected ResourceBundle config = null;
 
 	public ResourceProvider() {
 		Locale locale = new Locale("de", "CH");
 		strings = ResourceBundle.getBundle("res.Strings", locale);
+		config = ResourceBundle.getBundle("config");
 	}
 
 	
@@ -78,6 +80,22 @@ public class ResourceProvider implements IResourceProvider {
 			return strings.getString(key);
 		} catch (MissingResourceException e) {
 			return key;
+		}
+	}
+	
+	public String getConfigParameterAsString(String key) {
+		try {
+			return config.getString(key);
+		} catch (MissingResourceException e) {
+			return key;
+		}
+	}
+	
+	public int getConfigParameterAsInt(String key) {
+		try {
+			return Integer.getInteger(config.getString(key));
+		} catch (NumberFormatException e) {
+			throw e;
 		}
 	}
 	

@@ -26,5 +26,8 @@ public interface IResourceProvider {
 	public Font getFont(FontIdentifier id);
 	
 	public String getString(String key);
+	
+	public int getConfigParameterAsInt(String key);
+	public String getConfigParameterAsString(String key);
 
 }

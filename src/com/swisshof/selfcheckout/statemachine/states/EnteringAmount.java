@@ -30,7 +30,8 @@ public class EnteringAmount extends State<MainStm, MainStm.Events>
 					return (owner.states.idle);
 				} else {
 					// restart timeout
-					startTimeout(Constants.ENTER_AMOUNT_SCREEN_TIMEOUT, MainStm.Events.TIMEOUT);
+					int timeout = owner.context.getResourceProvider().getConfigParameterAsInt("enter_amount_screen_timeout");
+					startTimeout(timeout, MainStm.Events.TIMEOUT);
 					return null;
 				}
 
@@ -54,8 +55,8 @@ public class EnteringAmount extends State<MainStm, MainStm.Events>
 	@Override
 	public void entryAction() {
 		owner.context.getGui().enableBtnPay(true);
-		
-		startTimeout(Constants.ENTER_AMOUNT_SCREEN_TIMEOUT, MainStm.Events.TIMEOUT);
+		int timeout = owner.context.getResourceProvider().getConfigParameterAsInt("enter_amount_screen_timeout");
+		startTimeout(timeout, MainStm.Events.TIMEOUT);
 	}
 
 	@Override
