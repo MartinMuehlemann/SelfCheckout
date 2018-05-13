@@ -1,10 +1,15 @@
 package com.swisshof.selfcheckout;
 
 import java.awt.Font;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.MissingResourceException;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
@@ -23,12 +28,35 @@ public class ResourceProvider implements IResourceProvider {
 	protected Font font[] = new Font[FontIdentifier.values().length];
 	
 	protected ResourceBundle strings = null;
-	protected ResourceBundle config = null;
+	protected Properties config = null;
 
 	public ResourceProvider() {
 		Locale locale = new Locale("de", "CH");
 		strings = ResourceBundle.getBundle("res.Strings", locale);
-		config = ResourceBundle.getBundle("config");
+
+		config = new Properties();
+		InputStream input = null;
+
+		try {
+			Path configFilepath = Paths.get(System.getProperty("user.dir"), "config.properties");
+			input = new FileInputStream(configFilepath.toFile());
+
+			
+			// load a properties file
+			config.load(input);
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 
 	
@@ -85,7 +113,15 @@ public class ResourceProvider implements IResourceProvider {
 	
 	public String getConfigParameterAsString(String key) {
 		try {
-			return config.getString(key);
+			return config.getProperty(key, "");
+		} catch (MissingResourceException e) {
+			return key;
+		}
+	}
+	
+	public String getConfigParameterAsString(String key, String defaultValue) {
+		try {
+			return config.getProperty(key, defaultValue);
 		} catch (MissingResourceException e) {
 			return key;
 		}
@@ -93,7 +129,17 @@ public class ResourceProvider implements IResourceProvider {
 	
 	public int getConfigParameterAsInt(String key) {
 		try {
-			return Integer.getInteger(config.getString(key));
+			String str = config.getProperty(key, "0");
+			return Integer.parseInt(str);
+		} catch (NumberFormatException e) {
+			throw e;
+		}
+	}
+	
+	public int getConfigParameterAsInt(String key, int defaultValue) {
+		try {
+			String str = config.getProperty(key, String.valueOf(defaultValue));
+			return Integer.parseInt(str);
 		} catch (NumberFormatException e) {
 			throw e;
 		}

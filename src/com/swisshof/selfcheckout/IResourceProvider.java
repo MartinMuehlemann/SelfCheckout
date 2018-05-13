@@ -28,6 +28,8 @@ public interface IResourceProvider {
 	public String getString(String key);
 	
 	public int getConfigParameterAsInt(String key);
+	public int getConfigParameterAsInt(String key, int defaultValue);
 	public String getConfigParameterAsString(String key);
+	public String getConfigParameterAsString(String key, String defaultValue);
 
 }
