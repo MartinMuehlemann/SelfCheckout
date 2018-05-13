@@ -70,7 +70,8 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 			owner.context.getGui().enableBtnConfirm(true);
 		}
 		
-		startTimeout(Constants.SCCESS_SCREEN_TIMEOUT, MainStm.Events.TIMEOUT);
+		int timeout = owner.context.getResourceProvider().getConfigParameterAsInt("ui.success_screen_timeout", Constants.SUCCESS_SCREEN_DEFAULT_TIMEOUT);
+		startTimeout(timeout, MainStm.Events.TIMEOUT);
 	}
 
 	@Override

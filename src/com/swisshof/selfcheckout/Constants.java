@@ -9,8 +9,9 @@ public class Constants {
 	public final static Color COLOR_WARNING = new Color(0xffb400);
 	public final static Color COLOR_PROGRESS = Color.BLACK;
 	
-	public final static int SCCESS_SCREEN_TIMEOUT = 30000; // 30s
-	public final static int FAILURE_SCREEN_TIMEOUT = 30000; // 30s
+	public final static int ENTER_AMOUNT_SCREEN_DEFAULT_TIMEOUT = 60000; // 60s
+	public final static int SUCCESS_SCREEN_DEFAULT_TIMEOUT = 30000; // 30s
+	public final static int FAILURE_SCREEN_DEFAULT_TIMEOUT = 30000; // 30s
 	
 
 }

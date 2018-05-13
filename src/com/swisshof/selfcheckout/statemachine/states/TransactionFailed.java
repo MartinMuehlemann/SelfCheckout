@@ -65,7 +65,8 @@ public class TransactionFailed extends State<MainStm, MainStm.Events> {
 			owner.context.getGui().enableBtnConfirm(true);
 		}
 		
-		startTimeout(Constants.FAILURE_SCREEN_TIMEOUT, MainStm.Events.TIMEOUT);
+		int timeout = owner.context.getResourceProvider().getConfigParameterAsInt("ui.failure_screen_timeout", Constants.FAILURE_SCREEN_DEFAULT_TIMEOUT);
+		startTimeout(timeout, MainStm.Events.TIMEOUT);
 	}
 
 	@Override
