@@ -145,6 +145,26 @@ public class ResourceProvider implements IResourceProvider {
 		}
 	}
 	
+	public boolean getConfigParameterAsBoolean(String key, boolean defaultValue)
+	{
+		try {
+			String str = config.getProperty(key, String.valueOf(defaultValue));
+			if (str.toLowerCase().equals("true"))
+			{
+				return true;
+			}
+
+			if (str.equals("1"))
+			{
+				return true;
+			}
+			
+			return false;
+		} catch (NumberFormatException e) {
+			throw e;
+		}
+	}
+	
 	protected String getImagePath(ImageIdentifier id) throws Exception {
 		switch (id) {
 			case SwisshofLogo:

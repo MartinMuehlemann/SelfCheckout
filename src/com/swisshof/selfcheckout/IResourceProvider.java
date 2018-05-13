@@ -31,5 +31,5 @@ public interface IResourceProvider {
 	public int getConfigParameterAsInt(String key, int defaultValue);
 	public String getConfigParameterAsString(String key);
 	public String getConfigParameterAsString(String key, String defaultValue);
-
+	public boolean getConfigParameterAsBoolean(String key, boolean defaultValue);
 }

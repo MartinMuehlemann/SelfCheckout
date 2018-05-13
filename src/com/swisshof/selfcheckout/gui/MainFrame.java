@@ -19,7 +19,7 @@ public class MainFrame implements IGui
 	protected static final int DISPLAY_SIZE_X = 1280;
 	protected static final int DISPLAY_SIZE_Y = 800;
 	
-	protected static boolean debugging = true;
+	protected static boolean debugging = false;
 	
 
 	protected SelfCheckoutContext context = null;
@@ -31,6 +31,9 @@ public class MainFrame implements IGui
 	public MainFrame(SelfCheckoutContext context)
 	{
 		this.context = context;
+		
+		debugging = context.getResourceProvider().getConfigParameterAsBoolean("ui.debugging", false);
+		
 		amountEntryPane = new AmountEntryPane(context);
 		infoPane = new InfoPane(context);
 		systemInactivePane = new SystemInactivePane(context);
