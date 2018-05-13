@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry excluding="src/|libs/quartz-2.2.3/|libs/apache-log4j-2.11.0-bin/" kind="src" path=""/>
 	<classpathentry kind="src" path="libs/quartz-2.2.3"/>
 	<classpathentry kind="src" path="libs/apache-log4j-2.11.0-bin"/>
 	<classpathentry exported="true" kind="lib" path="timapi-3.4.0-58.jar"/>
@@ -14,5 +13,7 @@
 	<classpathentry exported="true" kind="lib" path="libs/quartz-2.2.3/slf4j-api-1.7.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/quartz-2.2.3/slf4j-log4j12-1.7.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/quartz-2.2.3/log4j-1.2.16.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/dropbox-core-sdk-3.0.7/lib/jackson-core-2.7.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/dropbox-core-sdk-3.0.7/dropbox-core-sdk-3.0.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
