@@ -327,7 +327,7 @@ public class TerminalListener extends DefaultTerminalListener {
 		if (evt.getException() == null) {
 			if (transactionReponse != null) {
 				context.getMainStm().processEvent(Events.TRANSACTION_SUCCESSFUL);
-				context.getTransactionLogger().logTransactionSucessful(transactionReponse.getAmount().getDecimalValue(), transactionReponse.getCardData().getBrandName(), 0.0);
+				context.getTransactionLogger().logTransactionSucessful(transactionReponse.getAmount().getDecimalValue(), transactionReponse.getCardData().getBrandName());
 			} else {
 				context.getMainStm().processEvent(Events.TRANSACTION_UNDEFINED_ERROR);
 			}

@@ -10,9 +10,9 @@ public class TransactionLogger implements ITransactionLogger{
 
 	
 	@Override
-	public void logTransactionSucessful(double amount, String brandName, double daySaldo)
+	public void logTransactionSucessful(double amount, String brandName)
 	{
-		logger.info(String.format("Transaction successful, CHF %.2f, %s, Saldo CHF %.2f", amount, brandName, daySaldo)); 
+		logger.info(String.format("Transaction successful, %s, CHF %.2f", brandName, amount)); 
 	}
 
 }
