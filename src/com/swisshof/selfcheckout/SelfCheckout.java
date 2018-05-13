@@ -2,8 +2,9 @@ package com.swisshof.selfcheckout;
 
 
 import com.swisshof.selfcheckout.gui.MainFrame;
+import com.swisshof.selfcheckout.log.DropboxReceiptsArchiver;
 import com.swisshof.selfcheckout.log.IReceiptsArchiver;
-import com.swisshof.selfcheckout.log.ReceiptsArchiver;
+import com.swisshof.selfcheckout.log.ITransactionLogger;
 import com.swisshof.selfcheckout.log.TransactionLogger;
 import com.swisshof.selfcheckout.printer.IPrinter;
 import com.swisshof.selfcheckout.printer.Printer;
@@ -11,6 +12,7 @@ import com.swisshof.selfcheckout.scheduler.EveningJob;
 import com.swisshof.selfcheckout.scheduler.MorningJob;
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.terminal.TerminalController;
+
 
 import org.apache.logging.log4j.*;
 
@@ -33,13 +35,13 @@ public class SelfCheckout {
 	
 	protected TerminalController terminalController;
 	
-	protected ResourceProvider resourceProvider;
+	protected IResourceProvider resourceProvider;
 	
-	protected ReceiptsArchiver receipsArchiver;
+	protected IReceiptsArchiver receipsArchiver;
 	
-	protected TransactionLogger transactionLogger;
+	protected ITransactionLogger transactionLogger;
 	
-	protected Printer printer;
+	protected IPrinter printer;
 	
 	
 	
@@ -55,7 +57,7 @@ public class SelfCheckout {
 		resourceProvider = new ResourceProvider();
 		context = new SelfCheckoutContext();
 		mainStm = new MainStm(context);
-		receipsArchiver = new ReceiptsArchiver(context);
+		receipsArchiver = new DropboxReceiptsArchiver(context, resourceProvider.getConfigParameterAsString("dropbox_access_token"));
 		transactionLogger = new TransactionLogger();
 		printer = new Printer();
 		

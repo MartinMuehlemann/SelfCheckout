@@ -120,8 +120,5 @@ public class SelfCheckoutContext {
 	public void setTerminal(TerminalController terminal) {
 		this.terminal = terminal;
 	}
-		
-	public Path getArchiveDestination() {
-		return Paths.get(System.getProperty("user.dir"), "archive");
-	}
+
 }

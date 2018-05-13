@@ -23,13 +23,13 @@ public class ReceiptsArchiver implements IReceiptsArchiver {
 	
 	@Override
 	public void writeReceiptInArchive(String receiptText) {
-		Path path = Paths.get(context.getArchiveDestination().toString(), buildReceiptFileName());		
+		Path path = Paths.get(context.getResourceProvider().getConfigParameterAsString("log.archive_destination"), buildReceiptFileName());		
 		writeReceipt(receiptText, path);
 	}
 	
 	@Override
 	public void writeBalanceReceiptInArchive(String receiptText) {
-		Path path = Paths.get(context.getArchiveDestination().toString(), buildDailyClosingFileName());
+		Path path = Paths.get(context.getResourceProvider().getConfigParameterAsString("log.archive_destination"), buildDailyClosingFileName());
 		writeReceipt(receiptText, path);
 	}
 	
