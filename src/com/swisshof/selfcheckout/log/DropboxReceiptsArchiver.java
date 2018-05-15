@@ -35,13 +35,15 @@ public class DropboxReceiptsArchiver implements IReceiptsArchiver {
 	
 	@Override
 	public void writeReceiptInArchive(String receiptText) {
-		String path = context.getResourceProvider().getConfigParameterAsString("log.archive_destination") + "/" + buildReceiptFileName();		
+		Date timeStamp = new Date(System.currentTimeMillis());
+		String path = getReceiptPath(timeStamp) + "/" + buildReceiptFileName(timeStamp);			
 		writeReceipt(receiptText, path);
 	}
 	
 	@Override
 	public void writeBalanceReceiptInArchive(String receiptText) {
-		String path = context.getResourceProvider().getConfigParameterAsString("log.archive_destination") + "/" + buildDailyClosingFileName();
+		Date timeStamp = new Date(System.currentTimeMillis());
+		String path = getReceiptPath(timeStamp) + "/" + buildDailyClosingFileName(timeStamp);
 		writeReceipt(receiptText, path);
 	}
 	
@@ -74,15 +76,23 @@ public class DropboxReceiptsArchiver implements IReceiptsArchiver {
 		
 	}
 	
-	protected String buildReceiptFileName()
+	protected String getReceiptPath(Date timeStamp) {
+		return context.getResourceProvider().getConfigParameterAsString("log.archive_destination") + "/" +
+				 new SimpleDateFormat("yyyy").format(timeStamp) + "/" +
+				 new SimpleDateFormat("MM").format(timeStamp) + "/" +
+				 new SimpleDateFormat("yyyy_MM_dd").format(timeStamp);
+	}
+	
+	
+	protected String buildReceiptFileName(Date timeStamp)
 	{
-		String timestamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date(System.currentTimeMillis()));
+		String timestamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(timeStamp);
 		return timestamp + "_Receipt.txt";
 	}
 	
-	protected String buildDailyClosingFileName()
+	protected String buildDailyClosingFileName(Date timeStamp)
 	{
-		String timestamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date(System.currentTimeMillis()));
+		String timestamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(timeStamp);
 		return timestamp + "_DailyClosing.txt";
 	}
 
