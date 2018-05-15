@@ -30,7 +30,7 @@ public class EnteringAmount extends State<MainStm, MainStm.Events>
 					return (owner.states.idle);
 				} else {
 					// restart timeout
-					int timeout = owner.context.getResourceProvider().getConfigParameterAsInt("enter_amount_screen_timeout");
+					int timeout = owner.context.getResourceProvider().getConfigParameterAsInt("enter_amount_screen_timeout", Constants.ENTER_AMOUNT_SCREEN_DEFAULT_TIMEOUT);
 					startTimeout(timeout, MainStm.Events.TIMEOUT);
 					return null;
 				}
