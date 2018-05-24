@@ -16,5 +16,5 @@ public interface IGui {
 	
 	public void enableBtnConfirm(boolean enable);
 
-	
+	public void notifyTerminalRequestDone(boolean success, String details);
 }

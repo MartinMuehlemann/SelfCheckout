@@ -130,6 +130,11 @@ public class MainFrame implements IGui
 		infoPane.enableBtnConfirm(enable);
 	}
 
+	@Override
+	public void notifyTerminalRequestDone(boolean success, String details) {
+		//TODO
+	}
+
 
 
 	
