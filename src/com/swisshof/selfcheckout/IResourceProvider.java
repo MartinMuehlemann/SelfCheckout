@@ -29,7 +29,10 @@ public interface IResourceProvider {
 	
 	public int getConfigParameterAsInt(String key);
 	public int getConfigParameterAsInt(String key, int defaultValue);
+	public double getConfigParameterAsDouble(String key, double defaultValue);
 	public String getConfigParameterAsString(String key);
 	public String getConfigParameterAsString(String key, String defaultValue);
 	public boolean getConfigParameterAsBoolean(String key, boolean defaultValue);
+	
+	public boolean isConfigParameterExists(String key);
 }

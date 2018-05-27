@@ -26,6 +26,7 @@ public interface IGui {
 	public void setInfoText(InformationType type, DisplayedButtons buttons, String infoText);
 	public void showInfoView(InformationType type, DisplayedButtons buttons, String infoText);
 	public void showSystemInactiveView();
+	public void showServiceModeView();
 	
 	public void enableBtnConfirm(boolean enable);
 
