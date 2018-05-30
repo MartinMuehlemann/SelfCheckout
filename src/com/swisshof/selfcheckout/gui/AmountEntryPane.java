@@ -3,6 +3,7 @@ package com.swisshof.selfcheckout.gui;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -48,6 +49,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		fontUserInfo = baseFontRegular.deriveFont(Font.PLAIN, 36);
 		fontCurrency = baseFontRegular.deriveFont(Font.PLAIN, 50);		
 		fontButtons = baseFontBold.deriveFont(Font.BOLD, 100);
+		Font fontVersionString = baseFontRegular.deriveFont(Font.PLAIN, 10);
 		
 		GridBagLayout gbl = new GridBagLayout();
 		setLayout(gbl);
@@ -137,6 +139,14 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lc.fill = GridBagConstraints.NONE;
 		lc.anchor = GridBagConstraints.CENTER;
 		add(btnPay, lc);
+		
+		JLabel lblVersion = new JLabel(context.getResourceProvider().getString("servicepanel.fw_version"));
+		lblVersion.setFont(fontVersionString);
+		lc.gridy++;
+		lc.gridx = 0;
+		lc.anchor = GridBagConstraints.WEST;
+		lc.insets = new Insets(0, 10, 10, 0);
+		add(lblVersion, lc);
 	}
 
 	public void reset() {
