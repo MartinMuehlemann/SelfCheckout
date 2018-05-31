@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -86,6 +88,41 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		});
 
 		JLabel lblSwisshofLogo = new JLabel(context.getResourceProvider().getImage(ImageIdentifier.SwisshofLogo));
+		
+		lblSwisshofLogo.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(context.getResourceProvider().isConfigParameterExists("servicemode.password"))
+				{
+					if (numericBlock.getAmount() == context.getResourceProvider().getConfigParameterAsDouble("servicemode.password", 0.0)) {
+						context.getMainStm().processEvent(Events.GOTO_SERVICEMODE);
+					}
+						
+				}
+			}
+		});
 		
 		
 		GridBagConstraints lc = new GridBagConstraints();

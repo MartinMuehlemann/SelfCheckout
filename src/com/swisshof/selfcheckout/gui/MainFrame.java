@@ -23,6 +23,7 @@ public class MainFrame implements IGui
 	protected AmountEntryPane amountEntryPane = null;
 	protected InfoPane infoPane = null;
 	protected SystemInactivePane systemInactivePane = null;
+	protected ServiceModePane serviceModePane = null;
 	
 	public MainFrame(SelfCheckoutContext context)
 	{
@@ -33,6 +34,7 @@ public class MainFrame implements IGui
 		amountEntryPane = new AmountEntryPane(context);
 		infoPane = new InfoPane(context);
 		systemInactivePane = new SystemInactivePane(context);
+		serviceModePane = new ServiceModePane(context);
 	}
 	
 	
@@ -66,6 +68,10 @@ public class MainFrame implements IGui
 		frame.pack();		
 	}
 	
+	public void showServiceModeView() {
+		frame.setContentPane(serviceModePane);
+		frame.pack();		
+	}	
 	public void showInfoView()
 	{
 		frame.setContentPane(infoPane);
@@ -128,7 +134,7 @@ public class MainFrame implements IGui
 
 	@Override
 	public void notifyTerminalRequestDone(boolean success, String details) {
-		//TODO
+		serviceModePane.notifyTerminalRequestDone(success, details);
 	}
 
 
