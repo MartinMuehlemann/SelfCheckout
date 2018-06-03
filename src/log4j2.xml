@@ -14,7 +14,7 @@
     
     
 <RollingFile name="DaylyLogFile">
-  <FileName>logging/mylog.log</FileName>
+  <FileName>logging/log.log</FileName>
   <FilePattern>logging/%d{yyyy-MM-dd}.log.zip</FilePattern>
   <PatternLayout>
     <Pattern>%d{yyyy-MM-dd HH:mm:ss a} %-5level %logger{36} - %msg%n</Pattern>
@@ -27,7 +27,7 @@
 
 <RollingFile name="DaylyTransactionLogFile">
   <FileName>logging/Transactions.log</FileName>
-  <FilePattern>logging/%d{yyyy-MM-dd}.log.zip</FilePattern>
+  <FilePattern>logging/Transactions_%d{yyyy-MM-dd}.log.zip</FilePattern>
   <PatternLayout>
     <Pattern>%d{yyyy-MM-dd HH:mm:ss} %msg%n</Pattern>
   </PatternLayout>
