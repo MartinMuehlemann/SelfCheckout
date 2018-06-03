@@ -145,6 +145,16 @@ public class ResourceProvider implements IResourceProvider {
 		}
 	}
 	
+	public double getConfigParameterAsDouble(String key, double defaultValue)
+	{
+		try {
+			String str = config.getProperty(key, String.valueOf(defaultValue));
+			return Double.parseDouble(str);
+		} catch (NumberFormatException e) {
+			throw e;
+		}
+	}
+	
 	public boolean getConfigParameterAsBoolean(String key, boolean defaultValue)
 	{
 		try {
@@ -163,6 +173,15 @@ public class ResourceProvider implements IResourceProvider {
 		} catch (NumberFormatException e) {
 			throw e;
 		}
+	}
+	
+	public boolean isConfigParameterExists(String key)
+	{
+		if (config.getProperty(key) != null)
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	protected String getImagePath(ImageIdentifier id) throws Exception {

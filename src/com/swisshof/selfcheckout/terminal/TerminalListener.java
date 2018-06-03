@@ -28,6 +28,8 @@ import com.swisshof.selfcheckout.SelfCheckoutContext;
 import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 
 public class TerminalListener extends DefaultTerminalListener {
+	
+	
 	protected Logger logger = LogManager.getLogger("TERMINAL");
 	protected SelfCheckoutContext context;
 	
@@ -58,7 +60,8 @@ public class TerminalListener extends DefaultTerminalListener {
 	@Override
 	public void balanceCompleted(TimEvent arg0, BalanceResponse data) {
 		if (data != null) {
-		logger.info("Terminal: balanceCompleted: " + data.toString());
+			logger.info("Terminal: balanceCompleted: " + data.toString());
+			context.getGui().notifyTerminalRequestDone(true, "Balance sucessful: " + data.toString());
 			for (Receipt r : data.getPrintData().getReceipts()) {
 				if (r.getRecipient() == Recipient.MERCHANT) {
 					context.getReceiptsArchiver().writeBalanceReceiptInArchive(r.getValue());
@@ -66,6 +69,8 @@ public class TerminalListener extends DefaultTerminalListener {
 			}
 		} else {
 			logger.info("Terminal: balanceCompleted: ");
+			context.getGui().notifyTerminalRequestDone(true, "Balance completed");
+
 		}
 		
 		super.balanceCompleted(arg0, data);
@@ -110,6 +115,7 @@ public class TerminalListener extends DefaultTerminalListener {
 	@Override
 	public void connectCompleted(TimEvent arg0) {
 		logger.info("Terminal: connectCompleted");
+		context.getGui().notifyTerminalRequestDone(true, "Connect completed");
 		super.connectCompleted(arg0);
 	}
 
@@ -134,6 +140,8 @@ public class TerminalListener extends DefaultTerminalListener {
 	@Override
 	public void disconnected(Terminal arg0, TimException arg1) {
 		logger.info("Terminal: disconnected");
+		
+		context.getGui().notifyTerminalRequestDone(true, "Disconnect sucessful");
 		super.disconnected(arg0, arg1);
 	}
 
@@ -216,6 +224,7 @@ public class TerminalListener extends DefaultTerminalListener {
 	@Override
 	public void rebootCompleted(TimEvent arg0) {
 		logger.info("Terminal: rebootCompleted");
+		context.getGui().notifyTerminalRequestDone(true, "Reboot completed");
 		super.rebootCompleted(arg0);
 	}
 

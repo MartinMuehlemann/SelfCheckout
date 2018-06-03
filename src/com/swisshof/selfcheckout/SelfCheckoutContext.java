@@ -1,12 +1,7 @@
 package com.swisshof.selfcheckout;
 
-import java.net.URI;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 
+import com.swisshof.selfcheckout.gui.IGui;
 import com.swisshof.selfcheckout.log.IReceiptsArchiver;
 import com.swisshof.selfcheckout.log.ITransactionLogger;
 import com.swisshof.selfcheckout.printer.IPrinter;

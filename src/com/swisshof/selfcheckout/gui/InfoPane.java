@@ -15,23 +15,12 @@ import com.swisshof.selfcheckout.Constants;
 import com.swisshof.selfcheckout.IResourceProvider.FontIdentifier;
 import com.swisshof.selfcheckout.IResourceProvider.ImageIdentifier;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
+import com.swisshof.selfcheckout.gui.IGui.DisplayedButtons;
+import com.swisshof.selfcheckout.gui.IGui.InformationType;
 import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 
 public class InfoPane extends JPanel {
 
-	public enum InformationType {
-		INFO_PROGRESS,
-		INFO_SUCCESS,
-		INFO_WARNING,
-		INFO_ERROR
-	}
-	
-	public enum DisplayedButtons {
-		BTN_OK,
-		BTN_ABORT,
-		BTN_YES_NO,
-		BTN_NONE
-	}
 	
 	protected SelfCheckoutContext context = null;
 	protected JLabel lblIcon;

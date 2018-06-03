@@ -8,11 +8,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
-
-import com.swisshof.selfcheckout.IGui;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
-import com.swisshof.selfcheckout.gui.InfoPane.DisplayedButtons;
-import com.swisshof.selfcheckout.gui.InfoPane.InformationType;
 
 public class MainFrame implements IGui
 {
@@ -27,6 +23,7 @@ public class MainFrame implements IGui
 	protected AmountEntryPane amountEntryPane = null;
 	protected InfoPane infoPane = null;
 	protected SystemInactivePane systemInactivePane = null;
+	protected ServiceModePane serviceModePane = null;
 	
 	public MainFrame(SelfCheckoutContext context)
 	{
@@ -37,6 +34,7 @@ public class MainFrame implements IGui
 		amountEntryPane = new AmountEntryPane(context);
 		infoPane = new InfoPane(context);
 		systemInactivePane = new SystemInactivePane(context);
+		serviceModePane = new ServiceModePane(context);
 	}
 	
 	
@@ -70,6 +68,10 @@ public class MainFrame implements IGui
 		frame.pack();		
 	}
 	
+	public void showServiceModeView() {
+		frame.setContentPane(serviceModePane);
+		frame.pack();		
+	}	
 	public void showInfoView()
 	{
 		frame.setContentPane(infoPane);
@@ -128,6 +130,11 @@ public class MainFrame implements IGui
 	
 	public void enableBtnConfirm(boolean enable) {
 		infoPane.enableBtnConfirm(enable);
+	}
+
+	@Override
+	public void notifyTerminalRequestDone(boolean success, String details) {
+		serviceModePane.notifyTerminalRequestDone(success, details);
 	}
 
 
