@@ -6,6 +6,7 @@ import com.swisshof.selfcheckout.statemachine.generic.StatemachineBase;
 import com.swisshof.selfcheckout.statemachine.states.EnteringAmount;
 import com.swisshof.selfcheckout.statemachine.states.Idle;
 import com.swisshof.selfcheckout.statemachine.states.Inactive;
+import com.swisshof.selfcheckout.statemachine.states.InvalidAmount;
 import com.swisshof.selfcheckout.statemachine.states.ServiceMode;
 import com.swisshof.selfcheckout.statemachine.states.TransactionFailed;
 import com.swisshof.selfcheckout.statemachine.states.TransactionInProgress;
@@ -52,6 +53,7 @@ public class MainStm extends StatemachineBase
 		public TransactionInProgress transactionInProgress;
 		public TransactionSucessful transactionSucessful;
 		public TransactionFailed transactionFailed;
+		public InvalidAmount invalidAmount;
 		public Inactive inactive;
 		public ServiceMode serviceMode;
 		
@@ -61,6 +63,7 @@ public class MainStm extends StatemachineBase
 			transactionInProgress = new TransactionInProgress(mainStm);
 			transactionSucessful = new TransactionSucessful(mainStm);
 			transactionFailed = new TransactionFailed(mainStm);
+			invalidAmount= new InvalidAmount(mainStm);
 			inactive = new Inactive(mainStm);
 			serviceMode = new ServiceMode(mainStm);
 			

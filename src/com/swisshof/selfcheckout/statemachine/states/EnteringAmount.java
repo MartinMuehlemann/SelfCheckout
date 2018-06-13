@@ -36,7 +36,11 @@ public class EnteringAmount extends State<MainStm, MainStm.Events>
 				}
 
 			case BTN_PAY:
-				return owner.states.transactionInProgress;
+				if (owner.context.getCurrentAmount() < owner.context.getResourceProvider().getConfigParameterAsDouble("minimum_amount_for_card", 0.0)) {
+					return owner.states.invalidAmount;
+				} else {
+					return owner.states.transactionInProgress;
+				}
 	
 			case GOTO_INACTIVE:
 				owner.context.setGotoInactiveRequested(true);
