@@ -27,7 +27,7 @@ public class EnteringAmount extends State<MainStm, MainStm.Events>
 			
 			case AMOUNT_CHANGED:
 				if (owner.context.getCurrentAmount() == 0.0) {
-					return (owner.states.idle);
+					return owner.states.idle;
 				} else {
 					// restart timeout
 					int timeout = owner.context.getResourceProvider().getConfigParameterAsInt("enter_amount_screen_timeout", Constants.ENTER_AMOUNT_SCREEN_DEFAULT_TIMEOUT);
@@ -36,7 +36,11 @@ public class EnteringAmount extends State<MainStm, MainStm.Events>
 				}
 
 			case BTN_PAY:
-				return (owner.states.transactionInProgress);
+				if (owner.context.getCurrentAmount() < owner.context.getResourceProvider().getConfigParameterAsDouble("minimum_amount_for_card", 0.0)) {
+					return owner.states.invalidAmount;
+				} else {
+					return owner.states.transactionInProgress;
+				}
 	
 			case GOTO_INACTIVE:
 				owner.context.setGotoInactiveRequested(true);
@@ -45,6 +49,9 @@ public class EnteringAmount extends State<MainStm, MainStm.Events>
 			case WAKEUP:
 				owner.context.setGotoInactiveRequested(false);
 				return null;
+				
+			case GOTO_SERVICEMODE:
+				return owner.states.serviceMode;
 				
 			default:
 				return null;

@@ -84,11 +84,49 @@ public class TerminalController {
 	
 	public void startBalance() {
 		try {
-			logger.info("Start balance...");
+			logger.info("Start Balance...");
 			terminal.balanceAsync();
 		} catch (TimException te) {
 			logger.info("Balance failed, exception: " + te.toString());		
 		}
 	}
 	
+	public void startDeactivate() {
+		try {
+			logger.info("Start Deactivate...");
+			terminal.deactivateAsync();
+		} catch (TimException te) {
+			logger.info("Deactivate failed, exception: " + te.toString());		
+		}
+	}
+	
+	public void connect()
+	{
+		try {
+			logger.info("Connect...");
+			terminal.connect();
+		} catch (TimException te) {
+			logger.info("Connect failed, exception: " + te.toString());		
+		}
+	}
+	
+	public void disconnect()
+	{
+		try {
+			logger.info("Disconnect...");
+			terminal.disconnect();
+		} catch (TimException te) {
+			logger.info("Disconnect failed, exception: " + te.toString());		
+		}
+	}
+
+	public void reboot()
+	{
+		try {
+			logger.info("Start Reboot...");
+			terminal.rebootAsync();
+		} catch (TimException te) {
+			logger.info("Reboot failed, exception: " + te.toString());		
+		}
+	}
 }

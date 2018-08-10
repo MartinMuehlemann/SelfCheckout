@@ -1,8 +1,9 @@
 package com.swisshof.selfcheckout.statemachine.states;
 
 import com.swisshof.selfcheckout.Constants;
-import com.swisshof.selfcheckout.gui.InfoPane.DisplayedButtons;
-import com.swisshof.selfcheckout.gui.InfoPane.InformationType;
+import com.swisshof.selfcheckout.gui.IGui;
+import com.swisshof.selfcheckout.gui.IGui.DisplayedButtons;
+import com.swisshof.selfcheckout.gui.IGui.InformationType;
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.statemachine.generic.Event;
 import com.swisshof.selfcheckout.statemachine.generic.State;
@@ -34,8 +35,8 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 			}
 
 		case CARD_REMOVED:
-//			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getResourceProvider().getString("info.transactionSuccess"));
-			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_OK, owner.context.getResourceProvider().getString("info.transactionSuccess"));
+//			owner.context.getGui().setInfoText(IGui.InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getResourceProvider().getString("info.transactionSuccess"));
+			owner.context.getGui().setInfoText(IGui.InformationType.INFO_SUCCESS, IGui.DisplayedButtons.BTN_OK, owner.context.getResourceProvider().getString("info.transactionSuccess"));
 			owner.context.getGui().enableBtnConfirm(true);
 			return null;
 			

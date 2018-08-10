@@ -1,7 +1,7 @@
 package com.swisshof.selfcheckout.statemachine.states;
 
-import com.swisshof.selfcheckout.gui.InfoPane.DisplayedButtons;
-import com.swisshof.selfcheckout.gui.InfoPane.InformationType;
+import com.swisshof.selfcheckout.gui.IGui.DisplayedButtons;
+import com.swisshof.selfcheckout.gui.IGui.InformationType;
 import com.swisshof.selfcheckout.statemachine.MainStm;
 import com.swisshof.selfcheckout.statemachine.generic.Event;
 import com.swisshof.selfcheckout.statemachine.generic.State;

@@ -12,6 +12,6 @@ public class Constants {
 	public final static int ENTER_AMOUNT_SCREEN_DEFAULT_TIMEOUT = 60000; // 60s
 	public final static int SUCCESS_SCREEN_DEFAULT_TIMEOUT = 30000; // 30s
 	public final static int FAILURE_SCREEN_DEFAULT_TIMEOUT = 30000; // 30s
-	
+	public final static int INVALID_AMOUNT_SCREEN_DEFAULT_TIMEOUT = 20000; // 20s
 
 }

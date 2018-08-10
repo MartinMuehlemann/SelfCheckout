@@ -6,6 +6,8 @@ import com.swisshof.selfcheckout.statemachine.generic.StatemachineBase;
 import com.swisshof.selfcheckout.statemachine.states.EnteringAmount;
 import com.swisshof.selfcheckout.statemachine.states.Idle;
 import com.swisshof.selfcheckout.statemachine.states.Inactive;
+import com.swisshof.selfcheckout.statemachine.states.InvalidAmount;
+import com.swisshof.selfcheckout.statemachine.states.ServiceMode;
 import com.swisshof.selfcheckout.statemachine.states.TransactionFailed;
 import com.swisshof.selfcheckout.statemachine.states.TransactionInProgress;
 import com.swisshof.selfcheckout.statemachine.states.TransactionSucessful;
@@ -16,12 +18,14 @@ public class MainStm extends StatemachineBase
 		TIMEOUT,
 		AMOUNT_CHANGED,
 		GOTO_INACTIVE,
+		GOTO_SERVICEMODE,
 		WAKEUP,
 		BTN_PAY,
 		BTN_OK,
 		BTN_ABORT,
 		BTN_YES,
 		BTN_NO,
+		BTN_EXIT,
 		
 		
 		CARD_INSERTED,
@@ -49,7 +53,9 @@ public class MainStm extends StatemachineBase
 		public TransactionInProgress transactionInProgress;
 		public TransactionSucessful transactionSucessful;
 		public TransactionFailed transactionFailed;
+		public InvalidAmount invalidAmount;
 		public Inactive inactive;
+		public ServiceMode serviceMode;
 		
 		public States(MainStm mainStm)  {
 			idle = new Idle(mainStm);
@@ -57,7 +63,10 @@ public class MainStm extends StatemachineBase
 			transactionInProgress = new TransactionInProgress(mainStm);
 			transactionSucessful = new TransactionSucessful(mainStm);
 			transactionFailed = new TransactionFailed(mainStm);
+			invalidAmount= new InvalidAmount(mainStm);
 			inactive = new Inactive(mainStm);
+			serviceMode = new ServiceMode(mainStm);
+			
 		}		
 	}
 
