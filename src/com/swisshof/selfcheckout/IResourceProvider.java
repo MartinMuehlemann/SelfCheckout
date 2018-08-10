@@ -27,6 +27,8 @@ public interface IResourceProvider {
 	
 	public String getString(String key);
 	
+	public void setLanguage(String language, String country);
+	
 	public int getConfigParameterAsInt(String key);
 	public int getConfigParameterAsInt(String key, int defaultValue);
 	public double getConfigParameterAsDouble(String key, double defaultValue);

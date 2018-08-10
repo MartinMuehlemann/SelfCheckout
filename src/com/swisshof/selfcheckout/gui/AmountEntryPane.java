@@ -20,9 +20,10 @@ import com.swisshof.selfcheckout.SelfCheckoutContext;
 import com.swisshof.selfcheckout.Constants;
 import com.swisshof.selfcheckout.IResourceProvider.FontIdentifier;
 import com.swisshof.selfcheckout.IResourceProvider.ImageIdentifier;
+import com.swisshof.selfcheckout.gui.LanguageSelector.ILanguageChanged;
 import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 
-public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChanged
+public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChanged, ILanguageChanged
 {
 
 	private static final long serialVersionUID = 1L;
@@ -31,6 +32,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 	protected JLabel lblUserInfo = null;
 	protected JButton btnPay = null;
 	protected NumericBlock numericBlock = null;
+	protected LanguageSelector languageSelector = null;
 	
 	protected Font fontPayAmountField = null;
 	protected Font fontUserInfo = null;
@@ -73,6 +75,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lblUserInfo.setHorizontalAlignment(SwingConstants.CENTER);
 
 		numericBlock = new NumericBlock(context, this);
+		languageSelector = new LanguageSelector(context, this);
 
 		btnPay = new JButton(context.getResourceProvider().getString("btn.pay")); 
 		btnPay.setFont(fontButtons);
@@ -132,7 +135,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lc.gridy = 0;
 		
 		lc.gridwidth = 1;
-		lc.gridheight = 4;
+		lc.gridheight = 5;
 		lc.ipadx = 15;
 		lc.gridx = 0;
 
@@ -177,6 +180,15 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lc.anchor = GridBagConstraints.CENTER;
 		add(btnPay, lc);
 		
+		lc.gridy++;
+		lc.gridwidth = 2;
+		lc.weighty = 0.5;
+		lc.ipadx = 0;
+		lc.gridx = 1;
+		lc.fill = GridBagConstraints.NONE;
+		lc.anchor = GridBagConstraints.CENTER;
+		add(languageSelector, lc);
+		
 		JLabel lblVersion = new JLabel(context.getResourceProvider().getString("servicepanel.fw_version"));
 		lblVersion.setFont(fontVersionString);
 		lc.gridy++;
@@ -213,6 +225,15 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		context.getMainStm().processEvent(Events.AMOUNT_CHANGED);
 	}
 	
+	@Override
+	public void languageChanged(String language, String country) {
+		System.out.println("Language changed: " + language + " "+ country);
+		context.getResourceProvider().setLanguage(language, country);
+		
+		btnPay.setText(context.getResourceProvider().getString("btn.pay"));
+		lblUserInfo.setText(getWizardString("wizard.enter_amount"));
+	}
+	
 	protected String getCurrentAmountString() {
 		return String.format("%.2f", context.getCurrentAmount());
 	}
@@ -220,5 +241,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 	protected String getWizardString(String key) {
 		return "<html><center>" + context.getResourceProvider().getString(key) + "</center></html>";
 	}
+
+
 
 }

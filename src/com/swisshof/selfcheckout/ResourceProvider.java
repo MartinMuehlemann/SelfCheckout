@@ -31,8 +31,6 @@ public class ResourceProvider implements IResourceProvider {
 	protected Properties config = null;
 
 	public ResourceProvider() {
-		Locale locale = new Locale("de", "CH");
-		strings = ResourceBundle.getBundle("res.Strings", locale);
 
 		config = new Properties();
 		InputStream input = null;
@@ -56,6 +54,9 @@ public class ResourceProvider implements IResourceProvider {
 				}
 			}
 		}
+		
+		String[] defaultLanguage = getConfigParameterAsString("default_language", "de_CH").split("_");
+		setLanguage(defaultLanguage[0], defaultLanguage[1]);
 		
 	}
 
@@ -102,6 +103,7 @@ public class ResourceProvider implements IResourceProvider {
 		return font[id.ordinal()];
 	}
 	
+	
 	public String getString(String key)
 	{
 		try {
@@ -109,6 +111,13 @@ public class ResourceProvider implements IResourceProvider {
 		} catch (MissingResourceException e) {
 			return key;
 		}
+	}
+	
+	public void setLanguage(String language, String country)
+	{
+		Locale locale = new Locale(language, country);
+		strings = ResourceBundle.getBundle("res.Strings", locale);
+
 	}
 	
 	public String getConfigParameterAsString(String key) {
