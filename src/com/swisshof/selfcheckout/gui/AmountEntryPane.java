@@ -189,7 +189,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lc.anchor = GridBagConstraints.CENTER;
 		add(languageSelector, lc);
 		
-		JLabel lblVersion = new JLabel(context.getResourceProvider().getString("servicepanel.fw_version"));
+		JLabel lblVersion = new JLabel(context.getResourceProvider().getFirmwareVersion());
 		lblVersion.setFont(fontVersionString);
 		lc.gridy++;
 		lc.gridx = 0;

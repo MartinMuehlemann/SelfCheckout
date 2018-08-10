@@ -37,4 +37,5 @@ public interface IResourceProvider {
 	public boolean getConfigParameterAsBoolean(String key, boolean defaultValue);
 	
 	public boolean isConfigParameterExists(String key);
+	public String getFirmwareVersion();
 }

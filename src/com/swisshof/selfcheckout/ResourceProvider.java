@@ -20,6 +20,8 @@ import org.apache.logging.log4j.*;
 public class ResourceProvider implements IResourceProvider {
 	
 	private final static String RESOURCE_BASE_PACKAGE = "res/";
+	
+	private final static String FIRMWARE_VERSION = "V1.1";
 
 	
 	protected Logger logger = LogManager.getLogger(getClass().getName());
@@ -191,6 +193,11 @@ public class ResourceProvider implements IResourceProvider {
 			return true;
 		}
 		return false;
+	}
+	
+	public String getFirmwareVersion()
+	{
+		return FIRMWARE_VERSION;
 	}
 	
 	protected String getImagePath(ImageIdentifier id) throws Exception {
