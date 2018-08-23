@@ -12,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import com.swisshof.selfcheckout.SelfCheckoutContext;
@@ -101,7 +102,8 @@ public class ServiceModePane extends JPanel {
 		lc.insets = new Insets(10, 10, 10, 10);
 		lblResult = new JLabel("n/a");
 		lblResult.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(lblResult, lc);
+		JScrollPane scroller = new JScrollPane(lblResult, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		add(scroller, lc);
 		
 		lc.gridx = 0;		
 		lc.gridy = numCtrls + 1;
@@ -119,7 +121,19 @@ public class ServiceModePane extends JPanel {
 	}
 	
 	public void notifyTerminalRequestDone(boolean success, String details) {
-		lblResult.setText("<html><p>" + details + "</p></html>");
+
+		String strLabel = "<html><p>";
+		for (String l : details.split("\n"))
+		{
+			strLabel += l + "<br>";
+		}
+		
+		strLabel += "</p></html>";
+		lblResult.setText(strLabel);
+	}
+	
+	public void reset() {
+		lblResult.setText("n/a");
 	}
 	
 	private static final long serialVersionUID = 1L;

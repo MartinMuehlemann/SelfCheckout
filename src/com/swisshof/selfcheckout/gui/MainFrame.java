@@ -69,6 +69,7 @@ public class MainFrame implements IGui
 	}
 	
 	public void showServiceModeView() {
+		serviceModePane.reset();
 		frame.setContentPane(serviceModePane);
 		frame.pack();		
 	}	
