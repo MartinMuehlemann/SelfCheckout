@@ -66,9 +66,11 @@ public class NumericBlock extends JPanel {
 					} else {
 						queueAmountEntry.add(digit);
 						
+						queueAmountEntry = checkEntry();
+						
 						double amount = getAmount();
 						if(amount <= SelfCheckoutContext.MAX_AMOUNT) {
-							NumericBlock.this.amountChangedListener.amountEntryChanged(getAmount());
+							NumericBlock.this.amountChangedListener.amountEntryChanged(amount);
 						} else {
 							queueAmountEntry.remove(queueAmountEntry.size() - 1);
 						}
@@ -175,6 +177,52 @@ public class NumericBlock extends JPanel {
 		return amount;
 	}
 	
+	
+	public ArrayList<NumericBlockButton.Digit> checkEntry() {
+		ArrayList<NumericBlockButton.Digit> ret = new ArrayList<NumericBlockButton.Digit>();
+
+		AmountEnterState state = AmountEnterState.ENTER_DIGIT;
+		for (NumericBlockButton.Digit digit : queueAmountEntry) {
+			if (digit.isDigit()) {
+				switch(state) {
+					case ENTER_DIGIT:
+						ret.add(digit);
+						break;
+						
+					case ENTER_FRACTION_10:
+						ret.add(digit);
+						state = AmountEnterState.ENTER_FRACTION_100;
+						break;
+						
+					case ENTER_FRACTION_100:
+						if ((digit.getIntegerValue() == 0) ||
+								(digit.getIntegerValue() == 5))
+						{
+							ret.add(digit);
+						}
+						state = AmountEnterState.ENTER_FRACTION_END;
+						break;
+						
+					case ENTER_FRACTION_END:
+						// do not add it to the list of digits
+						break;
+						
+					default:
+							break;
+				}
+			} else if (digit.isDot()) {
+				state = AmountEnterState.ENTER_FRACTION_10;
+			} else if (digit.isClear()) {
+				// remove the last digit
+				if (ret.size() > 0) {
+					ret.remove(ret.size() - 1);
+				}
+			}
+		}
+
+		return ret;
+	}
+
 	
 	private static final long serialVersionUID = 1L;
 	
