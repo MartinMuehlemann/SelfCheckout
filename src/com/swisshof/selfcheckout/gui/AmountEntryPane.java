@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.swisshof.selfcheckout.SelfCheckoutContext;
+import com.dropbox.core.http.StandardHttpRequestor.Config;
 import com.swisshof.selfcheckout.Constants;
 import com.swisshof.selfcheckout.IResourceProvider.FontIdentifier;
 import com.swisshof.selfcheckout.IResourceProvider.ImageIdentifier;
@@ -187,7 +188,12 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lc.gridx = 1;
 		lc.fill = GridBagConstraints.NONE;
 		lc.anchor = GridBagConstraints.CENTER;
-		add(languageSelector, lc);
+		if(context.getResourceProvider().getConfigParameterAsBoolean("multilanguage_support", false) == true)
+		{
+			add(languageSelector, lc);
+		} else {
+			add(new JPanel());
+		}
 		
 		JLabel lblVersion = new JLabel(context.getResourceProvider().getFirmwareVersion());
 		lblVersion.setFont(fontVersionString);
