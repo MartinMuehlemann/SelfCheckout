@@ -214,6 +214,12 @@ public class ResourceProvider implements IResourceProvider {
 				return RESOURCE_BASE_PACKAGE + "warning.png";
 			case Failure:
 				return RESOURCE_BASE_PACKAGE + "failure.png";
+			case English:
+				return RESOURCE_BASE_PACKAGE + "english.jpg";
+			case French:
+				return RESOURCE_BASE_PACKAGE + "french.png";
+			case German:
+				return RESOURCE_BASE_PACKAGE + "german.png";
 			default:
 				throw new Exception("Unknwon image ID");
 		

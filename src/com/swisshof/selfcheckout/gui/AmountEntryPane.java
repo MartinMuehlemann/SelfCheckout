@@ -1,5 +1,6 @@
 package com.swisshof.selfcheckout.gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.swisshof.selfcheckout.SelfCheckoutContext;
-import com.dropbox.core.http.StandardHttpRequestor.Config;
 import com.swisshof.selfcheckout.Constants;
 import com.swisshof.selfcheckout.IResourceProvider.FontIdentifier;
 import com.swisshof.selfcheckout.IResourceProvider.ImageIdentifier;
@@ -77,6 +77,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 
 		numericBlock = new NumericBlock(context, this);
 		languageSelector = new LanguageSelector(context, this);
+		languageSelector.setBackground(Constants.COLOR_BG);
 
 		btnPay = new JButton(context.getResourceProvider().getString("btn.pay")); 
 		btnPay.setFont(fontButtons);
@@ -142,13 +143,34 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 
 		add(numericBlock, lc);
 		
+		lc.gridheight = 1;
 		lc.gridwidth = 2;
 		lc.gridx = 1;
+		lc.gridy = 0;	
+
+		lc.ipadx = 0;
+
+
 		lc.weightx = 2.0;
 		lc.weighty = 0.1;
 		lc.gridheight = 1;
 		lc.anchor = GridBagConstraints.NORTH;
 		add(lblSwisshofLogo, lc);
+		
+		lc.gridy++;
+		lc.fill = GridBagConstraints.BOTH;
+		lc.anchor = GridBagConstraints.CENTER;
+		lc.weightx = 2.0;
+		lc.weighty = 0.1;
+		if(context.getResourceProvider().getConfigParameterAsBoolean("multilanguage_support", false) == true)
+		{
+			languageSelector.setBackground(Color.RED);
+			add(languageSelector, lc);
+		} else {
+			JPanel placeholder = new JPanel();
+			placeholder.setBackground(Constants.COLOR_BG);
+			add(placeholder,lc);
+		}
 
 		lc.gridx = 1;
 		lc.weightx = 2.0;
@@ -176,24 +198,11 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lc.gridwidth = 2;
 		lc.weighty = 0.5;
 		lc.ipadx = 0;
+		//lc.ipady = 50;
 		lc.gridx = 1;
 		lc.fill = GridBagConstraints.NONE;
 		lc.anchor = GridBagConstraints.CENTER;
 		add(btnPay, lc);
-		
-		lc.gridy++;
-		lc.gridwidth = 2;
-		lc.weighty = 0.5;
-		lc.ipadx = 0;
-		lc.gridx = 1;
-		lc.fill = GridBagConstraints.NONE;
-		lc.anchor = GridBagConstraints.CENTER;
-		if(context.getResourceProvider().getConfigParameterAsBoolean("multilanguage_support", false) == true)
-		{
-			add(languageSelector, lc);
-		} else {
-			add(new JPanel());
-		}
 		
 		JLabel lblVersion = new JLabel(context.getResourceProvider().getFirmwareVersion());
 		lblVersion.setFont(fontVersionString);

@@ -17,7 +17,10 @@ public interface IResourceProvider {
 		Success,
 		Hourglass,
 		Warning,
-		Failure
+		Failure,
+		English,
+		French,
+		German
 	}
 	
 	

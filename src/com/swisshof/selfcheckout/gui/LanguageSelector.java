@@ -1,14 +1,20 @@
 package com.swisshof.selfcheckout.gui;
 
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.swisshof.selfcheckout.Constants;
+import com.swisshof.selfcheckout.IResourceProvider;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
+
+import javafx.scene.layout.Border;
 
 
 public class LanguageSelector extends JPanel {
@@ -25,7 +31,7 @@ public class LanguageSelector extends JPanel {
 		
 		public LanguageButton(String language, String country)
 		{
-			super(language);
+			super();
 			this.language = language;
 			this.country = country;
 		}
@@ -50,16 +56,25 @@ public class LanguageSelector extends JPanel {
 	
 	public LanguageSelector(SelfCheckoutContext context, ILanguageChanged languageChangedListener)
 	{
-		GridBagLayout gl = new GridBagLayout();
-		setLayout(gl);
+		GridBagLayout gbl = new GridBagLayout();
+		setLayout(gbl);
 		
-		String[] locales = {"de_CH", "en_US", "fr_FR"};
+		GridBagConstraints lc = new GridBagConstraints();
+		lc.anchor = GridBagConstraints.CENTER;
+		lc.gridy  = 0;
+		
+		HashMap<String, IResourceProvider.ImageIdentifier> mapLanguages = new HashMap<String, IResourceProvider.ImageIdentifier>();
+		mapLanguages.put("de_CH", IResourceProvider.ImageIdentifier.German);
+		mapLanguages.put("en_US", IResourceProvider.ImageIdentifier.English);
+		mapLanguages.put("fr_FR", IResourceProvider.ImageIdentifier.French);
 				
-		for (String locale : locales) {
+		for (String locale : mapLanguages.keySet()) {
 			String[] arrLocale = locale.split("_");
 			JButton btn = new LanguageButton(arrLocale[0], arrLocale[1]);
 			
 			btn.setBackground(Constants.COLOR_BG);
+			btn.setIcon(context.getResourceProvider().getImage(mapLanguages.get(locale)));
+			btn.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 			btn.addActionListener(new ActionListener() {
 				
 				@Override
@@ -68,7 +83,10 @@ public class LanguageSelector extends JPanel {
 					languageChangedListener.languageChanged(btn.getLanguage(), btn.getCountry());
 				}
 			});
-			add(btn);
+			
+
+			add(btn, lc);
+			lc.gridx++;
 		}
 
 
