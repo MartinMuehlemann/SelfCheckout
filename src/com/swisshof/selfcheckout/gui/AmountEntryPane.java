@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import com.swisshof.selfcheckout.SelfCheckoutContext;
@@ -150,28 +151,11 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 
 		lc.ipadx = 0;
 
-
 		lc.weightx = 2.0;
 		lc.weighty = 0.1;
-		lc.gridheight = 1;
 		lc.anchor = GridBagConstraints.NORTH;
 		add(lblSwisshofLogo, lc);
 		
-		lc.gridy++;
-		lc.fill = GridBagConstraints.BOTH;
-		lc.anchor = GridBagConstraints.CENTER;
-		lc.weightx = 2.0;
-		lc.weighty = 0.1;
-		if(context.getResourceProvider().getConfigParameterAsBoolean("multilanguage_support", false) == true)
-		{
-			languageSelector.setBackground(Color.RED);
-			add(languageSelector, lc);
-		} else {
-			JPanel placeholder = new JPanel();
-			placeholder.setBackground(Constants.COLOR_BG);
-			add(placeholder,lc);
-		}
-
 		lc.gridx = 1;
 		lc.weightx = 2.0;
 		lc.weighty = 1.0;
@@ -203,10 +187,29 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lc.fill = GridBagConstraints.NONE;
 		lc.anchor = GridBagConstraints.CENTER;
 		add(btnPay, lc);
+
+		lc.gridy++;
+		
+		lc.fill = GridBagConstraints.BOTH;
+		lc.anchor = GridBagConstraints.CENTER;
+		lc.weightx = 2.0;
+		lc.weighty = 0.1;
+		if(context.getResourceProvider().getConfigParameterAsBoolean("multilanguage_support", false) == true)
+		{
+			add(new JSeparator(JSeparator.HORIZONTAL), lc);
+			lc.gridy++;
+			add(languageSelector, lc);
+		} else {
+			JPanel placeholder = new JPanel();
+			placeholder.setBackground(Constants.COLOR_BG);
+			add(placeholder,lc);
+			lc.gridy++;
+		}
+
 		
 		JLabel lblVersion = new JLabel(context.getResourceProvider().getFirmwareVersion());
 		lblVersion.setFont(fontVersionString);
-		lc.gridy++;
+		
 		lc.gridx = 0;
 		lc.anchor = GridBagConstraints.WEST;
 		lc.insets = new Insets(0, 10, 10, 0);

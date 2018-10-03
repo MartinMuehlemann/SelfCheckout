@@ -60,8 +60,11 @@ public class LanguageSelector extends JPanel {
 		setLayout(gbl);
 		
 		GridBagConstraints lc = new GridBagConstraints();
+		lc.fill = GridBagConstraints.BOTH;
 		lc.anchor = GridBagConstraints.CENTER;
 		lc.gridy  = 0;
+		lc.gridx = 0;
+		lc.weightx = 1.0;
 		
 		HashMap<String, IResourceProvider.ImageIdentifier> mapLanguages = new HashMap<String, IResourceProvider.ImageIdentifier>();
 		mapLanguages.put("de_CH", IResourceProvider.ImageIdentifier.German);
