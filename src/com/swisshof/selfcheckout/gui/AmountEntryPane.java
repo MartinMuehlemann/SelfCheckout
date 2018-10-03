@@ -166,14 +166,14 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		
 		lc.gridy++;
 		lc.weighty = 0.2;
-		lc.weightx = 0.5;
+		lc.weightx = 0;
 		lc.gridwidth = 1;
 		lc.anchor = GridBagConstraints.WEST;
 		lc.fill = GridBagConstraints.NONE;
 		add(lblCurrency, lc);
 
 		lc.gridx = 2;
-		lc.weightx = 1.5;
+		lc.weightx = 2;
 		lc.anchor = GridBagConstraints.EAST;
 		lc.fill = GridBagConstraints.HORIZONTAL;
 		add(txtPayAmount, lc);	
