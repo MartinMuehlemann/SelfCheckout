@@ -132,7 +132,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		
 		
 		GridBagConstraints lc = new GridBagConstraints();
-		lc.weightx = 0.5;
+		lc.weightx = 0.1;
 		lc.weighty = 0.8;
 		lc.gridx = 0;
 		lc.gridy = 0;
@@ -143,6 +143,9 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lc.gridx = 0;
 
 		add(numericBlock, lc);
+		
+		lc.fill = GridBagConstraints.BOTH;
+		lc.weightx = 2.0;
 		
 		lc.gridheight = 1;
 		lc.gridwidth = 2;
@@ -160,7 +163,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		lc.weightx = 2.0;
 		lc.weighty = 1.0;
 		lc.gridy++;
-		lc.fill = GridBagConstraints.BOTH;
+
 		lc.anchor = GridBagConstraints.CENTER;
 		add(lblUserInfo, lc);
 		
@@ -207,6 +210,7 @@ public class AmountEntryPane extends JPanel implements NumericBlock.IAmoutChange
 		}
 
 		
+		lc.weightx = 0.1;
 		JLabel lblVersion = new JLabel(context.getResourceProvider().getFirmwareVersion());
 		lblVersion.setFont(fontVersionString);
 		
