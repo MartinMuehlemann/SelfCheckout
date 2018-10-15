@@ -24,7 +24,7 @@ public class MainStm extends StatemachineBase
 		BTN_OK,
 		BTN_ABORT,
 		BTN_YES,
-		BTN_NO,
+		BTN_USER2,
 		BTN_EXIT,
 		
 		

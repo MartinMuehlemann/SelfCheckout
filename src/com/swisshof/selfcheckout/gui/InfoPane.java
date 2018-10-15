@@ -73,8 +73,8 @@ public class InfoPane extends JPanel {
 						InfoPane.this.context.getMainStm().processEvent(Events.BTN_ABORT);
 						break;
 						
-					case BTN_YES_NO:
-						InfoPane.this.context.getMainStm().processEvent(Events.BTN_YES);
+					case BTN_OK_USER:
+						InfoPane.this.context.getMainStm().processEvent(Events.BTN_OK);
 						break;
 						
 					case BTN_NONE:
@@ -98,8 +98,8 @@ public class InfoPane extends JPanel {
 					case BTN_ABORT:
 						break;
 						
-					case BTN_YES_NO:
-						InfoPane.this.context.getMainStm().processEvent(Events.BTN_NO);
+					case BTN_OK_USER:
+						InfoPane.this.context.getMainStm().processEvent(Events.BTN_USER2);
 						break;
 						
 					case BTN_NONE:
@@ -171,9 +171,9 @@ public class InfoPane extends JPanel {
 				btn1.setVisible(true);
 				btn2.setVisible(false);
 				break;
-			case BTN_YES_NO:
-				btn1.setText(context.getResourceProvider().getString("infopane.btn.yes"));
-				btn2.setText(context.getResourceProvider().getString("infopane.btn.no"));
+			case BTN_OK_USER:
+				btn1.setText(context.getResourceProvider().getString("infopane.btn.ok"));
+				// btn2 must be set separately
 				btn1.setVisible(true);
 				btn2.setVisible(true);
 				break;
@@ -186,7 +186,16 @@ public class InfoPane extends JPanel {
 	public void enableBtnConfirm(boolean enable)
 	{
 		btn1.setEnabled(enable);
+	}
+	
+	public void enableBtnUser2(boolean enable)
+	{
 		btn2.setEnabled(enable);
+	}
+
+	public void setBtnUser2Text(String btnText)
+	{
+		btn2.setText(btnText);
 	}
 
 	private void placeButtons()
@@ -212,7 +221,7 @@ public class InfoPane extends JPanel {
 				add(btn1, lc);
 				break;
 				
-			case BTN_YES_NO:
+			case BTN_OK_USER:
 				lc.gridwidth = 1;
 				add(btn1, lc);
 				lc.gridx++;

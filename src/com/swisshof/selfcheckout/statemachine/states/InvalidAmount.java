@@ -26,7 +26,7 @@ public class InvalidAmount extends State<MainStm, MainStm.Events> {
 		case TIMEOUT:
 		case BTN_OK:			
 		case BTN_YES:
-		case BTN_NO:
+		case BTN_USER2:
 			if (owner.context.isGotoInactiveRequested() == true) {
 				return owner.states.inactive;
 			} else {

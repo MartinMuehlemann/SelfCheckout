@@ -8,6 +8,12 @@ public class Printer implements IPrinter {
 	public void storeReceipt(String receipt) {
 		storedReceipt = receipt;
 	}
+	
+	@Override
+	public void printReceipt()
+	{
+		System.out.println(storedReceipt);
+	}
 
 	@Override
 	public void clear() {
