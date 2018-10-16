@@ -14,8 +14,6 @@ import com.swisshof.selfcheckout.Constants;
 import com.swisshof.selfcheckout.IResourceProvider;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
 
-import javafx.scene.layout.Border;
-
 
 public class LanguageSelector extends JPanel {
 
