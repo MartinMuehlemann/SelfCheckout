@@ -211,8 +211,20 @@ public class NumericBlock extends JPanel {
 							break;
 				}
 			} else if (digit.isDot()) {
-				state = AmountEnterState.ENTER_FRACTION_10;
-				ret.add(digit);
+				switch(state) {
+					case ENTER_DIGIT:
+						state = AmountEnterState.ENTER_FRACTION_10;
+						ret.add(digit);
+						break;
+						
+					case ENTER_FRACTION_10:
+					case ENTER_FRACTION_100:
+					case ENTER_FRACTION_END:
+					default:
+						// skip second dot
+						break;
+				}
+
 			} else if (digit.isClear()) {
 				// remove the last digit
 				if (ret.size() > 0) {
