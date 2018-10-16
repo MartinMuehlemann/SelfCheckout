@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.swisshof.selfcheckout.Constants;
 import com.swisshof.selfcheckout.IResourceProvider.FontIdentifier;
@@ -54,6 +55,7 @@ public class InfoPane extends JPanel {
 		lblInfoText = new JLabel();
 		lblInfoText.setText("info text");
 		lblInfoText.setFont(fontInfoText);
+		lblInfoText.setHorizontalAlignment(SwingConstants.CENTER);
 		btn1 = new JButton("Btn1");
 		btn1.setFont(fontButton);
 		btn1.setPreferredSize(new Dimension(300, 120));
