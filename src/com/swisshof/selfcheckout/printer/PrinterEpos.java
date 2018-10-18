@@ -1,5 +1,6 @@
 package com.swisshof.selfcheckout.printer;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -85,82 +86,47 @@ public class PrinterEpos implements IPrinter {
 			conn.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
 			conn.setRequestProperty("SOAPAction", "\"\"");
 			
-			// create XML
-			XMLOutputFactory f1 = XMLOutputFactory.newInstance();
-//			XMLStreamWriter w = f1.createXMLStreamWriter(conn.getOutputStream(), "utf-8");
-			XMLStreamWriter w = f1.createXMLStreamWriter(System.out, "utf-8");
-			w.writeStartDocument("utf-8", "1.0");
-			w.writeStartElement("Envelope");
-			w.writeDefaultNamespace(SOAP);
-			w.writeStartElement("Body");
-			w.writeStartElement("epos-print");
-			w.writeDefaultNamespace(EPOS);
-			
-			w.writeStartElement("text");
-			w.writeAttribute("lang", "en");
-			w.writeAttribute("smooth", "true");
-			w.writeCharacters(receipt);
-			w.writeEndElement();
-			
-//			w.writeStartElement("barcode");
-//			w.writeAttribute("type", "ean13");
-//			w.writeAttribute("width", "2");
-//			w.writeAttribute("height", "48");
-//			w.writeCharacters("201234567890");
-//			w.writeEndElement();
-			
-//			w.writeStartElement("feed");
-//			w.writeAttribute("unit", "24");
-//			w.writeEndElement();
-			
-//			w.writeStartElement("image");
-//			w.writeAttribute("width", "8");
-//			w.writeAttribute("height", "48");
-//			w.writeCharacters("8PDw8A8PDw/w8PDwDw8PD/Dw8PAPDw8P8PDw8A8PDw/w8PDwDw8PD/Dw8PAPDw8P");
-//			w.writeEndElement();
-			
-			w.writeEmptyElement("cut");
-			
-			w.writeEndElement();
-			w.writeEndElement();
-			w.writeEndElement();
-			w.writeEndDocument();
-			w.close();
-
-			
-			
-//			// send to printer
-//			OutputStreamWriter w = new OutputStreamWriter(conn.getOutputStream(), "utf-8");
-//			w.write(req);
-//			w.close();
-			
-			
+		
 			conn.connect();
+		
+			String req = 
+					"<s:Envelope xmlns:s='http://schemas.xmlsoap.org/soap/envelope/'>" +
+						"<s:Body>" +
+							"<epos-print xmlns='http://www.epson-pos.com/schemas/2011/03/epos-print'>" +
+								"<text lang='en' smooth='true'>" + receipt + "</text>" +
 
-			// Receive response document
+								"<feed unit='24' />" +
+								//"<image width='8' height='48'>8PDw8A8PDw/w8PDwDw8PD/Dw8PAPDw8P8PDw8A8PDw/w8PDwDw8PD/Dw8PAPDw8P</image>" + 
+								"<cut />" +
+							"</epos-print>" +
+						"</s:Body>" +
+					"</s:Envelope>";
+			OutputStreamWriter w = new OutputStreamWriter(conn.getOutputStream(), "utf-8");
+			w.write(req);
+			w.close();
+			
 			StreamSource source = new StreamSource(conn.getInputStream());
 			DOMResult result = new DOMResult();
 			TransformerFactory f2 = TransformerFactory.newInstance();
 			Transformer t = f2.newTransformer();
 			t.transform(source, result);
-
+			
 			// Parse response document (DOM)
 			Document doc = (Document)result.getNode();
 			Element el = (Element)doc.getElementsByTagNameNS(EPOS, "response").item(0);
 
 			
+			System.out.println("response: " + el.getAttribute("success"));
+			
 			// TODO: check the result
-			JOptionPane.showMessageDialog(null, el.getAttribute("success"));
+			//JOptionPane.showMessageDialog(null, el.getAttribute("success"));
 
 			
 		} catch (IOException e) {
 			//TODO
 			logger.error(e);
 			return;
-		}catch(XMLStreamException e) {
-			//TODO
-			logger.error(e);
-			return;
+
 		}catch(TransformerConfigurationException e) {
 			//TODO
 			logger.error(e);
