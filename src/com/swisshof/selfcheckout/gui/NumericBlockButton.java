@@ -2,7 +2,7 @@ package com.swisshof.selfcheckout.gui;
 
 import javax.swing.JButton;
 
-class NumericBlockButton extends JButton
+public class NumericBlockButton extends JButton
 {
 	
 	public enum Digit {
