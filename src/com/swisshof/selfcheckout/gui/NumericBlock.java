@@ -58,24 +58,7 @@ public class NumericBlock extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					NumericBlockButton.Digit digit = ((NumericBlockButton)e.getSource()).getAmount();
-					if (digit.isClear()) {
-						if (queueAmountEntry.isEmpty() != true) {
-							queueAmountEntry.remove(queueAmountEntry.size() - 1);
-							NumericBlock.this.amountChangedListener.amountEntryChanged(getAmount());
-						}
-					} else {
-						queueAmountEntry.add(digit);
-						
-						queueAmountEntry = checkEntry();
-						
-						double amount = getAmount();
-						if(amount <= SelfCheckoutContext.MAX_AMOUNT) {
-							NumericBlock.this.amountChangedListener.amountEntryChanged(amount);
-						} else {
-							queueAmountEntry.remove(queueAmountEntry.size() - 1);
-						}
-					}
-					
+					processDigit(digit);
 				}
 			});
 			mapBtnsKeyBlock.put(digit, btn);
@@ -174,7 +157,30 @@ public class NumericBlock extends JPanel {
 			queueAmountEntry.remove(digitToRemove);
 		}
 		
-		return amount;
+		return Math.round(amount * 100.0) / 100.0;
+	}
+	
+	protected void processDigit(NumericBlockButton.Digit digit)
+	{
+;
+		if (digit.isClear()) {
+			if (queueAmountEntry.isEmpty() != true) {
+				queueAmountEntry.remove(queueAmountEntry.size() - 1);
+				NumericBlock.this.amountChangedListener.amountEntryChanged(getAmount());
+			}
+		} else {
+			queueAmountEntry.add(digit);
+			
+			queueAmountEntry = checkEntry();
+			
+			double amount = getAmount();
+			if(amount <= SelfCheckoutContext.MAX_AMOUNT) {
+				NumericBlock.this.amountChangedListener.amountEntryChanged(amount);
+			} else {
+				queueAmountEntry.remove(queueAmountEntry.size() - 1);
+			}
+		}
+
 	}
 	
 	
