@@ -2,7 +2,7 @@ before_script:
 #  - echo `pwd` # debug
 #  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
   - export GRADLE_USER_HOME=C:/Users/mmu/.gradle
-
+  - export PATH=C:\Users\mmu\Downloads\gradle-4.10.2-bin\gradle-4.10.2\bin;$PATH
 cache:
   paths:
     - .gradle/wrapper
