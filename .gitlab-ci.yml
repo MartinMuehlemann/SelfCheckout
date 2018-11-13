@@ -22,7 +22,7 @@ build:
 test:
   stage: test
   script:
-    - echo $PATH
+    - echo %PATH%
     - gradle check
 
 deploy:
