@@ -1,0 +1,37 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+archivesBaseName = 'Selfcheckout.jar'
+version = '1.0-SNAPSHOT' 
+
+repositories {
+
+}
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+
+    }
+}
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.swisshof.selfcheckout.SelfCheckout'
+    }
+}
+
+
+dependencies {
+   compile files('libs/apache-log4j-2.11.0-bin/log4j-api-2.11.0.jar')
+   compile files('libs/apache-log4j-2.11.0-bin/log4j-core-2.11.0.jar')
+   compile files('libs/quartz-2.2.3/c3p0-0.9.1.1.jar')
+   compile files('libs/quartz-2.2.3/quartz-2.2.3.jar')
+   compile files('libs/quartz-2.2.3/quartz-jobs-2.2.3.jar')
+   compile files('libs/quartz-2.2.3/slf4j-api-1.7.7.jar')
+   compile files('libs/quartz-2.2.3/slf4j-log4j12-1.7.7.jar')
+   compile files('libs/quartz-2.2.3/log4j-1.2.16.jar')
+   compile files('libs/dropbox-core-sdk-3.0.7/lib/jackson-core-2.7.4.jar')
+   compile files('libs/dropbox-core-sdk-3.0.7/dropbox-core-sdk-3.0.7.jar')
+   
+   compile files('timapi-3.4.0-58.jar')
+} 

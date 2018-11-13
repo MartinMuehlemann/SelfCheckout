@@ -4,3 +4,5 @@
 /timapi-3.4.0-58.jar
 /logging/
 /config.properties
+/.gradle/
+/build/

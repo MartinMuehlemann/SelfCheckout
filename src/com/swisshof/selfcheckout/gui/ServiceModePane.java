@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
 
 import com.swisshof.selfcheckout.SelfCheckoutContext;
 import com.swisshof.selfcheckout.IResourceProvider.FontIdentifier;
-import com.swisshof.selfcheckout.statemachine.MainStm.Events;import sun.java2d.pipe.SolidTextRenderer;
+import com.swisshof.selfcheckout.statemachine.MainStm.Events;
 
 public class ServiceModePane extends JPanel {
 
