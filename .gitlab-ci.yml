@@ -12,13 +12,11 @@ cache:
 build:
   stage: build
   script:
-    - gradle assemble
+    - gradle build
   artifacts:
     paths:
       - build/libs/*.jar
     expire_in: 1 week
-  only:
-    - master
 
 test:
   stage: test
