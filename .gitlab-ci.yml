@@ -2,6 +2,7 @@ before_script:
 #  - echo `pwd` # debug
 #  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
   - set GRADLE_USER_HOME=C:/Users/mmu/.gradle
+  - set JAVA_HOME=C:/Program Files (x86)/Java/jdk1.8.0/bin
   
 cache:
   paths:
