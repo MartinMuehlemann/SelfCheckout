@@ -24,7 +24,7 @@ test:
   stage: test
   script:
     - echo %PATH%
-	- copy ../../../../../timapi* ./
+    - copy ../../../../../timapi* ./
     - gradle check
 
 deploy:
