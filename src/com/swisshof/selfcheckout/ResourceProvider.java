@@ -37,28 +37,28 @@ public class ResourceProvider implements IResourceProvider {
 		config = new Properties();
 		InputStream input = null;
 
-		try {
-			Path configFilepath = Paths.get(System.getProperty("user.dir"), "config.properties");
-			input = new FileInputStream(configFilepath.toFile());
-
-			
-			// load a properties file
-			config.load(input);
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+//		try {
+//			Path configFilepath = Paths.get(System.getProperty("user.dir"), "config.properties");
+//			input = new FileInputStream(configFilepath.toFile());
+//
+//			
+//			// load a properties file
+//			config.load(input);
+//
+//		} catch (IOException ex) {
+//			ex.printStackTrace();
+//		} finally {
+//			if (input != null) {
+//				try {
+//					input.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
 		
-		String[] defaultLanguage = getConfigParameterAsString("default_language", "de_CH").split("_");
-		setLanguage(defaultLanguage[0], defaultLanguage[1]);
+//		String[] defaultLanguage = getConfigParameterAsString("default_language", "de_CH").split("_");
+//		setLanguage(defaultLanguage[0], defaultLanguage[1]);
 		
 	}
 
