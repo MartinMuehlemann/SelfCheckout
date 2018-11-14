@@ -27,7 +27,7 @@ test:
 deploy:
   stage: deploy
   script:
-    - .echo "Deploy..."
+    - echo "Deploy..."
 
 after_script:
   - echo "End CI"
