@@ -13,7 +13,7 @@ cache:
 stages:
   - test
   - build
-  - deploy
+
   
 build:
   stage: build
@@ -28,21 +28,12 @@ test:
   stage: test
   script:
     - gradlew test
-  artifacts:
-    reports:
-      junit: build/test-results/test/TEST-*.xml
-
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploy..."
-  dependencies:
-    - test
-  script:
     - mv build\reports\tests\test public/
   artifacts:
     paths:
       - public
-    expire_in: 30 days
+    reports:
+      junit: build/test-results/test/TEST-*.xml
+
 after_script:
   - echo "End CI"
