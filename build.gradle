@@ -14,6 +14,11 @@ sourceSets {
         }
 
     }
+	test {
+        java {
+            srcDir 'src/test'
+        }
+    }
 }
 jar {
     manifest {
@@ -38,6 +43,7 @@ dependencies {
    compile files('timapi-3.4.0-58.jar')
    
 	testCompile("org.junit.jupiter:junit-jupiter-api:5.2.0")
+	testCompile("org.junit.jupiter:junit-jupiter-params:5.2.0")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.2.0")
 } 
 test {
