@@ -91,6 +91,11 @@ public class MainFrame implements IGui
 		infoPane.setInfoText(type, buttons, infoText);
 	}
 	
+	@Override
+	public void setBtnUser2Text(String btnText) {
+		infoPane.setBtnUser2Text(btnText);
+	}
+	
 	public void startGui()
 	{
 		//Application Window
@@ -132,13 +137,15 @@ public class MainFrame implements IGui
 	public void enableBtnConfirm(boolean enable) {
 		infoPane.enableBtnConfirm(enable);
 	}
-
+	
+	public void enableBtnUser2(boolean enable) {
+		infoPane.enableBtnUser2(enable);
+	}
+	
 	@Override
 	public void notifyTerminalRequestDone(boolean success, String details) {
 		serviceModePane.notifyTerminalRequestDone(success, details);
 	}
-
-
 
 	
 }

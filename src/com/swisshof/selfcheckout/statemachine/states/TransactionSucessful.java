@@ -27,17 +27,29 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 		case TIMEOUT:
 		case BTN_OK:			
 		case BTN_YES:
-		case BTN_NO:
 			if (owner.context.isGotoInactiveRequested() == true) {
 				return owner.states.inactive;
 			} else {
 				return owner.states.idle;
 			}
+		case BTN_USER2:
+			owner.context.getPrinter().printReceipt();
+			return null;
 
 		case CARD_REMOVED:
-//			owner.context.getGui().setInfoText(IGui.InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getResourceProvider().getString("info.transactionSuccess"));
-			owner.context.getGui().setInfoText(IGui.InformationType.INFO_SUCCESS, IGui.DisplayedButtons.BTN_OK, owner.context.getResourceProvider().getString("info.transactionSuccess"));
-			owner.context.getGui().enableBtnConfirm(true);
+			{
+				DisplayedButtons btns;
+				if (owner.context.getResourceProvider().getConfigParameterAsBoolean("printer.enabled", false))
+				{
+					btns = DisplayedButtons.BTN_OK_USER;
+					owner.context.getGui().setBtnUser2Text(owner.context.getResourceProvider().getString("infopane.btn.print_receipt"));
+				} else {
+					btns = DisplayedButtons.BTN_OK;
+				}
+				
+				owner.context.getGui().setInfoText(IGui.InformationType.INFO_SUCCESS, btns, owner.context.getResourceProvider().getString("info.transactionSuccess"));
+				owner.context.getGui().enableBtnConfirm(true);
+			}
 			return null;
 			
 		case CARD_INSERTED:
@@ -61,14 +73,26 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 
 	@Override
 	public void entryAction() {
-		if (owner.context.getTerminal().isCardInserted() == true) {
-			//owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getResourceProvider().getString("info.transactionSuccessCardInserted"));
-			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_OK, owner.context.getResourceProvider().getString("info.transactionSuccessCardInserted"));
-			owner.context.getGui().enableBtnConfirm(false);
+		DisplayedButtons btns;
+		if (owner.context.getResourceProvider().getConfigParameterAsBoolean("printer.enabled", false))
+		{
+			btns = DisplayedButtons.BTN_OK_USER;
+			owner.context.getGui().setBtnUser2Text(owner.context.getResourceProvider().getString("infopane.btn.print_receipt"));
 		} else {
-			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_OK, owner.context.getResourceProvider().getString("info.transactionSuccess"));
-//			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, DisplayedButtons.BTN_YES_NO, owner.context.getResourceProvider().getString("info.transactionSuccess"));
+			btns = DisplayedButtons.BTN_OK;
+		}
+		
+		if (owner.context.getTerminal().isCardInserted() == true) {
+			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, btns, owner.context.getResourceProvider().getString("info.transactionSuccessCardInserted"));
+			owner.context.getGui().enableBtnConfirm(false);
+			owner.context.getGui().enableBtnUser2(false);
+			
+
+		} else {
+			owner.context.getGui().setInfoText(InformationType.INFO_SUCCESS, btns, owner.context.getResourceProvider().getString("info.transactionSuccess"));
 			owner.context.getGui().enableBtnConfirm(true);
+			owner.context.getGui().enableBtnUser2(true);
+
 		}
 		
 		int timeout = owner.context.getResourceProvider().getConfigParameterAsInt("ui.success_screen_timeout", Constants.SUCCESS_SCREEN_DEFAULT_TIMEOUT);

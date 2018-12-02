@@ -13,7 +13,7 @@ public interface IGui {
 	public enum DisplayedButtons {
 		BTN_OK,
 		BTN_ABORT,
-		BTN_YES_NO,
+		BTN_OK_USER,
 		BTN_NONE
 	}
 	
@@ -24,11 +24,13 @@ public interface IGui {
 	public void showEntryAmountView();
 	public void showInfoView();
 	public void setInfoText(InformationType type, DisplayedButtons buttons, String infoText);
+	public void setBtnUser2Text(String btnText);
 	public void showInfoView(InformationType type, DisplayedButtons buttons, String infoText);
 	public void showSystemInactiveView();
 	public void showServiceModeView();
 	
 	public void enableBtnConfirm(boolean enable);
+	public void enableBtnUser2(boolean enable);
 
 	public void notifyTerminalRequestDone(boolean success, String details);
 }
