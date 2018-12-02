@@ -100,8 +100,10 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 	}
 
 	@Override
-	public void exitAction() {
-
+	public void exitAction()
+	{
+		// disconnect after transaction to avoid "Please Card" on the terminal
+		owner.context.getTerminal().disconnect();
 	}
 	
 	
