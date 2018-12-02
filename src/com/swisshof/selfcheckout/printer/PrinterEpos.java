@@ -1,12 +1,15 @@
 package com.swisshof.selfcheckout.printer;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -23,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.swisshof.selfcheckout.IResourceProvider.ImageIdentifier;
 import com.swisshof.selfcheckout.SelfCheckoutContext;
 
 public class PrinterEpos implements IPrinter {
@@ -66,6 +70,33 @@ public class PrinterEpos implements IPrinter {
 	}
 	
 	private void print(String receipt) {
+		final int NUM_CHARACTERS_PER_LINE = 48;
+		final int FONT_DOTS_WIDTH = 12;		
+		
+		int maxLineLength = 0;
+		for (String s : receipt.split("\n"))
+		{
+			if (s.length() > maxLineLength)
+			{
+				maxLineLength = s.length();
+			}
+		}
+		
+		int offset = (NUM_CHARACTERS_PER_LINE - maxLineLength) / 2;
+		
+		String strOffset = "";
+		for (int i = 0; i < offset; i++)
+		{
+			strOffset += " ";
+		}
+		
+		String processedReceipt = "";
+		for (String s : receipt.split("\n"))
+		{
+			processedReceipt += strOffset + s + "\n";
+		}
+		
+		
 		URL url;
 		try {
 			url = new URL(getPrinterUrl());
@@ -89,15 +120,15 @@ public class PrinterEpos implements IPrinter {
 		
 			conn.connect();
 		
+	
 			String req = 
 					"<s:Envelope xmlns:s='http://schemas.xmlsoap.org/soap/envelope/'>" +
 						"<s:Body>" +
 							"<epos-print xmlns='http://www.epson-pos.com/schemas/2011/03/epos-print'>" +
-								"<text lang='en' smooth='true'>" + receipt + "</text>" +
-
-								"<feed unit='24' />" +
-								//"<image width='8' height='48'>8PDw8A8PDw/w8PDwDw8PD/Dw8PAPDw8P8PDw8A8PDw/w8PDwDw8PD/Dw8PAPDw8P</image>" + 
-								"<cut />" +
+							"<text lang='en' smooth='true'>" + processedReceipt + "</text>" +
+							"<feed unit='24' />" +
+							"<cut />" +
+							"<feed unit='100' />" +
 							"</epos-print>" +
 						"</s:Body>" +
 					"</s:Envelope>";
