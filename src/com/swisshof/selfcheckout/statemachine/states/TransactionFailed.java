@@ -70,7 +70,8 @@ public class TransactionFailed extends State<MainStm, MainStm.Events> {
 
 	@Override
 	public void exitAction() {
-
+		// disconnect after transaction to avoid "Please Card" on the terminal
+		owner.context.getTerminal().deactivate();
 	}
 	
 	

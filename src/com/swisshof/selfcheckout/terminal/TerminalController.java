@@ -120,6 +120,16 @@ public class TerminalController {
 		}
 	}
 
+	public void deactivate()
+	{
+		try {
+			logger.info("Deactivate...");
+			terminal.deactivate();
+		} catch (TimException te) {
+			logger.info("Deactivate failed, exception: " + te.toString());		
+		}
+	}
+	
 	public void reboot()
 	{
 		try {
