@@ -21,7 +21,7 @@ public class ResourceProvider implements IResourceProvider {
 	
 	private final static String RESOURCE_BASE_PACKAGE = "res/";
 	
-	private final static String FIRMWARE_VERSION = "V1.1";
+	private final static String FIRMWARE_VERSION = "V2.0";
 
 	
 	protected Logger logger = LogManager.getLogger(getClass().getName());
