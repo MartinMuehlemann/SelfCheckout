@@ -100,6 +100,15 @@ public class TerminalController {
 		}
 	}
 	
+	public void startActivate() {
+		try {
+			logger.info("Start Activate...");
+			terminal.activateAsync();
+		} catch (TimException te) {
+			logger.info("Activate failed, exception: " + te.toString());		
+		}
+	}
+	
 	public void connect()
 	{
 		try {
@@ -119,7 +128,16 @@ public class TerminalController {
 			logger.info("Disconnect failed, exception: " + te.toString());		
 		}
 	}
-
+	public void activate()
+	{
+		try {
+			logger.info("Activate...");
+			terminal.activate();
+		} catch (TimException te) {
+			logger.info("Activate failed, exception: " + te.toString());		
+		}
+	}
+	
 	public void deactivate()
 	{
 		try {

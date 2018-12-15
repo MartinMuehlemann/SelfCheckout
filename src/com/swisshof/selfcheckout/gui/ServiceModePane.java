@@ -92,6 +92,24 @@ public class ServiceModePane extends JPanel {
 				context.getTerminal().disconnect();
 			}
 		}), lc);
+		lc.gridy++;
+		numCtrls++;
+		add(addButton("Activate", new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				context.getTerminal().activate();
+			}
+		}), lc);
+		lc.gridy++;
+		numCtrls++;
+		add(addButton("Deactivate", new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				context.getTerminal().deactivate();
+			}
+		}), lc);
 		numCtrls++;
 		
 		lc.gridx = 1;
