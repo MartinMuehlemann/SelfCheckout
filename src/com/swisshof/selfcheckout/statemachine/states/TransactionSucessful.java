@@ -34,7 +34,12 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 			}
 		case BTN_USER2:
 			owner.context.getPrinter().printReceipt();
-			return null;
+			
+			if (owner.context.isGotoInactiveRequested() == true) {
+				return owner.states.inactive;
+			} else {
+				return owner.states.idle;
+			}
 
 		case CARD_REMOVED:
 			{
