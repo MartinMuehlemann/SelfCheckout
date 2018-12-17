@@ -108,7 +108,7 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 	public void exitAction()
 	{
 		// disconnect after transaction to avoid "Please Card" on the terminal
-		owner.context.getTerminal().deactivate();
+		owner.context.getTerminal().startDeactivate();
 	}
 	
 	
