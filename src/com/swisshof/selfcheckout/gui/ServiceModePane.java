@@ -110,6 +110,15 @@ public class ServiceModePane extends JPanel {
 				context.getTerminal().deactivate();
 			}
 		}), lc);
+		lc.gridy++;
+		numCtrls++;
+		add(addButton("Test printer", new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				context.getPrinter().print("Test\n");
+			}
+		}), lc);
 		numCtrls++;
 		
 		lc.gridx = 1;

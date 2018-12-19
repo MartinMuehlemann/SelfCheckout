@@ -69,7 +69,8 @@ public class PrinterEpos implements IPrinter {
 		return url;
 	}
 	
-	private void print(String receipt) {
+	public void print(String receipt)
+	{
 		final int NUM_CHARACTERS_PER_LINE = 48;
 		final int FONT_DOTS_WIDTH = 12;		
 		
