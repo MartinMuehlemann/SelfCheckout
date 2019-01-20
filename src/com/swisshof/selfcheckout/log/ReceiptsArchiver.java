@@ -45,7 +45,7 @@ public class ReceiptsArchiver implements IReceiptsArchiver {
 				dir.mkdir();
 			}
 			
-			pw = new PrintWriter(path.toFile());
+			pw = new PrintWriter(path.toFile(), "UTF-8");
 			pw.print(receiptText);
 		}catch (IOException ioe) {
 			logger.error("Write receipt failed:" + ioe.getMessage());
