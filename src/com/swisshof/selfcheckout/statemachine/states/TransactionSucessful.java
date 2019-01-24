@@ -48,6 +48,7 @@ public class TransactionSucessful extends State<MainStm, MainStm.Events> {
 				{
 					btns = DisplayedButtons.BTN_OK_USER;
 					owner.context.getGui().setBtnUser2Text(owner.context.getResourceProvider().getString("infopane.btn.print_receipt"));
+					owner.context.getGui().enableBtnUser2(true);
 				} else {
 					btns = DisplayedButtons.BTN_OK;
 				}
