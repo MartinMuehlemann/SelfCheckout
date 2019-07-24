@@ -203,11 +203,15 @@ public class TerminalListener extends DefaultTerminalListener {
 	protected void processPrintReceipts(Terminal arg0, PrintData printData) {
 		if (printData != null) {
 			logger.info("Terminal: processPrintReceipts: "+ printData.toString());
+			
+
+			
 			for (Receipt r : printData.getReceipts()) {
+				String receiptWithMwSt = r.getValue() + "\n" + "CHE-406.658.252 MWST" + "\n";
 				if (r.getRecipient() == Recipient.MERCHANT) {
-					context.getReceiptsArchiver().writeReceiptInArchive(r.getValue());
+					context.getReceiptsArchiver().writeReceiptInArchive(receiptWithMwSt);
 				} else if (r.getRecipient() == Recipient.CARDHOLDER) {
-					context.getPrinter().storeReceipt(r.getValue());
+					context.getPrinter().storeReceipt(receiptWithMwSt);
 				}
 			}
 		}
